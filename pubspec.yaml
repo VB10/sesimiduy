@@ -16,7 +16,7 @@ dependencies:
   easy_localization: ^3.0.1
   kartal: ^2.8.0
   responsive_framework: ^0.2.0
- 
+  equatable: ^2.0.5
 
   # Firebase
   firebase_core: ^2.5.0
