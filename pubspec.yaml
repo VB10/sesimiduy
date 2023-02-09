@@ -18,6 +18,9 @@ dependencies:
   responsive_framework: ^0.2.0
   equatable: ^2.0.5
 
+  # UIKit
+  flutter_custom_clippers: ^2.1.0
+
   # Firebase
   firebase_core: ^2.5.0
   firebase_database: ^10.0.10
