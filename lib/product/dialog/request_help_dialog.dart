@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
+import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
 class RequestHelpDialog extends StatelessWidget {
   const RequestHelpDialog({super.key});
@@ -16,11 +17,26 @@ class RequestHelpDialog extends StatelessWidget {
           context.emptySizedHeightBoxLow,
           const _Header(),
           const _CustomDivider(),
-          context.emptySizedHeightBoxLow,
+          context.emptySizedHeightBoxLow3x,
           const Padding(
             padding: PagePadding.horizontalSymmetric(),
             child: Text('Yardıma ihtiyacı olan kişinin'),
-          )
+          ),
+          context.emptySizedHeightBoxLow3x,
+          const Padding(
+            padding: PagePadding.horizontalSymmetric(),
+            child: LabeledProductTextField(labelText: 'Adı Soyadı'),
+          ),
+          context.emptySizedHeightBoxLow3x,
+          const Padding(
+            padding: PagePadding.horizontalSymmetric(),
+            child: LabeledProductTextField(labelText: 'Telefon Numarası'),
+          ),
+          context.emptySizedHeightBoxLow3x,
+          const Padding(
+            padding: PagePadding.horizontalSymmetric(),
+            child: LabeledProductTextField(labelText: 'Adresi'),
+          ),
         ],
       ),
     );
