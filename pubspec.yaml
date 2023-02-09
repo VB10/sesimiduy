@@ -18,10 +18,6 @@ dependencies:
   responsive_framework: ^0.2.0
   equatable: ^2.0.5
 
-  # Firebase
-  firebase_core: ^2.5.0
-  firebase_database: ^10.0.10
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
