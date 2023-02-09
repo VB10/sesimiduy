@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586124679457",
+    "project_id": "quickstart-1568413054322",
+    "storage_bucket": "quickstart-1568413054322.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586124679457:android:6f144b5137ab330ffac660",
+        "android_client_info": {
+          "package_name": "com.example.sesimiduy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586124679457-39vll888iplj5p6vv2i1i6h72vpv9u3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDneae6du9jjP1tVngclXleJOI3hEqq1NI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586124679457-39vll888iplj5p6vv2i1i6h72vpv9u3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
