@@ -2,13 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
-
-import 'package:sesimiduy/features/home/view_model/home_view_model.dart';
+import 'package:sesimiduy/features/home/provider/home_provider.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/utility/dialog/register_error_dialog.dart';
-
 import 'package:sesimiduy/product/utility/dialog/register_success_dialog.dart';
-import 'package:sesimiduy/features/home/provider/home_provider.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});

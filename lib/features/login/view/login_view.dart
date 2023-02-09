@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sesimiduy/product/enum/icon_size.dart';
-import 'package:sesimiduy/product/enum/widget_size.dart';
-
 import 'package:sesimiduy/product/items/colors_custom.dart';
+
+import 'package:sesimiduy/product/utility/size/index.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
