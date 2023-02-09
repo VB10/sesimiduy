@@ -20,8 +20,14 @@ class LoginView extends StatelessWidget {
             Column(
               children: [
                 OutlinedButton(
+                  style: OutlinedButton.styleFrom(),
                   onPressed: () {},
-                  child: const Center(child: Text('data')),
+                  child: Center(
+                    child: Text(
+                      'YARDIM İSTİYORUM',
+                      style: context.textTheme.titleLarge,
+                    ),
+                  ),
                 )
               ],
             )
