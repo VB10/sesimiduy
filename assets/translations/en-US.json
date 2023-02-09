@@ -1,0 +1,8 @@
+{
+    "needHelp": "I want help",
+    "nameAndSurname": "Name and surname",
+    "phoneNumber": "Phone Number",
+    "address":"Address",
+    "hintNameAdress":"Cad.,Mah.,Sokak",
+    "hintNameNeed":"Neye İhtiyacınız Var?"
+}
