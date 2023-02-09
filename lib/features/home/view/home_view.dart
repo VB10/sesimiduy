@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 
-import 'package:sesimiduy/features/home/view_model/home_view_model.dart';
+import 'package:sesimiduy/features/home/provider/home_provider.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
