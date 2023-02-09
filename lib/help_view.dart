@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
 class CustomInputParameter extends StatelessWidget {
@@ -141,10 +142,7 @@ class _TryPageState extends State<TryPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                AlertDialogManager(context).showForm(
-                  LocaleKeys.needHelp.tr(),
-                  _formBody(context),
-                );
+                const RequestHelpDialog().show(context);
               },
               child: const Text('FORM AÇ'),
             )
