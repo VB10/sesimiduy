@@ -5,4 +5,10 @@
         "successContent":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
         "errorContent":"Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
     }
+    "needHelp": "Yardım İstiyorum",
+    "nameAndSurname": "Adı Soyadı",
+    "phoneNumber": "Telefon Numarası",
+    "address": "Adresi",
+    "hintNameAdress": "Cad.,Mah.,Sokak",
+    "hintNameNeed": "Neye İhtiyacınız Var?"
 }

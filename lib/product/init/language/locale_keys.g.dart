@@ -6,5 +6,11 @@ abstract class  LocaleKeys {
   static const dialog_successContent = 'dialog.successContent';
   static const dialog_errorContent = 'dialog.errorContent';
   static const dialog = 'dialog';
+  static const needHelp = 'needHelp';
+  static const nameAndSurname = 'nameAndSurname';
+  static const phoneNumber = 'phoneNumber';
+  static const address = 'address';
+  static const hintNameAdress = 'hintNameAdress';
+  static const hintNameNeed = 'hintNameNeed';
 
 }
