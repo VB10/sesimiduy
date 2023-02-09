@@ -8,6 +8,7 @@ import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/utility/dialog/register_error_dialog.dart';
 
 import 'package:sesimiduy/product/utility/dialog/register_success_dialog.dart';
+import 'package:sesimiduy/features/home/provider/home_provider.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
