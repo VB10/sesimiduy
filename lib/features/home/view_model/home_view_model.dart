@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -11,20 +12,14 @@ class HomeProvider extends StateNotifier<HomeState> {
 }
 
 @immutable
-class HomeState {
+class HomeState extends Equatable {
   const HomeState(this.title);
 
   final String title;
 
   @override
-  bool operator ==(covariant HomeState other) {
-    if (identical(this, other)) return true;
-
-    return other.title == title;
-  }
-
-  @override
-  int get hashCode => title.hashCode;
+  // TODO: implement props
+  List<Object?> get props => [title];
 
   HomeState copyWith({
     String? title,
