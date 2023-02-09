@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sesimiduy/product/utility/size/widget_sizes.dart';
+
+import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
 @immutable
 class PagePadding extends EdgeInsets {
-  const PagePadding.defaultPadding() : super.symmetric(horizontal: WidgetSizes.spacingM);
+  const PagePadding.defaultPadding()
+      : super.symmetric(
+          horizontal: WidgetSizes.spacingM,
+        );
   const PagePadding.horizontalSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingL);
   const PagePadding.horizontal18Symmetric()
       : super.symmetric(
@@ -110,13 +114,7 @@ class PagePadding extends EdgeInsets {
           WidgetSizes.spacingM,
           WidgetSizes.spacingMx,
         );
-  const PagePadding.boxWidgetDesignAllPadding()
-      : super.fromLTRB(
-          WidgetSizes.spacingL,
-          WidgetSizes.spacingXll,
-          WidgetSizes.spacingM,
-          WidgetSizes.spacingXll,
-        );
+
   const PagePadding.boxPaddingLT()
       : super.only(
           left: WidgetSizes.spacingL,
