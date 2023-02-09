@@ -17,6 +17,10 @@ dependencies:
   kartal: ^2.8.0
   responsive_framework: ^0.2.0
 
+  # Firebase
+  firebase_core: ^2.5.0
+  firebase_database: ^10.0.10
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
