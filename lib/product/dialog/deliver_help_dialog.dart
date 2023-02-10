@@ -10,6 +10,7 @@ import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
+import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
@@ -34,35 +35,42 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const _Header(),
-              const _CustomDivider(),
-              const VerticalSpace.xSmall(),
-              _HelpTypeSelectionRow(
-                _helpType,
-                onChanged: _change,
+        child: ResponsiveBuilder(
+          builder: (windowSize) {
+            return SizedBox(
+              width: windowSize.isMobile ? null : 300,
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const _Header(),
+                    const _CustomDivider(),
+                    const VerticalSpace.xSmall(),
+                    _HelpTypeSelectionRow(
+                      _helpType,
+                      onChanged: _change,
+                    ),
+                    const VerticalSpace.standard(),
+                    const _SubHeader(),
+                    const VerticalSpace.standard(),
+                    _NameTextField(_helpType == HelpType.personal),
+                    const VerticalSpace.standard(),
+                    const _DriverNameField(),
+                    const VerticalSpace.standard(),
+                    const _PhoneField(),
+                    const VerticalSpace.standard(),
+                    const _VehicleDropDown(),
+                    const VerticalSpace.standard(),
+                    const _CustomDivider(),
+                    const VerticalSpace.standard(),
+                    const _ActionButton(),
+                    const VerticalSpace.small(),
+                  ],
+                ),
               ),
-              const VerticalSpace.standard(),
-              const _SubHeader(),
-              const VerticalSpace.standard(),
-              _NameTextField(_helpType == HelpType.personal),
-              const VerticalSpace.standard(),
-              const _DriverNameField(),
-              const VerticalSpace.standard(),
-              const _PhoneField(),
-              const VerticalSpace.standard(),
-              const _VehicleDropDown(),
-              const VerticalSpace.standard(),
-              const _CustomDivider(),
-              const VerticalSpace.standard(),
-              const _ActionButton(),
-              const VerticalSpace.small(),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -289,9 +297,7 @@ extension DeliverHelpDialogExtension on DeliverHelpDialog {
   Future<void> show(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (context) {
-        return this;
-      },
+      builder: (context) => this,
     );
   }
 }
