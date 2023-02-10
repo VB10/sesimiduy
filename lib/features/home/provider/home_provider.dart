@@ -18,7 +18,6 @@ class HomeState extends Equatable {
   final String title;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [title];
 
   HomeState copyWith({
