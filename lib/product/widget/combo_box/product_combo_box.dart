@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sesimiduy/product/enum/widget_size.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
+import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
 class ProductComboBox<T extends ProductDropDownModel> extends StatefulWidget {
   const ProductComboBox({
@@ -24,7 +24,8 @@ class ProductComboBox<T extends ProductDropDownModel> extends StatefulWidget {
   State<ProductComboBox<T>> createState() => _ProductComboBoxState<T>();
 }
 
-class _ProductComboBoxState<T extends ProductDropDownModel> extends State<ProductComboBox<T>> {
+class _ProductComboBoxState<T extends ProductDropDownModel>
+    extends State<ProductComboBox<T>> {
   T? selectedItem;
 
   @override
@@ -34,7 +35,8 @@ class _ProductComboBoxState<T extends ProductDropDownModel> extends State<Produc
         border: Border.all(
           color: ColorsCustom.lightGray,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(WidgetSizes.spacingXxs)),
+        borderRadius:
+            const BorderRadius.all(Radius.circular(WidgetSizes.spacingXxs)),
       ),
       child: Padding(
         padding: const PagePadding.allVeryLow(),
@@ -46,7 +48,8 @@ class _ProductComboBoxState<T extends ProductDropDownModel> extends State<Produc
             isExpanded: true,
             borderRadius: context.lowBorderRadius,
             validator: widget.validator,
-            items: widget.items.map((e) => _ProductDropdownItem(item: e)).toList(),
+            items:
+                widget.items.map((e) => _ProductDropdownItem(item: e)).toList(),
             onChanged: (value) {
               selectItem(value);
               widget.onChanged(value);
@@ -64,7 +67,8 @@ class _ProductComboBoxState<T extends ProductDropDownModel> extends State<Produc
   }
 }
 
-class _ProductDropdownItem<T extends ProductDropDownModel> extends DropdownMenuItem<T> {
+class _ProductDropdownItem<T extends ProductDropDownModel>
+    extends DropdownMenuItem<T> {
   _ProductDropdownItem({required T item})
       : super(
           child: Text(item.name),
