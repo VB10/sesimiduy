@@ -29,7 +29,6 @@ class ResponsiveBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        print(constraints.maxWidth);
         if (constraints.maxWidth <= mobileBreakpoint) {
           return builder(WindowsSize.mobile);
         } else if (constraints.maxWidth > mobileBreakpoint &&

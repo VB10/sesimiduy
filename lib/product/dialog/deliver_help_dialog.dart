@@ -38,7 +38,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
         child: ResponsiveBuilder(
           builder: (windowSize) {
             return SizedBox(
-              width: windowSize.isMobile ? null : 300,
+              width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
               child: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 child: Column(
