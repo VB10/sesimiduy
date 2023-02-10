@@ -17,14 +17,16 @@ class ProductTextFieldDecoration extends InputDecoration {
           ),
         );
 
-  static OutlineInputBorder focusedBorderStyle(BuildContext context) => OutlineInputBorder(
+  static OutlineInputBorder focusedBorderStyle(BuildContext context) =>
+      OutlineInputBorder(
         borderRadius: context.lowBorderRadius,
         borderSide: const BorderSide(
           color: ColorsCustom.lightGray,
         ),
       );
 
-  static OutlineInputBorder standardBorder(BuildContext context) => OutlineInputBorder(
+  static OutlineInputBorder standardBorder(BuildContext context) =>
+      OutlineInputBorder(
         borderRadius: context.lowBorderRadius,
         borderSide: BorderSide(
           color: ColorsCustom.lightGray,
