@@ -18,6 +18,7 @@ abstract class  LocaleKeys {
   static const goingtoHelp = 'goingtoHelp';
   static const personalHelp = 'personalHelp';
   static const companyHelp = 'companyHelp';
+  static const hintPickCity = 'hintPickCity';
   static const hintSubHeader = 'hintSubHeader';
   static const labelCompanyName = 'labelCompanyName';
   static const labelHelperPersonalName = 'labelHelperPersonalName';
@@ -25,6 +26,10 @@ abstract class  LocaleKeys {
   static const labelDriverName = 'labelDriverName';
   static const labelDriverPhone = 'labelDriverPhone';
   static const labelVehicleType = 'labelVehicleType';
+  static const labelVehiclePlate = 'labelVehiclePlate';
+  static const labelFromCity = 'labelFromCity';
+  static const labelToCity = 'labelToCity';
+  static const carriedItems = 'carriedItems';
   static const sendHelp = 'sendHelp';
   static const plate = 'plate';
   static const delivered = 'delivered';

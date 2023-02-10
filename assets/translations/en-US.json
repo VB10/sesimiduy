@@ -31,6 +31,11 @@
     "deliver": "Deliver",
     "kvkk": "Terms of use",
     "kvkkReadApproved": " read and approved.",
+    "hintPickCity": "Şehir Seçiniz",
+    "labelVehiclePlate": "Araç Plaka No",
+    "labelFromCity": "Yardımın Geldiği Şehir",
+    "labelToCity": "Yardımın Gittiği Şehir",
+    "carriedItems": "Taşınan Malzemeler",
     "validation": {
         "fullName": "Ad ve soyad boş bırakılamaz.",
         "phoneNumber": "Lütfen geçerli bir telefon numarası giriniz.",
