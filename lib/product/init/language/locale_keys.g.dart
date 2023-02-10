@@ -12,5 +12,12 @@ abstract class  LocaleKeys {
   static const address = 'address';
   static const hintNameAdress = 'hintNameAdress';
   static const hintNameNeed = 'hintNameNeed';
+  static const login_wantHelp = 'login.wantHelp';
+  static const login_goingHelp = 'login.goingHelp';
+  static const login_currentMap = 'login.currentMap';
+  static const login_arrived = 'login.arrived';
+  static const login_info = 'login.info';
+  static const login_description = 'login.description';
+  static const login = 'login';
 
 }

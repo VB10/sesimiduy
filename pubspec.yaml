@@ -19,6 +19,7 @@ dependencies:
   equatable: ^2.0.5
 
   # UIKit
+  font_awesome_flutter: ^10.3.0
   flutter_custom_clippers: ^2.1.0
 
   # Firebase
@@ -36,3 +37,4 @@ flutter:
 
   assets:
     - assets/translations/
+    - assets/icons/
