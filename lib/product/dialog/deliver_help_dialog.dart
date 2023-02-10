@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
+import 'package:sesimiduy/product/model/needs_model.dart';
 import 'package:sesimiduy/product/model/vehicle_types.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
@@ -13,6 +15,7 @@ import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
+import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
@@ -38,7 +41,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
         child: ResponsiveBuilder(
           builder: (windowSize) {
             return SizedBox(
-              width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
+              width: windowSize.isMobile ? null : context.dynamicWidth(0.5),
               child: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 child: Column(
@@ -60,7 +63,11 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
                     const VerticalSpace.standard(),
                     const _PhoneField(),
                     const VerticalSpace.standard(),
-                    const _VehicleDropDown(),
+                    const _DriverInfos(),
+                    const VerticalSpace.standard(),
+                    const _DestinationInfos(),
+                    const VerticalSpace.standard(),
+                    const _CarriedItems(),
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
@@ -76,10 +83,121 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
     );
   }
 
-  void _change(HelpType type) {
-    setState(() {
-      _helpType = type;
-    });
+  void _change(HelpType type) => setState(() => _helpType = type);
+}
+
+class _CarriedItems extends StatelessWidget {
+  const _CarriedItems();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const PagePadding.horizontalSymmetric(),
+      child: LabeledProductComboBox<NeedsModel>(
+        labelText: LocaleKeys.carriedItems.tr(),
+        items: const [],
+        onChanged: (_) {},
+        hintText: LocaleKeys.youMaySelectMultiple.tr(),
+        validator: (text) =>
+            ValidateGenericItems<NeedsModel>(text).validateDropDown,
+      ),
+    );
+  }
+}
+
+class _DriverInfos extends StatelessWidget {
+  const _DriverInfos();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const PagePadding.horizontalSymmetric(),
+      child: kIsWeb
+          ? Row(
+              children: const [
+                Expanded(child: _VehicleDropDown()),
+                HorizontalSpace.standard(),
+                Expanded(child: _CarPlateNumberTextField()),
+              ],
+            )
+          : Column(
+              children: const [
+                _VehicleDropDown(),
+                VerticalSpace.standard(),
+                _CarPlateNumberTextField(),
+              ],
+            ),
+    );
+  }
+}
+
+class _DestinationInfos extends StatelessWidget {
+  const _DestinationInfos();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const PagePadding.horizontalSymmetric(),
+      child: kIsWeb
+          ? Row(
+              children: const [
+                Expanded(child: _DestinationFromField()),
+                HorizontalSpace.standard(),
+                Expanded(child: _DestinationToField()),
+              ],
+            )
+          : Column(
+              children: const [
+                _DestinationFromField(),
+                VerticalSpace.standard(),
+                _DestinationToField(),
+              ],
+            ),
+    );
+  }
+}
+
+class _DestinationFromField extends StatelessWidget {
+  const _DestinationFromField();
+
+  @override
+  Widget build(BuildContext context) {
+    return LabeledProductComboBox<ProductDropDownModel>(
+      labelText: LocaleKeys.labelFromCity.tr(),
+      items: const [],
+      hintText: LocaleKeys.hintPickCity.tr(),
+      onChanged: (_) {},
+      validator: (item) =>
+          ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
+    );
+  }
+}
+
+class _DestinationToField extends StatelessWidget {
+  const _DestinationToField();
+
+  @override
+  Widget build(BuildContext context) {
+    return LabeledProductComboBox<ProductDropDownModel>(
+      labelText: LocaleKeys.labelToCity.tr(),
+      items: const [],
+      hintText: LocaleKeys.hintPickCity.tr(),
+      onChanged: (_) {},
+      validator: (item) =>
+          ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
+    );
+  }
+}
+
+class _CarPlateNumberTextField extends StatelessWidget {
+  const _CarPlateNumberTextField();
+
+  @override
+  Widget build(BuildContext context) {
+    return LabeledProductTextField(
+      labelText: 'Araç Plaka No',
+      validator: (text) => ValidatorItems(text).validateAddress,
+    );
   }
 }
 
@@ -103,17 +221,14 @@ class _VehicleDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.horizontalSymmetric(),
-      child: LabeledProductComboBox<VehicleTypes>(
-        labelText: LocaleKeys.labelVehicleType.tr(),
-        items: VehicleTypes.values,
-        onChanged: (_) {},
-        initialItem: VehicleTypes.car,
-        hintText: VehicleTypes.car.title.tr(),
-        validator: (item) =>
-            ValidateGenericItems<VehicleTypes>(item).validateDropDown,
-      ),
+    return LabeledProductComboBox<VehicleTypes>(
+      labelText: LocaleKeys.labelVehicleType.tr(),
+      items: VehicleTypes.values,
+      onChanged: (_) {},
+      initialItem: VehicleTypes.car,
+      hintText: VehicleTypes.car.title.tr(),
+      validator: (item) =>
+          ValidateGenericItems<VehicleTypes>(item).validateDropDown,
     );
   }
 }
