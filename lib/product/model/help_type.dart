@@ -1,0 +1,4 @@
+enum HelpType {
+  personal,
+  business,
+}

@@ -3,7 +3,8 @@ import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
-class LabeledProductComboBox<T extends ProductDropDownModel> extends StatelessWidget {
+class LabeledProductComboBox<T extends ProductDropDownModel>
+    extends StatelessWidget {
   const LabeledProductComboBox({
     required this.labelText,
     super.key,
@@ -12,6 +13,7 @@ class LabeledProductComboBox<T extends ProductDropDownModel> extends StatelessWi
     required this.onChanged,
     required this.hintText,
     required this.validator,
+    this.initialItem,
   });
   final bool isRequired;
   final String labelText;
@@ -19,6 +21,7 @@ class LabeledProductComboBox<T extends ProductDropDownModel> extends StatelessWi
   final ValueChanged<T?> onChanged;
   final String hintText;
   final String? Function(T?) validator;
+  final T? initialItem;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class LabeledProductComboBox<T extends ProductDropDownModel> extends StatelessWi
         _Label(labelText: labelText, isRequired: isRequired),
         context.emptySizedHeightBoxLow,
         ProductComboBox<T>(
+          initialItem: initialItem,
           validator: validator,
           hintText: hintText,
           items: items,

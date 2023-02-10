@@ -5,7 +5,7 @@ import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 class ValidatorItems<T> {
   const ValidatorItems(this.text);
 
-  static const int phoneLength = 10;
+  static const int phoneLength = 16;
 
   final String? text;
 
@@ -14,18 +14,19 @@ class ValidatorItems<T> {
   }
 
   String? get validatePhoneNumber {
-    return (text?.phoneFormatValue.isNotNullOrNoEmpty ?? false)
+    return (text?.phoneFormatValue.isNotNullOrNoEmpty ?? false) &&
+            text!.length == phoneLength
         ? null
         : LocaleKeys.validation_phoneNumber.tr();
   }
 
-  String? get validateAdress {
+  String? get validateAddress {
     return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_address.tr();
   }
 }
 
-class ValidatoGenericItems<T> {
-  const ValidatoGenericItems(this.item);
+class ValidateGenericItems<T> {
+  const ValidateGenericItems(this.item);
 
   final T? item;
 
