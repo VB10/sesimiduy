@@ -8,7 +8,9 @@ import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
+import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
 class RequestHelpDialog extends StatelessWidget {
@@ -19,34 +21,41 @@ class RequestHelpDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: const PagePadding.all(),
-      child: SingleChildScrollView(
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              SizedBox(height: WidgetSizes.spacingM),
-              _Header(),
-              _CustomDivider(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _SubHeader(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _FullNameField(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _PhoneNumberField(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _AddressField(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _NeedsComboBox(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _CustomDivider(),
-              SizedBox(height: WidgetSizes.spacingM),
-              _ActionButton(),
-              SizedBox(height: WidgetSizes.spacingM),
-            ],
-          ),
-        ),
+      child: ResponsiveBuilder(
+        builder: (windowSize) {
+          return SizedBox(
+            width: windowSize.isMobile ? null : context.dynamicWidth(.5),
+            child: SingleChildScrollView(
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    VerticalSpace.standard(),
+                    _Header(),
+                    _CustomDivider(),
+                    VerticalSpace.standard(),
+                    _SubHeader(),
+                    VerticalSpace.standard(),
+                    _FullNameField(),
+                    VerticalSpace.standard(),
+                    _PhoneNumberField(),
+                    VerticalSpace.standard(),
+                    _AddressField(),
+                    VerticalSpace.standard(),
+                    _NeedsComboBox(),
+                    VerticalSpace.standard(),
+                    _CustomDivider(),
+                    VerticalSpace.standard(),
+                    _ActionButton(),
+                    VerticalSpace.standard(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
