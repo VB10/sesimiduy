@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -6,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
@@ -13,7 +15,7 @@ import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
-
+import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 
 class LoginView extends StatelessWidget {
@@ -32,6 +34,7 @@ class LoginView extends StatelessWidget {
                   const PagePadding.onlyTopNormal(),
               child: Wrap(
                 runSpacing: WidgetSizes.spacingL,
+                spacing: WidgetSizes.spacingL,
                 children: const [
                   _HelpWantedButton(),
                   _GoingHelpButton(),
@@ -63,27 +66,36 @@ class _CompletedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.braziliante,
-        ),
-      ),
-      onPressed: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(FontAwesomeIcons.circleCheck),
-          Padding(
-            padding: const PagePadding.onlyLeftLow(),
-            child: Text(
-              LocaleKeys.login_arrived.tr().toUpperCase(),
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: ColorsCustom.white),
+    return ResponsiveBuilder(
+      builder: (windowsSize) {
+        return SizedBox(
+          width: windowsSize.isMobile
+              ? double.infinity
+              : context.dynamicWidth(0.4),
+          child: ElevatedButton(
+            style: CustomButtonStyle.normal.copyWith(
+              backgroundColor: MaterialStateProperty.all(
+                ColorsCustom.braziliante,
+              ),
             ),
-          )
-        ],
-      ),
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(FontAwesomeIcons.circleCheck),
+                Padding(
+                  padding: const PagePadding.onlyLeftLow(),
+                  child: Text(
+                    LocaleKeys.login_arrived.tr().toUpperCase(),
+                    style: context.textTheme.titleLarge
+                        ?.copyWith(color: ColorsCustom.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -93,29 +105,37 @@ class _CurrentMaps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.endless,
-        ),
-      ),
-      onPressed: () {
-        context.navigateToPage<void>(const CurrentMapView());
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(FontAwesomeIcons.earthAfrica),
-          Padding(
-            padding: const PagePadding.onlyLeftLow(),
-            child: Text(
-              LocaleKeys.login_currentMap.tr().toUpperCase(),
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: ColorsCustom.white),
+    return ResponsiveBuilder(
+      builder: (windowSize) {
+        return SizedBox(
+          width:
+              windowSize.isMobile ? double.infinity : context.dynamicWidth(0.4),
+          child: ElevatedButton(
+            style: CustomButtonStyle.normal.copyWith(
+              backgroundColor: MaterialStateProperty.all(
+                ColorsCustom.endless,
+              ),
             ),
-          )
-        ],
-      ),
+            onPressed: () {
+              context.navigateToPage<void>(const CurrentMapView());
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(FontAwesomeIcons.earthAfrica),
+                Padding(
+                  padding: const PagePadding.onlyLeftLow(),
+                  child: Text(
+                    LocaleKeys.login_currentMap.tr().toUpperCase(),
+                    style: context.textTheme.titleLarge
+                        ?.copyWith(color: ColorsCustom.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -125,20 +145,30 @@ class _GoingHelpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.sambacus,
-        ),
-      ),
-      onPressed: () {},
-      child: Center(
-        child: Text(
-          LocaleKeys.login_goingHelp.tr().toUpperCase(),
-          style:
-              context.textTheme.titleLarge?.copyWith(color: ColorsCustom.white),
-        ),
-      ),
+    return ResponsiveBuilder(
+      builder: (windowSize) {
+        return SizedBox(
+          width:
+              windowSize.isMobile ? double.infinity : context.dynamicWidth(.4),
+          child: ElevatedButton(
+            style: CustomButtonStyle.normal.copyWith(
+              backgroundColor: MaterialStateProperty.all(
+                ColorsCustom.sambacus,
+              ),
+            ),
+            onPressed: () {
+              const DeliverHelpDialog().show(context);
+            },
+            child: Center(
+              child: Text(
+                LocaleKeys.login_goingHelp.tr().toUpperCase(),
+                style: context.textTheme.titleLarge
+                    ?.copyWith(color: ColorsCustom.white),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -148,17 +178,27 @@ class _HelpWantedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: CustomButtonStyle.bold,
-      onPressed: () {
-        RequestHelpDialog().show(context);
+    return ResponsiveBuilder(
+      builder: (windowSize) {
+        return SizedBox(
+          width:
+              windowSize.isMobile ? double.infinity : context.dynamicWidth(.4),
+          child: OutlinedButton(
+            style: CustomButtonStyle.bold,
+            onPressed: () {
+              RequestHelpDialog().show(context);
+            },
+            child: Center(
+              child: FittedBox(
+                child: Text(
+                  LocaleKeys.login_wantHelp.tr().toUpperCase(),
+                  style: context.textTheme.titleLarge,
+                ),
+              ),
+            ),
+          ),
+        );
       },
-      child: Center(
-        child: Text(
-          LocaleKeys.login_wantHelp.tr().toUpperCase(),
-          style: context.textTheme.titleLarge,
-        ),
-      ),
     );
   }
 }
@@ -171,7 +211,7 @@ class _Header extends StatelessWidget {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
       child: SizedBox(
-        height: WidgetSizes.spacingXxlL14,
+        height: kIsWeb ? context.dynamicHeight(.5) : WidgetSizes.spacingXxlL14,
         child: Stack(
           children: [
             ColoredBox(
