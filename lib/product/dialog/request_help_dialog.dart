@@ -23,17 +23,8 @@ class RequestHelpDialog extends StatefulWidget {
   State<RequestHelpDialog> createState() => _RequestHelpDialogState();
 }
 
-class _RequestHelpDialogState extends State<RequestHelpDialog> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
-  final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
-  final ValueNotifier<String> _autoCompleteText = ValueNotifier('');
-  Items? items;
-
-  final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-
+class _RequestHelpDialogState extends State<RequestHelpDialog>
+    with _RequestTextEditingMixin {
   void onComplete() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_autoCompleteText.value.isEmpty) return;
@@ -321,5 +312,25 @@ extension RequestHelpDialogExtension on RequestHelpDialog {
         return this;
       },
     );
+  }
+}
+
+mixin _RequestTextEditingMixin on State<RequestHelpDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
+  final ValueNotifier<String> _autoCompleteText = ValueNotifier('');
+  Items? items;
+
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _fullNameController.dispose();
+    _phoneNumberController.dispose();
+    _addressController.dispose();
   }
 }
