@@ -195,7 +195,7 @@ class _CarPlateNumberTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabeledProductTextField(
-      labelText: 'Araç Plaka No',
+      labelText: LocaleKeys.labelVehiclePlate.tr(),
       validator: (text) => ValidatorItems(text).validateAddress,
     );
   }
