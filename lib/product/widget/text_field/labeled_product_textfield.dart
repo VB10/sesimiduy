@@ -6,13 +6,15 @@ import 'package:sesimiduy/product/widget/text_field/product_textfield.dart';
 
 class LabeledProductTextField extends StatelessWidget {
   const LabeledProductTextField({
+    required this.validator,
     required this.labelText,
     super.key,
     this.isRequired = true,
     this.isMultiline = false,
-    required this.validator,
     this.formatters,
     this.hintText,
+    this.keyboardType,
+    this.controller,
   });
   final String labelText;
   final bool isRequired;
@@ -20,6 +22,8 @@ class LabeledProductTextField extends StatelessWidget {
   final String? Function(String?) validator;
   final List<TextInputFormatter>? formatters;
   final String? hintText;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,8 @@ class LabeledProductTextField extends StatelessWidget {
           formatters: formatters,
           isMultiline: isMultiline,
           validator: validator,
+          keyboardType: keyboardType ?? TextInputType.text,
+          controller: controller,
         ),
       ],
     );
