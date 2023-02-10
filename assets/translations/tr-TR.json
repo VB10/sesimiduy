@@ -7,7 +7,7 @@
     "hintNameNeed": "Neye İhtiyacınız Var?",
     "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
     "askForHelp": "YARDIM İSTE",
-
+     "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
     "validation": { 
         "fullName": "Ad ve soyad boş bırakılamaz.",
         "phoneNumber" : "Lütfen geçerli bir telefon numarası giriniz.",

@@ -6,6 +6,7 @@
     "hintNameAdress": "Cad.,Mah.,Sokak",
     "hintNameNeed": "Neye İhtiyacınız Var?",
     "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
+    "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
     "askForHelp": "YARDIM İSTE",
         "validation": { 
         "fullName": "Ad ve soyad boş bırakılamaz.",

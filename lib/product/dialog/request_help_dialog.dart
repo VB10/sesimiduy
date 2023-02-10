@@ -78,7 +78,7 @@ class _NeedsComboBox extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductComboBox<NeedsModel>(
         validator: (item) => ValidatoGenericItems<NeedsModel>(item).validateDropDown,
-        hintText: 'Çoklu Seçim Yapabilirsiniz',
+        hintText: LocaleKeys.youMaySelectMultiple.tr(),
         onChanged: (value) {},
         labelText: LocaleKeys.hintNameNeed.tr(),
         items: [
