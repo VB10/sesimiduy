@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sesimiduy/core/init/core_localize.dart';
-import 'package:sesimiduy/features/login/view/login_view.dart';
+import 'package:sesimiduy/help_view.dart';
 import 'package:sesimiduy/product/app_builder.dart';
 
 void main() async {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       builder: AppBuilder.build,
-      home: const LoginView(),
+      home: const TryPage(),
     );
   }
 }

@@ -9,8 +9,21 @@
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
     "address": "Adresi",
-    "hintNameAdress": "Cad.,Mah.,Sokak",
+
     "hintNameNeed": "Neye İhtiyacınız Var?",
+    "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
+    "askForHelp": "YARDIM İSTE",
+     "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
+    "validation": { 
+        "fullName": "Ad ve soyad boş bırakılamaz.",
+        "phoneNumber" : "Lütfen geçerli bir telefon numarası giriniz.",
+        "address": "Adres boş bırakılamaz",
+        "needs": "Lütfen ihtiyacınızı seçiniz"
+    },
+
+    "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
+
+   
     "login": {
         "wantHelp": "Yardım İstiyorum",
         "goingHelp": "YARDIMA GİDİYORUM",
