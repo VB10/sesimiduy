@@ -8,6 +8,7 @@ abstract class  LocaleKeys {
   static const hintNameNeed = 'hintNameNeed';
   static const personNeedsHelp = 'personNeedsHelp';
   static const askForHelp = 'askForHelp';
+  static const youMaySelectMultiple = 'youMaySelectMultiple';
   static const validation_fullName = 'validation.fullName';
   static const validation_phoneNumber = 'validation.phoneNumber';
   static const validation_address = 'validation.address';

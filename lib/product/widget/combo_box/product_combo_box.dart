@@ -11,14 +11,14 @@ class ProductComboBox<T extends ProductDropDownModel> extends StatefulWidget {
     required this.items,
     super.key,
     required this.onChanged,
-    required this.hintText, required this.validator,
+    required this.hintText,
+    required this.validator,
   });
   final List<T> items;
 
   final ValueChanged<T?> onChanged;
   final String hintText;
-    final String? Function(T?) validator;
-
+  final String? Function(T?) validator;
 
   @override
   State<ProductComboBox<T>> createState() => _ProductComboBoxState<T>();
@@ -38,17 +38,20 @@ class _ProductComboBoxState<T extends ProductDropDownModel> extends State<Produc
       ),
       child: Padding(
         padding: const PagePadding.allVeryLow(),
-        child: DropdownButtonFormField<T>(
-          value: selectedItem,
-          hint: Text(widget.hintText),
-          isExpanded: true,
-          borderRadius: context.lowBorderRadius,
-          validator: widget.validator,
-          items: widget.items.map((e) => _ProductDropdownItem(item: e)).toList(),
-          onChanged: (value) {
-            selectItem(value);
-            widget.onChanged(value);
-          },
+        child: DropdownButtonHideUnderline(
+          child: DropdownButtonFormField<T>(
+            decoration: const InputDecoration.collapsed(hintText: ''),
+            value: selectedItem,
+            hint: Text(widget.hintText),
+            isExpanded: true,
+            borderRadius: context.lowBorderRadius,
+            validator: widget.validator,
+            items: widget.items.map((e) => _ProductDropdownItem(item: e)).toList(),
+            onChanged: (value) {
+              selectItem(value);
+              widget.onChanged(value);
+            },
+          ),
         ),
       ),
     );
