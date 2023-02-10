@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
-import 'package:sesimiduy/product/model/needs_model.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
-import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
 class RequestHelpDialog extends StatelessWidget {
@@ -27,25 +25,25 @@ class RequestHelpDialog extends StatelessWidget {
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              context.emptySizedHeightBoxLow,
-              const _Header(),
-              const _CustomDivider(),
-              context.emptySizedHeightBoxLow3x,
-              const _SubHeader(),
-              context.emptySizedHeightBoxLow3x,
-              const _FullNameField(),
-              context.emptySizedHeightBoxLow3x,
-              const _PhoneNumberField(),
-              context.emptySizedHeightBoxLow3x,
-              const _AddressField(),
-              context.emptySizedHeightBoxLow3x,
-              const _NeedsComboBox(),
-              context.emptySizedHeightBoxLow3x,
-              const _CustomDivider(),
-              context.emptySizedHeightBoxLow3x,
-              const _ActionButton(),
-              context.emptySizedHeightBoxLow3x,
+            children: const [
+              SizedBox(height: WidgetSizes.spacingM),
+              _Header(),
+              _CustomDivider(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _SubHeader(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _FullNameField(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _PhoneNumberField(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _AddressField(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _NeedsComboBox(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _CustomDivider(),
+              SizedBox(height: WidgetSizes.spacingM),
+              _ActionButton(),
+              SizedBox(height: WidgetSizes.spacingM),
             ],
           ),
         ),
@@ -74,22 +72,16 @@ class _NeedsComboBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = List.generate(10, (index) => '$index');
+
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
-      child: LabeledProductComboBox<NeedsModel>(
-        validator: (item) =>
-            ValidatoGenericItems<NeedsModel>(item).validateDropDown,
-        hintText: LocaleKeys.youMaySelectMultiple.tr(),
-        onChanged: (value) {},
-        labelText: LocaleKeys.hintNameNeed.tr(),
-        items: [
-          NeedsModel('option 1'),
-          NeedsModel('option 1'),
-          NeedsModel('option 1'),
-          NeedsModel('option 1'),
-          NeedsModel('option 1'),
-          NeedsModel('option 1'),
-        ],
+      child: Autocomplete(
+        onSelected: (option) {},
+        optionsBuilder: (textEditingValue) {
+          return list
+              .where((element) => element.contains(textEditingValue.text));
+        },
       ),
     );
   }
