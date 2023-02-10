@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
@@ -73,19 +74,53 @@ class _NeedsComboBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = List.generate(10, (index) => '$index');
+    // FirebaseDatabase.instance.ref('items/').get().then((value) {
+    //   print('$value');
+    // });
+    final users = FirebaseFirestore.instance.collection('users').get();
 
-    return Padding(
-      padding: const PagePadding.horizontalSymmetric(),
-      child: Autocomplete(
-        onSelected: (option) {},
-        optionsBuilder: (textEditingValue) {
-          return list
-              .where((element) => element.contains(textEditingValue.text));
-        },
-      ),
+    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      future: users,
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {},
     );
+    return const Text('snapshot.data.toString()');
+
+    //   return FutureBuilder(
+    //     future: FirebaseDatabase.instance.ref('items').get(),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.hasError ||
+    //           snapshot.connectionState != ConnectionState.active) {
+    //         return Text(snapshot.data.toString());
+    //       }
+
+    //       return Padding(
+    //         padding: const PagePadding.horizontalSymmetric(),
+    //         child: Autocomplete(
+    //           onSelected: (option) {},
+    //           optionsBuilder: (textEditingValue) {
+    //             return list
+    //                 .where((element) => element.contains(textEditingValue.text));
+    //           },
+    //         ),
+    //       );
+    //     },
+    //   );
+    //   return Padding(
+    //     padding: const PagePadding.horizontalSymmetric(),
+    //     child: Autocomplete(
+    //       onSelected: (option) {},
+    //       optionsBuilder: (textEditingValue) {
+    //         return list
+    //             .where((element) => element.contains(textEditingValue.text));
+    //       },
+    //     ),
+    //   );
+    // }
   }
 }
+
+class FirebaseDatabase {}
 
 class _AddressField extends StatelessWidget {
   const _AddressField();
@@ -115,6 +150,7 @@ class _PhoneNumberField extends StatelessWidget {
         hintText: StringConstants.phoneHint,
         formatters: [InputFormatter.instance.phoneFormatter],
         validator: (value) => ValidatorItems(value).validatePhoneNumber,
+        keyboardType: TextInputType.phone,
         labelText: LocaleKeys.phoneNumber.tr(),
       ),
     );

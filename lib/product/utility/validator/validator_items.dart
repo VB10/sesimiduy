@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
-class ValidatorItems<T> {
+class ValidatorItems {
   const ValidatorItems(this.text);
 
   static const int phoneLength = 16;
