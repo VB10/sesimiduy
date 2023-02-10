@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
+
+import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -190,7 +193,15 @@ class _Header extends StatelessWidget {
             bottom: 0,
             left: context.dynamicWidth(.3),
             child: const _ClipperTriangle(),
-          )
+          ),
+          Positioned(
+            right: 0,
+            child: SafeArea(
+              child: LanguageDropDown(
+                value: CoreLocale.fromLocale(context.locale).changeCrossFlag,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -216,5 +227,16 @@ class _ClipperTriangle extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension _FlagHelper on CoreLocale {
+  CoreLocale get changeCrossFlag {
+    switch (this) {
+      case CoreLocale.en:
+        return CoreLocale.tr;
+      case CoreLocale.tr:
+        return CoreLocale.en;
+    }
   }
 }

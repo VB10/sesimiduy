@@ -21,6 +21,7 @@ dependencies:
   # UIKit
   font_awesome_flutter: ^10.3.0
   flutter_custom_clippers: ^2.1.0
+  dash_flags: ^0.0.3
 
   # Firebase
   firebase_core: ^2.5.0
