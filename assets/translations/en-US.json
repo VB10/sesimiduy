@@ -1,8 +1,22 @@
 {
+    "dialog": {
+        "successTitle": "Tebrikler",
+        "errorTitle": "Hata",
+        "successContent": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
+        "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
+    },
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
     "address": "Adresi",
     "hintNameAdress": "Cad.,Mah.,Sokak",
-    "hintNameNeed": "Neye İhtiyacınız Var?"
+    "hintNameNeed": "Neye İhtiyacınız Var?",
+    "login": {
+        "wantHelp": "Yardım İstiyorum",
+        "goingHelp": "YARDIMA GİDİYORUM",
+        "currentMap": "GÜNCEL HARİTA",
+        "arrived": "TESLİM ETTİM",
+        "info": "Afet alanına yardım ulaştıracak olan araçların ve yardıma ihtiyacı olanların buluşturulmasını hedefliyoruz",
+        "description": "BU BIR SOSYAL SORUMLULUK PROJESIDIR"
+    }
 }
