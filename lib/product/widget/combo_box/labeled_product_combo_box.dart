@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
-import 'package:sesimiduy/product/widget/text_field/product_textfield.dart';
+import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
-class LabeledProductTextField extends StatelessWidget {
-  const LabeledProductTextField({
+class LabeledProductComboBox<T extends ProductDropDownModel> extends StatelessWidget {
+  const LabeledProductComboBox({
     required this.labelText,
     super.key,
     this.isRequired = true,
-    this.isMultiline = false,
+    required this.items,
+    required this.onChanged,
+    required this.hintText,
     required this.validator,
-    this.formatters,
-    this.hintText,
   });
-  final String labelText;
   final bool isRequired;
-  final bool isMultiline;
-  final String? Function(String?) validator;
-  final List<TextInputFormatter>? formatters;
-  final String? hintText;
+  final String labelText;
+  final List<T> items;
+  final ValueChanged<T?> onChanged;
+  final String hintText;
+  final String? Function(T?) validator;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,11 @@ class LabeledProductTextField extends StatelessWidget {
       children: [
         _Label(labelText: labelText, isRequired: isRequired),
         context.emptySizedHeightBoxLow,
-        ProductTextField(
-          hintText: hintText,
-          formatters: formatters,
-          isMultiline: isMultiline,
+        ProductComboBox<T>(
           validator: validator,
+          hintText: hintText,
+          items: items,
+          onChanged: onChanged,
         ),
       ],
     );

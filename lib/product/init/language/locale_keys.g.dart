@@ -5,7 +5,14 @@ abstract class  LocaleKeys {
   static const nameAndSurname = 'nameAndSurname';
   static const phoneNumber = 'phoneNumber';
   static const address = 'address';
-  static const hintNameAdress = 'hintNameAdress';
   static const hintNameNeed = 'hintNameNeed';
+  static const personNeedsHelp = 'personNeedsHelp';
+  static const askForHelp = 'askForHelp';
+  static const validation_fullName = 'validation.fullName';
+  static const validation_phoneNumber = 'validation.phoneNumber';
+  static const validation_address = 'validation.address';
+  static const validation_needs = 'validation.needs';
+  static const validation = 'validation';
+  static const addressHint = 'addressHint';
 
 }

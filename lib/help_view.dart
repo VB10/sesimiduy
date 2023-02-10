@@ -142,7 +142,7 @@ class _TryPageState extends State<TryPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                const RequestHelpDialog().show(context);
+                RequestHelpDialog().show(context);
               },
               child: const Text('FORM AÇ'),
             )
@@ -168,7 +168,7 @@ class _TryPageState extends State<TryPage> {
         ),
         CustomInputParameter(
           labelText: LocaleKeys.address.tr(),
-          hintText: LocaleKeys.hintNameAdress.tr(),
+          hintText: 'LocaleKeys.hintNameAdress.tr()',
         ),
         Text(LocaleKeys.hintNameNeed.tr()),
         CitySelectDropdown(
