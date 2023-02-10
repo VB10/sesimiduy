@@ -11,6 +11,17 @@
     "address": "Adresi",
     "hintNameAdress": "Cad.,Mah.,Sokak",
     "hintNameNeed": "Neye İhtiyacınız Var?",
+    "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
+    "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
+    "askForHelp": "YARDIM İSTE",
+        "validation": { 
+        "fullName": "Ad ve soyad boş bırakılamaz.",
+        "phoneNumber" : "Lütfen geçerli bir telefon numarası giriniz.",
+        "address": "Adres boş bırakılamaz",
+              "needs": "Lütfen ihtiyacınızı seçiniz"
+    },
+    "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
+
     "login": {
         "wantHelp": "Yardım İstiyorum",
         "goingHelp": "YARDIMA GİDİYORUM",
