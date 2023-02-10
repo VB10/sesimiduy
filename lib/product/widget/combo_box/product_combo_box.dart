@@ -13,12 +13,14 @@ class ProductComboBox<T extends ProductDropDownModel> extends StatefulWidget {
     required this.onChanged,
     required this.hintText,
     required this.validator,
+    this.initialItem,
   });
   final List<T> items;
 
   final ValueChanged<T?> onChanged;
   final String hintText;
   final String? Function(T?) validator;
+  final T? initialItem;
 
   @override
   State<ProductComboBox<T>> createState() => _ProductComboBoxState<T>();
@@ -27,6 +29,12 @@ class ProductComboBox<T extends ProductDropDownModel> extends StatefulWidget {
 class _ProductComboBoxState<T extends ProductDropDownModel>
     extends State<ProductComboBox<T>> {
   T? selectedItem;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedItem = widget.initialItem;
+  }
 
   @override
   Widget build(BuildContext context) {
