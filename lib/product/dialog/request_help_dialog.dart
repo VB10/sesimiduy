@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sesimiduy/product/enum/widget_size.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/needs_model.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
+import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
@@ -77,7 +77,8 @@ class _NeedsComboBox extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductComboBox<NeedsModel>(
-        validator: (item) => ValidatoGenericItems<NeedsModel>(item).validateDropDown,
+        validator: (item) =>
+            ValidatoGenericItems<NeedsModel>(item).validateDropDown,
         hintText: LocaleKeys.youMaySelectMultiple.tr(),
         onChanged: (value) {},
         labelText: LocaleKeys.hintNameNeed.tr(),
