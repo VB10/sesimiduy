@@ -6,7 +6,7 @@ import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 class ActiveButton extends StatelessWidget {
   const ActiveButton({super.key, required this.label, required this.onPressed});
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

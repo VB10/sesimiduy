@@ -5,7 +5,6 @@
         "successContent": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
         "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
     },
-
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
@@ -16,26 +15,30 @@
     "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
     "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
     "askForHelp": "YARDIM İSTE",
-
     "goingtoHelp": "Yardıma Gidiyorum",
     "personalHelp": "Bireysel Yardım",
     "companyHelp": "Kurumsal Yardım",
-    "hintSubHeader" : "Yardımı iletecek kişi/kurum bilgileri",
+    "hintSubHeader": "Yardımı iletecek kişi/kurum bilgileri",
     "labelCompanyName": "Kurum Adı",
-    "labelHelperPersonalName" : "Yardımı Yapan Kişi",
-    "labelHelperCompanyName" : "Yardımı Yapan Kurum",
-    "labelDriverName":"Yardıma Giden Şöför Adı Soyadı",
-    "labelDriverPhone":"Yardıma Giden Şöför Telefon Numarası",
-    "labelVehicleType":"Neyle Yardıma Gidiliyor",
+    "labelHelperPersonalName": "Yardımı Yapan Kişi",
+    "labelHelperCompanyName": "Yardımı Yapan Kurum",
+    "labelDriverName": "Yardıma Giden Şöför Adı Soyadı",
+    "labelDriverPhone": "Yardıma Giden Şöför Telefon Numarası",
+    "labelVehicleType": "Neyle Yardıma Gidiliyor",
     "sendHelp": "YARDIMI GÖTÜR",
-        "validation": { 
+    "plate": "Plate",
+    "delivered": "Delivered",
+    "deliver": "Deliver",
+    "kvkk": "Terms of use",
+    "kvkkReadApproved": " read and approved.",
+    "validation": {
         "fullName": "Ad ve soyad boş bırakılamaz.",
-        "phoneNumber" : "Lütfen geçerli bir telefon numarası giriniz.",
+        "phoneNumber": "Lütfen geçerli bir telefon numarası giriniz.",
         "address": "Adres boş bırakılamaz",
-              "needs": "Lütfen ihtiyacınızı seçiniz"
+        "needs": "Lütfen ihtiyacınızı seçiniz",
+        "plate": "Please enter a valid plate number",
+        "kvkk": "Please accept the terms of use"
     },
-  
-
     "login": {
         "wantHelp": "Yardım İstiyorum",
         "goingHelp": "YARDIMA GİDİYORUM",

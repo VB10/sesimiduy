@@ -26,10 +26,17 @@ abstract class  LocaleKeys {
   static const labelDriverPhone = 'labelDriverPhone';
   static const labelVehicleType = 'labelVehicleType';
   static const sendHelp = 'sendHelp';
+  static const plate = 'plate';
+  static const delivered = 'delivered';
+  static const deliver = 'deliver';
+  static const kvkk = 'kvkk';
+  static const kvkkReadApproved = 'kvkkReadApproved';
   static const validation_fullName = 'validation.fullName';
   static const validation_phoneNumber = 'validation.phoneNumber';
   static const validation_address = 'validation.address';
   static const validation_needs = 'validation.needs';
+  static const validation_plate = 'validation.plate';
+  static const validation_kvkk = 'validation.kvkk';
   static const validation = 'validation';
   static const login_wantHelp = 'login.wantHelp';
   static const login_goingHelp = 'login.goingHelp';
