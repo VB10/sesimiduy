@@ -20,6 +20,8 @@
     "goingtoHelp": "Yardıma Gidiyorum",
     "personalHelp": "Bireysel Yardım",
     "companyHelp": "Kurumsal Yardım",
+     "hintPickCity": "Şehir Seçiniz",
+
     "hintSubHeader" : "Yardımı iletecek kişi/kurum bilgileri",
     "labelCompanyName": "Kurum Adı",
     "labelHelperPersonalName" : "Yardımı Yapan Kişi",
@@ -27,6 +29,10 @@
     "labelDriverName":"Yardıma Giden Şöför Adı Soyadı",
     "labelDriverPhone":"Yardıma Giden Şöför Telefon Numarası",
     "labelVehicleType":"Neyle Yardıma Gidiliyor",
+        "labelVehiclePlate":"Araç Plaka No",
+    "labelFromCity": "Yardımın Geldiği Şehir",
+    "labelToCity": "Yardımın Gittiği Şehir",
+    "carriedItems": "Taşınan Malzemeler",
     "sendHelp": "YARDIMI GÖTÜR",
         "validation": { 
         "fullName": "Ad ve soyad boş bırakılamaz.",
