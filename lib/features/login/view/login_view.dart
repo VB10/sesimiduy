@@ -9,6 +9,7 @@ import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
+import 'package:sesimiduy/product/dialog/completed_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
@@ -78,7 +79,9 @@ class _CompletedButton extends StatelessWidget {
                 ColorsCustom.braziliante,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              const CompletedDialog().show(context);
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -23,6 +23,10 @@ class ValidatorItems<T> {
   String? get validateAddress {
     return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_address.tr();
   }
+
+  String? get validatePlate {
+    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_plate.tr();
+  }
 }
 
 class ValidateGenericItems<T> {
