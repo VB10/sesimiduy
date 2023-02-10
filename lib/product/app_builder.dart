@@ -11,7 +11,7 @@ class AppBuilder {
       minWidth: 375,
       breakpoints: [
         const ResponsiveBreakpoint.resize(480, name: MOBILE),
-        const ResponsiveBreakpoint.resize(800, name: TABLET),
+        const ResponsiveBreakpoint.autoScale(800, name: TABLET),
         const ResponsiveBreakpoint.autoScale(1000, name: DESKTOP),
       ],
     );
