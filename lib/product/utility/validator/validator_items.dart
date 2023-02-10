@@ -14,11 +14,13 @@ class ValidatorItems<T> {
   }
 
   String? get validatePhoneNumber {
-    return (text?.phoneFormatValue.isNotNullOrNoEmpty ?? false) ? null : LocaleKeys.validation_phoneNumber.tr();
+    return (text?.phoneFormatValue.isNotNullOrNoEmpty ?? false)
+        ? null
+        : LocaleKeys.validation_phoneNumber.tr();
   }
 
   String? get validateAdress {
-    return text.isNotNullOrNoEmpty ? null : LocaleKeys.address.tr();
+    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_address.tr();
   }
 }
 
