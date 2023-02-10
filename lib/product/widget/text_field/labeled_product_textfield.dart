@@ -14,6 +14,7 @@ class LabeledProductTextField extends StatelessWidget {
     this.formatters,
     this.hintText,
     this.keyboardType,
+    this.controller,
   });
   final String labelText;
   final bool isRequired;
@@ -22,6 +23,7 @@ class LabeledProductTextField extends StatelessWidget {
   final List<TextInputFormatter>? formatters;
   final String? hintText;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class LabeledProductTextField extends StatelessWidget {
           isMultiline: isMultiline,
           validator: validator,
           keyboardType: keyboardType ?? TextInputType.text,
+          controller: controller,
         ),
       ],
     );

@@ -12,16 +12,19 @@ class ProductTextField extends StatelessWidget {
     this.formatters,
     this.hintText,
     this.keyboardType,
+    this.controller,
   });
   final bool isMultiline;
   final String? Function(String?) validator;
   final List<TextInputFormatter>? formatters;
   final String? hintText;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       inputFormatters: formatters,
       keyboardType: keyboardType,
       maxLines: isMultiline ? AppConstants.kFour : AppConstants.kOne,
