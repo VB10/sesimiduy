@@ -98,7 +98,7 @@ class _AddressField extends StatelessWidget {
         hintText: LocaleKeys.addressHint.tr(),
         labelText: LocaleKeys.address.tr(),
         isMultiline: true,
-        validator: (value) => ValidatorItems(value).validateAdress,
+        validator: (value) => ValidatorItems(value).validateAddress,
       ),
     );
   }
