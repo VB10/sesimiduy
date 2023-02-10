@@ -22,7 +22,8 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   flutter_custom_clippers: ^2.1.0
   dash_flags: ^0.0.3
-
+  syncfusion_flutter_pdfviewer: ^20.4.49
+  
   # Firebase
   firebase_core: ^2.5.0
   cloud_firestore: ^4.3.2
