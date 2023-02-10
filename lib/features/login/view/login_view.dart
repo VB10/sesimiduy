@@ -4,6 +4,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
+import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
@@ -145,7 +146,9 @@ class _HelpWantedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: CustomButtonStyle.bold,
-      onPressed: () {},
+      onPressed: () {
+        RequestHelpDialog().show(context);
+      },
       child: Center(
         child: Text(
           LocaleKeys.login_wantHelp.tr().toUpperCase(),
