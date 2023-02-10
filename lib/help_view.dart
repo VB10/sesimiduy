@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
+import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
 class CustomInputParameter extends StatelessWidget {
@@ -22,7 +22,8 @@ class CustomInputParameter extends StatelessWidget {
         children: [
           Text(
             labelText ?? '',
-            style: context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.onSurface),
+            style: context.textTheme.bodyMedium
+                ?.copyWith(color: context.colorScheme.onSurface),
           ),
           context.emptySizedHeightBoxLow,
           SizedBox(
@@ -142,7 +143,7 @@ class _TryPageState extends State<TryPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                RequestHelpDialog().show(context);
+                DeliverHelpDialog().show(context);
               },
               child: const Text('FORM AÇ'),
             )
@@ -189,7 +190,11 @@ class _TryPageState extends State<TryPage> {
 }
 
 class CustomAlertDialog extends StatefulWidget {
-  const CustomAlertDialog({super.key, required this.title, required this.context, required this.content});
+  const CustomAlertDialog(
+      {super.key,
+      required this.title,
+      required this.context,
+      required this.content});
   final BuildContext context;
   final Widget content;
   final String title;

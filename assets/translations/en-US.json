@@ -5,6 +5,7 @@
         "successContent": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
         "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
     },
+
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
@@ -13,14 +14,27 @@
     "hintNameNeed": "Neye İhtiyacınız Var?",
     "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
     "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
+    "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
     "askForHelp": "YARDIM İSTE",
+
+    "goingtoHelp": "Yardıma Gidiyorum",
+    "personalHelp": "Bireysel Yardım",
+    "companyHelp": "Kurumsal Yardım",
+    "hintSubHeader" : "Yardımı iletecek kişi/kurum bilgileri",
+    "labelCompanyName": "Kurum Adı",
+    "labelHelperPersonalName" : "Yardımı Yapan Kişi",
+    "labelHelperCompanyName" : "Yardımı Yapan Kurum",
+    "labelDriverName":"Yardıma Giden Şöför Adı Soyadı",
+    "labelDriverPhone":"Yardıma Giden Şöför Telefon Numarası",
+    "labelVehicleType":"Neyle Yardıma Gidiliyor",
+    "sendHelp": "YARDIMI GÖTÜR",
         "validation": { 
         "fullName": "Ad ve soyad boş bırakılamaz.",
         "phoneNumber" : "Lütfen geçerli bir telefon numarası giriniz.",
         "address": "Adres boş bırakılamaz",
               "needs": "Lütfen ihtiyacınızı seçiniz"
     },
-    "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
+  
 
     "login": {
         "wantHelp": "Yardım İstiyorum",
