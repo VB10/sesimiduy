@@ -78,33 +78,35 @@ class _LoginViewState extends State<LoginView> {
                         ?.copyWith(decoration: TextDecoration.underline),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialMediaButton(
-                      onTap: () =>
-                          openWeb(SocialMediaLinksConstants.twitterUrl),
-                      icon: FontAwesomeIcons.twitter,
-                      title: StringConstants.twitter,
-                    ),
-                    SocialMediaButton(
-                      onTap: () =>
-                          openWeb(SocialMediaLinksConstants.instagramUrl),
-                      icon: FontAwesomeIcons.instagram,
-                      title: StringConstants.instagram,
-                    ),
-                    SocialMediaButton(
-                      onTap: () => openWeb(SocialMediaLinksConstants.afadUrl),
-                      icon: FontAwesomeIcons.a,
-                      title: StringConstants.afad,
-                    ),
-                  ],
-                )
+                _socialMediaButtons()
               ],
             ),
           )
         ],
       ),
+    );
+  }
+
+  Row _socialMediaButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.twitterUrl),
+          icon: FontAwesomeIcons.twitter,
+          title: StringConstants.twitter,
+        ),
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.instagramUrl),
+          icon: FontAwesomeIcons.instagram,
+          title: StringConstants.instagram,
+        ),
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.afadUrl),
+          icon: FontAwesomeIcons.a,
+          title: StringConstants.afad,
+        ),
+      ],
     );
   }
 }
