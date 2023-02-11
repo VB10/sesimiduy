@@ -4,8 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
+import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/docs_constants.dart';
-import 'package:sesimiduy/product/widget/product_checkbox.dart';
+import 'package:sesimiduy/product/widget/checkbox/product_checkbox.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class KvkkCheckBox extends StatelessWidget {
@@ -22,7 +23,7 @@ class KvkkCheckBox extends StatelessWidget {
             TextSpan(
               text: LocaleKeys.kvkk.tr(),
               style: const TextStyle(
-                color: Colors.blue,
+                color: ColorsCustom.sambacus,
                 decoration: TextDecoration.underline,
                 fontWeight: FontWeight.w600,
               ),
