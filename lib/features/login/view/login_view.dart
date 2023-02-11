@@ -205,13 +205,7 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: CustomButtonStyle.bold,
-      onPressed: () async {
-        final response = await context
-            .navigateToPage<RequestHelpForm>(const RequestHelpView());
-        if (response == null) return;
-        final uploadService = HelpUploadService();
-        await uploadService.createHelpCall(helpForm: response);
-      },
+      onPressed: _changeLoading,
       child: FittedBox(
         child: Center(
           child: isLoading
@@ -235,14 +229,13 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
 
   Future<void> onPressed() async {
     if (isLoading) return;
+    _changeLoading();
 
     final response =
-        await const RequestHelpDialog().show<RequestHelpForm>(context);
-    _changeLoading();
-    if (response != null) {
-      final uploadService = HelpUploadService();
-      await uploadService.createHelpCall(helpForm: response);
-    }
+        await context.navigateToPage<RequestHelpForm>(const RequestHelpView());
+    if (response == null) return;
+    final uploadService = HelpUploadService();
+    await uploadService.createHelpCall(helpForm: response);
     _changeLoading();
   }
 }
