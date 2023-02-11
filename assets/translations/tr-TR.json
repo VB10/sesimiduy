@@ -30,7 +30,8 @@
     "wasDelivered":"Yardım teslim edildi",
     "helpCreatedSuccessfully":"Yardım başarıyla oluşturuldu",
     "helpRequestCreated":"Yardım talebi oluşturuldu",
-
+    "requestFailed":"Talebiniz alınamadı",
+    "supportRequestFaield" : "Gittiğiniz yardım alınamadı",
     "deliver": "Teslim Et",
     "kvkk": "KVKK'yı",
     "kvkkReadApproved": " okudum, onaylıyorum.",
