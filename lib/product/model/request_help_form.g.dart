@@ -8,11 +8,13 @@ part of 'request_help_form.dart';
 
 RequestHelpForm _$RequestHelpFormFromJson(Map<String, dynamic> json) =>
     RequestHelpForm(
-      json['fullName'] as String,
-      json['phoneNumber'] as String,
-      json['address'] as String,
-      json['categoryId'] as String,
-      json['newCategoryName'] as String?,
+      fullName: json['fullName'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      address: json['address'] as String,
+      categoryId: json['categoryId'] as String,
+      newCategoryName: json['newCategoryName'] as String?,
+      location:
+          RequestHelpForm._geoPointConvertJson(json['location'] as GeoPoint?),
     );
 
 Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
@@ -22,4 +24,5 @@ Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
       'address': instance.address,
       'categoryId': instance.categoryId,
       'newCategoryName': instance.newCategoryName,
+      'location': RequestHelpForm._geoPointConvertJson(instance.location),
     };
