@@ -6,12 +6,14 @@ class ProductCheckbox extends FormField<bool> {
     required Widget title,
     required FormFieldSetter<bool> onSaved,
     required FormFieldValidator<bool> validator,
+    AutovalidateMode? autovalidateMode,
     bool initialValue = false,
     bool autovalidate = false,
   }) : super(
           onSaved: onSaved,
           validator: validator,
           initialValue: initialValue,
+          autovalidateMode: autovalidateMode,
           builder: (FormFieldState<bool> state) {
             return ListTile(
               leading: Checkbox(
