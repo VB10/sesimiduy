@@ -130,11 +130,23 @@ class _ActionButton extends StatelessWidget {
                 : () {
                     if (formKey.currentState?.validate() ?? false) {
                       Navigator.of(context).pop();
+                      showInSnackBar(LocaleKeys.wasDelivered.tr(), context);
                     }
                   },
           ),
         );
       },
+    );
+  }
+
+  void showInSnackBar(String title, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(title),
+        backgroundColor: ColorsCustom.sambacus,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+      ),
     );
   }
 }
