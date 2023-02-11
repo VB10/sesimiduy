@@ -3,13 +3,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riverpod/riverpod.dart';
-
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
 class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
-  MapProvider() : super(const MapState());
+  MapProvider({required this.service}) : super(const MapState());
+
+  final MapService service;
 
   void updateName(Set<ProductMarker> productMarkers) {
     state = state.copyWith(selectedMarkers: productMarkers);
@@ -57,6 +59,26 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
   void updatePoi(Set<ProductMarker> value) {
     state = state.copyWith(selectedMarkers: value);
   }
+
+  Future<void> fetchRequestPOI(BuildContext context) async {
+    final requestPois = await service.fetchRequestPOIs();
+    final requestMarkers = requestPois
+        .map(
+          (e) => ProductMarker(
+            e.id,
+            e.name,
+            e.location?.latitude,
+            e.location?.longitude,
+          ),
+        )
+        .toList();
+
+    // ignore: use_build_context_synchronously
+    await updatePoiWithIconCheck(
+      Set.from(requestMarkers),
+      context,
+    );
+  }
 }
 
 @immutable
@@ -66,27 +88,42 @@ class MapState extends Equatable {
     this.selectedMarkers,
     this.markerHelpIcon,
     this.markerCarIcon,
+    this.requestMarkers,
   });
 
   final String? title;
   final Set<Marker>? selectedMarkers;
+  final Set<Marker>? requestMarkers;
   final BitmapDescriptor? markerHelpIcon;
   final BitmapDescriptor? markerCarIcon;
   @override
-  List<Object?> get props =>
-      [title, selectedMarkers, markerHelpIcon, markerCarIcon];
+  List<Object?> get props => [
+        title,
+        selectedMarkers,
+        markerHelpIcon,
+        markerCarIcon,
+        requestMarkers,
+      ];
 
   MapState copyWith({
     String? title,
     Set<Marker>? selectedMarkers,
     BitmapDescriptor? markerHelpIcon,
     BitmapDescriptor? markerCarIcon,
+    Set<Marker>? requestMarkers,
   }) {
     return MapState(
       title: title ?? this.title,
       selectedMarkers: selectedMarkers ?? this.selectedMarkers,
       markerHelpIcon: markerHelpIcon ?? this.markerHelpIcon,
       markerCarIcon: markerCarIcon ?? this.markerCarIcon,
+      requestMarkers: requestMarkers ?? this.requestMarkers,
+    );
+  }
+
+  Set<ProductMarker> get allMarkers {
+    return Set<ProductMarker>.from(
+      (selectedMarkers?.toList() ?? []) + (requestMarkers?.toList() ?? []),
     );
   }
 }
