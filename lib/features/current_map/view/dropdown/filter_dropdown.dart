@@ -11,6 +11,7 @@ class FilterDropDown extends StatefulWidget {
 class _FilterDropDownState extends State<FilterDropDown> {
   final filterItems = ['item1', 'item2', 'item3', 'item4'];
   String selectedItem = '';
+  final PageController controller = PageController();
 
   @override
   void initState() {
@@ -34,8 +35,12 @@ class _FilterDropDownState extends State<FilterDropDown> {
                   )),
             )
             .toList(),
-        onChanged: (value) {},
-        value: filterItems.first,
+        onChanged: (value) {
+          setState(() {
+            if (value != null) selectedItem = value;
+          });
+        },
+        value: selectedItem,
       ),
     );
   }
