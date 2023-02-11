@@ -1,8 +1,10 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
+import 'package:sesimiduy/product/utility/size/index.dart';
 
 class ProductTextFieldDecoration extends InputDecoration {
   ProductTextFieldDecoration(BuildContext context, String? hintText)
@@ -17,20 +19,25 @@ class ProductTextFieldDecoration extends InputDecoration {
           ),
         );
 
-  static OutlineInputBorder focusedBorderStyle(BuildContext context) =>
-      OutlineInputBorder(
-        borderRadius: context.lowBorderRadius,
-        borderSide: const BorderSide(
-          color: ColorsCustom.lightGray,
-        ),
-      );
+  static OutlineInputBorder focusedBorderStyle(BuildContext context) {
+    return OutlineInputBorder(
+      borderRadius: borderRadius,
+      borderSide: const BorderSide(
+        color: ColorsCustom.lightGray,
+      ),
+    );
+  }
 
   static OutlineInputBorder standardBorder(BuildContext context) =>
       OutlineInputBorder(
-        borderRadius: context.lowBorderRadius,
+        borderRadius: borderRadius,
         borderSide: BorderSide(
           color: ColorsCustom.lightGray,
           width: context.dynamicWidth(0.1),
         ),
+      );
+
+  static BorderRadius get borderRadius => const BorderRadius.all(
+        Radius.circular(kIsWeb ? WidgetSizes.spacingS : WidgetSizes.spacingM),
       );
 }
