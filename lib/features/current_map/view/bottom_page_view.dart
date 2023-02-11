@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
+import 'package:sesimiduy/product/utility/validator/validator_items.dart';
+import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
+import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
+import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 
 class BottomPageView extends StatelessWidget {
   BottomPageView({super.key});
@@ -52,10 +57,53 @@ class InfoCard extends StatelessWidget {
             ),
             FloatingActionButton.extended(
               heroTag: info,
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const _AcceptDialog();
+                  },
+                );
+              },
               backgroundColor: ColorsCustom.endless,
               label: const Text('Bildir'),
             )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AcceptDialog extends StatelessWidget {
+  const _AcceptDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Padding(
+        padding: const PagePadding.all(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Test label'),
+            const VerticalSpace.standard(),
+            Material(
+              child: LabeledProductComboBox<ProductDropDownModel>(
+                labelText: 'labelText',
+                items: const [],
+                onChanged: (_) {},
+                hintText: 'hintText',
+                validator: (value) =>
+                    ValidateGenericItems<ProductDropDownModel>(
+                  value,
+                ).validateDropDown,
+              ),
+            ),
+            const VerticalSpace.standard(),
+            ActiveButton(label: 'label', onPressed: () {})
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
 import 'package:sesimiduy/features/current_map/view/button/toggle_button.dart';
+import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -22,12 +23,16 @@ class CurrentMapView extends ConsumerStatefulWidget {
 class _CurrentMapViewState extends ConsumerState<CurrentMapView>
     with _ByteMapHelper {
   late final StateNotifierProvider<MapProvider, MapState> mapProvider;
+  late final MapService service;
 
   @override
   void initState() {
     super.initState();
-    mapProvider = StateNotifierProvider((ref) => MapProvider());
-    ref.read(mapProvider.notifier).init(context);
+    service = MapService();
+    mapProvider = StateNotifierProvider((ref) => MapProvider(service: service));
+    ref.read(mapProvider.notifier).init(context).whenComplete(
+          () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
+        );
   }
 
   @override
@@ -53,7 +58,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
         alignment: Alignment.topCenter,
         children: [
           GoogleMap(
-            markers: ref.watch(mapProvider).selectedMarkers ?? {},
+            markers: ref.watch(mapProvider).allMarkers,
             initialCameraPosition: const CameraPosition(
               target: AppConstants.defaultLocation,
               zoom: AppConstants.defaultMapZoom,
@@ -105,5 +110,23 @@ class ProductMarker extends Marker {
             lang ?? 0.0,
           ),
           icon: icon ?? BitmapDescriptor.defaultMarker,
+        );
+}
+
+class RequestHelpMarker extends Marker {
+  RequestHelpMarker(
+    String? id,
+    String? info,
+    double? lat,
+    double? lang,
+    BitmapDescriptor? icon,
+  ) : super(
+          icon: icon ?? BitmapDescriptor.defaultMarker,
+          infoWindow: InfoWindow(title: info ?? ''),
+          markerId: MarkerId(id ?? id.hashCode.toString()),
+          position: LatLng(
+            lat ?? 0.0,
+            lang ?? 0.0,
+          ),
         );
 }
