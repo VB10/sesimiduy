@@ -32,6 +32,10 @@ class _RequestHelpViewState extends State<RequestHelpView>
     if (_items.value.isEmpty) return;
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
+    showInSnackBar(
+      LocaleKeys.helpRequestCreated.tr(),
+      context,
+    );
 
     await context.pop<RequestHelpForm>(
       RequestHelpForm(
@@ -39,13 +43,11 @@ class _RequestHelpViewState extends State<RequestHelpView>
         phoneNumber: _phoneNumberController.text.phoneFormatValue,
         address: _addressController.text,
         categoryId: items?.id ?? '',
-        categories: _items.value.map((e) => e.id ?? '').toList(),
+        categories: _items.value,
         location: GeoPoint(data.latitude, data.longitude),
+        startedDate: DateTime.now(),
+        updatedDate: DateTime.now(),
       ),
-    );
-    showInSnackBar(
-      LocaleKeys.helpRequestCreated.tr(),
-      context,
     );
   }
 

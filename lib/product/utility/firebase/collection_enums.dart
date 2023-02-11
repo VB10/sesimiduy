@@ -1,10 +1,14 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum CollectionEnums {
   items,
-  poi,
+  poi_list,
   wantHelp,
-  poiCategory;
+  sendHelp,
+  poi_category,
+  wantHelpItems;
 
   CollectionReference<Map<String, dynamic>> get collection {
     return FirebaseFirestore.instance.collection(name);
