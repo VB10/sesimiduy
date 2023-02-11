@@ -270,6 +270,7 @@ class _CustomDivider extends StatelessWidget {
 
 mixin _RequestTextEditingMixin on State<RequestHelpView> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
   final ValueNotifier<List<Items>> _items = ValueNotifier([]);
