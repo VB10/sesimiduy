@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
-import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
 class CurrentMapView extends StatefulWidget {
@@ -19,7 +18,6 @@ class CurrentMapView extends StatefulWidget {
 class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
   static const _defaultLocation = LatLng(37.579609, 36.946812);
   static const _defaultLocationIST = LatLng(40.5333232, 31.0325468);
-  final List<bool> _selectedOptions = <bool>[true, false];
 
   @override
   void initState() {
@@ -42,7 +40,10 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
         backgroundColor: ColorsCustom.sambacus,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(LocaleKeys.login_currentMap.tr()), FilterDropDown()],
+          children: [
+            Text(LocaleKeys.login_currentMap.tr()),
+            const FilterDropDown()
+          ],
         ),
       ),
       body: Stack(
@@ -82,29 +83,6 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
               ),
             },
           ),
-          ToggleButtons(
-            children: [
-              Padding(
-                padding: PagePadding.horizontalLowSymmetric(),
-                child: Text('Option1'),
-              ),
-              Padding(
-                padding: PagePadding.horizontalLowSymmetric(),
-                child: Text('Option2'),
-              ),
-            ],
-            isSelected: _selectedOptions,
-            onPressed: (int index) {
-              setState(() {
-                for (var i = 0; i < _selectedOptions.length; i++) {
-                  _selectedOptions[i] = i == index;
-                }
-              });
-            },
-            selectedColor: ColorsCustom.white,
-            fillColor: ColorsCustom.sambacus,
-            borderRadius: context.lowBorderRadius,
-          ),
         ],
       ),
     );
@@ -120,31 +98,5 @@ mixin _ByteMapHelper on State<CurrentMapView> {
     final bytes = loadedFile.buffer.asUint8List();
 
     return BitmapDescriptor.fromBytes(bytes);
-  }
-}
-
-class FilterDropDown extends StatelessWidget {
-  FilterDropDown({super.key});
-  final filterItems = ['item1', 'item2', 'item3', 'item4'];
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        dropdownColor: ColorsCustom.sambacus,
-        items: filterItems
-            .map(
-              (e) => DropdownMenuItem(
-                  value: e,
-                  onTap: () {},
-                  child: Text(
-                    e,
-                    style: const TextStyle(color: ColorsCustom.white),
-                  )),
-            )
-            .toList(),
-        onChanged: (value) {},
-        value: filterItems.first,
-      ),
-    );
   }
 }
