@@ -27,6 +27,10 @@
     "sendHelp": "YARDIMI GÖTÜR",
     "plate": "Plaka",
     "delivered": "Teslim Ettim",
+    "wasDelivered":"Yardım teslim edildi",
+    "helpCreatedSuccessfully":"Yardım başarıyla oluşturuldu",
+    "helpRequestCreated":"Yardım talebi oluşturuldu",
+
     "deliver": "Teslim Et",
     "kvkk": "KVKK'yı",
     "kvkkReadApproved": " okudum, onaylıyorum.",

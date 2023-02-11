@@ -20,13 +20,12 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
-
-import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 
 class DeliverHelpDialog extends StatefulWidget {
   const DeliverHelpDialog({super.key});
@@ -100,6 +99,10 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                       onPressed: () async {
                         final request = await returnRequestItem();
                         Navigator.pop<DeliveryHelpForm>(context, request);
+                        showInSnackBar(
+                          LocaleKeys.helpCreatedSuccessfully.tr(),
+                          context,
+                        );
                       },
                     ),
                     const VerticalSpace.small(),
@@ -109,6 +112,17 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
             );
           },
         ),
+      ),
+    );
+  }
+
+  void showInSnackBar(String title, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(title),
+        backgroundColor: ColorsCustom.sambacus,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
       ),
     );
   }
