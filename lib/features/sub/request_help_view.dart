@@ -32,6 +32,7 @@ class _RequestHelpViewState extends State<RequestHelpView>
     if (_items.value.isEmpty) return;
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
+
     await context.pop<RequestHelpForm>(
       RequestHelpForm(
         fullName: _fullNameController.text,
@@ -40,6 +41,21 @@ class _RequestHelpViewState extends State<RequestHelpView>
         categoryId: items?.id ?? '',
         categories: _items.value.map((e) => e.id ?? '').toList(),
         location: GeoPoint(data.latitude, data.longitude),
+      ),
+    );
+    showInSnackBar(
+      LocaleKeys.helpRequestCreated.tr(),
+      context,
+    );
+  }
+
+  void showInSnackBar(String title, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(title),
+        backgroundColor: ColorsCustom.sambacus,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
       ),
     );
   }
