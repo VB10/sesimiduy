@@ -18,7 +18,6 @@ abstract class  LocaleKeys {
   static const goingtoHelp = 'goingtoHelp';
   static const personalHelp = 'personalHelp';
   static const companyHelp = 'companyHelp';
-  static const hintPickCity = 'hintPickCity';
   static const hintSubHeader = 'hintSubHeader';
   static const labelCompanyName = 'labelCompanyName';
   static const labelHelperPersonalName = 'labelHelperPersonalName';
@@ -26,16 +25,17 @@ abstract class  LocaleKeys {
   static const labelDriverName = 'labelDriverName';
   static const labelDriverPhone = 'labelDriverPhone';
   static const labelVehicleType = 'labelVehicleType';
-  static const labelVehiclePlate = 'labelVehiclePlate';
-  static const labelFromCity = 'labelFromCity';
-  static const labelToCity = 'labelToCity';
-  static const carriedItems = 'carriedItems';
   static const sendHelp = 'sendHelp';
   static const plate = 'plate';
   static const delivered = 'delivered';
   static const deliver = 'deliver';
   static const kvkk = 'kvkk';
   static const kvkkReadApproved = 'kvkkReadApproved';
+  static const hintPickCity = 'hintPickCity';
+  static const labelVehiclePlate = 'labelVehiclePlate';
+  static const labelFromCity = 'labelFromCity';
+  static const labelToCity = 'labelToCity';
+  static const carriedItems = 'carriedItems';
   static const validation_fullName = 'validation.fullName';
   static const validation_phoneNumber = 'validation.phoneNumber';
   static const validation_address = 'validation.address';
@@ -50,5 +50,6 @@ abstract class  LocaleKeys {
   static const login_info = 'login.info';
   static const login_description = 'login.description';
   static const login = 'login';
+  static const category = 'category';
 
 }
