@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
@@ -8,6 +9,7 @@ import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
+import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
@@ -25,17 +27,20 @@ class RequestHelpDialog extends StatefulWidget {
 
 class _RequestHelpDialogState extends State<RequestHelpDialog>
     with _RequestTextEditingMixin {
-  void onComplete() {
+  Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_autoCompleteText.value.isEmpty) return;
 
-    context.pop<RequestHelpForm>(
+    final data = await MapsManager.determinePosition();
+    if (mounted) return;
+    await context.pop<RequestHelpForm>(
       RequestHelpForm(
-        _fullNameController.text,
-        _phoneNumberController.text.phoneFormatValue,
-        _addressController.text,
-        items?.id ?? '',
-        _autoCompleteText.value,
+        fullName: _fullNameController.text,
+        phoneNumber: _phoneNumberController.text.phoneFormatValue,
+        address: _addressController.text,
+        categoryId: items?.id ?? '',
+        newCategoryName: _autoCompleteText.value,
+        location: GeoPoint(data.latitude, data.longitude),
       ),
     );
   }
