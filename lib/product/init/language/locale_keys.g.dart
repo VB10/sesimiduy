@@ -1,20 +1,22 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const dialog_successTitle = 'dialog.successTitle';
   static const dialog_errorTitle = 'dialog.errorTitle';
   static const dialog_successContent = 'dialog.successContent';
   static const dialog_errorContent = 'dialog.errorContent';
   static const dialog = 'dialog';
+  static const requestFailed = 'requestFailed';
+  static const supportRequestFaield = 'supportRequestFaield';
   static const needHelp = 'needHelp';
   static const nameAndSurname = 'nameAndSurname';
   static const phoneNumber = 'phoneNumber';
   static const address = 'address';
   static const hintNameNeed = 'hintNameNeed';
   static const personNeedsHelp = 'personNeedsHelp';
-  static const askForHelp = 'askForHelp';
   static const youMaySelectMultiple = 'youMaySelectMultiple';
   static const addressHint = 'addressHint';
+  static const askForHelp = 'askForHelp';
   static const goingtoHelp = 'goingtoHelp';
   static const personalHelp = 'personalHelp';
   static const companyHelp = 'companyHelp';
@@ -28,10 +30,10 @@ abstract class LocaleKeys {
   static const sendHelp = 'sendHelp';
   static const plate = 'plate';
   static const delivered = 'delivered';
+  static const wasDelivered = 'wasDelivered';
+  static const helpCreatedSuccessfully = 'helpCreatedSuccessfully';
+  static const helpRequestCreated = 'helpRequestCreated';
   static const deliver = 'deliver';
-  static const wasDelivered = 'Help was delivered';
-  static const helpCreatedSuccessfully = 'Help created successfully';
-  static const helpRequestCreated = 'Help request created';
   static const kvkk = 'kvkk';
   static const kvkkReadApproved = 'kvkkReadApproved';
   static const hintPickCity = 'hintPickCity';
@@ -54,4 +56,5 @@ abstract class LocaleKeys {
   static const login_description = 'login.description';
   static const login = 'login';
   static const category = 'category';
+
 }
