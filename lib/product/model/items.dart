@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_tagging_plus/flutter_tagging_plus.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
 part 'items.g.dart';
 
 @JsonSerializable()
-class Items with ProductDropDownModel {
+class Items with ProductDropDownModel, EquatableMixin, TaggableMixin {
   Items({this.id, required this.name});
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
   factory Items.fromFirestore(
@@ -19,6 +22,9 @@ class Items with ProductDropDownModel {
   }
 
   final String? id;
+
+  @override
+  final String? name;
 
   Items fromJson(Map<String, dynamic> json) {
     return _$ItemsFromJson(json);
@@ -39,10 +45,10 @@ class Items with ProductDropDownModel {
   }
 
   @override
-  String? name;
-
-  @override
   String toString() {
     return 'Items(id: $id, itemName: $name)';
   }
+
+  @override
+  List<Object> get props => [id ?? '', name ?? ''];
 }

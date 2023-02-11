@@ -15,6 +15,9 @@ RequestHelpForm _$RequestHelpFormFromJson(Map<String, dynamic> json) =>
       newCategoryName: json['newCategoryName'] as String?,
       location:
           RequestHelpForm._geoPointConvertJson(json['location'] as GeoPoint?),
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
       'categoryId': instance.categoryId,
       'newCategoryName': instance.newCategoryName,
       'location': RequestHelpForm._geoPointConvertJson(instance.location),
+      'categories': instance.categories,
     };

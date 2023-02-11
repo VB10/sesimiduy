@@ -7,9 +7,9 @@ import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
 import 'package:sesimiduy/features/login/service/help_upload_service.dart';
+import 'package:sesimiduy/features/sub/request_help_view.dart';
 import 'package:sesimiduy/product/dialog/completed_dialog.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
-import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/request_help_form.dart';
@@ -172,12 +172,11 @@ class _HelpWantedButton extends StatelessWidget {
     return OutlinedButton(
       style: CustomButtonStyle.bold,
       onPressed: () async {
-        final response =
-            await const RequestHelpDialog().show<RequestHelpForm>(context);
-        if (response != null) {
-          final uploadService = HelpUploadService();
-          await uploadService.createHelpCall(helpForm: response);
-        }
+        final response = await context
+            .navigateToPage<RequestHelpForm>(const RequestHelpView());
+        if (response == null) return;
+        final uploadService = HelpUploadService();
+        await uploadService.createHelpCall(helpForm: response);
       },
       child: FittedBox(
         child: Text(
