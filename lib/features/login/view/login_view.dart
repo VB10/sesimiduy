@@ -17,11 +17,14 @@ import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/delivery_help_form.dart';
 import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
+import 'package:sesimiduy/product/utility/constants/social_media_links_constants.dart';
+import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
+import 'package:sesimiduy/product/widget/button/social_media_button.dart';
 import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 
 class LoginView extends StatefulWidget {
@@ -36,6 +39,10 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     super.initState();
     MapsManager.checkPermission();
+  }
+
+  void openWeb(String value) {
+    value.launchWebsite;
   }
 
   @override
@@ -62,18 +69,46 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           SafeArea(
-            child: Padding(
-              padding: const PagePadding.all(),
-              child: Text(
-                LocaleKeys.login_description.tr(),
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodySmall
-                    ?.copyWith(decoration: TextDecoration.underline),
-              ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const PagePadding.all(),
+                  child: Text(
+                    LocaleKeys.login_description.tr(),
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.bodySmall
+                        ?.copyWith(decoration: TextDecoration.underline),
+                  ),
+                ),
+                _socialMediaButtons()
+              ],
             ),
           )
         ],
       ),
+    );
+  }
+
+  Row _socialMediaButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.twitterUrl),
+          icon: FontAwesomeIcons.twitter,
+          title: StringConstants.twitter,
+        ),
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.instagramUrl),
+          icon: FontAwesomeIcons.instagram,
+          title: StringConstants.instagram,
+        ),
+        SocialMediaButton(
+          onTap: () => openWeb(SocialMediaLinksConstants.afadUrl),
+          icon: FontAwesomeIcons.a,
+          title: StringConstants.afad,
+        ),
+      ],
     );
   }
 }
