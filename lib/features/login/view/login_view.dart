@@ -282,9 +282,15 @@ class _Header extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        ImageConstants.logo,
-                        height: IconSize.large.value,
+                      GestureDetector(
+                        onTap: () async {
+                          //var service = HelpUploadService();
+                          //service.jsonImport();
+                        },
+                        child: Image.asset(
+                          ImageConstants.logo,
+                          height: IconSize.large.value,
+                        ),
                       ),
                       const SizedBox(height: WidgetSizes.spacingXsMid),
                       Text(
