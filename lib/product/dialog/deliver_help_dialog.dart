@@ -26,6 +26,8 @@ import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
+
 class DeliverHelpDialog extends StatefulWidget {
   const DeliverHelpDialog({super.key});
 
@@ -40,7 +42,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
     return Dialog(
       insetPadding: const PagePadding.all(),
       child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: autovalidateMode,
         onChanged: () {
           stateNotifier.value = _formKey.currentState?.validate() ?? false;
         },
@@ -91,6 +93,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
+                    KvkkCheckBox(autovalidateMode),
                     _ActionButton(
                       notifier: itemNotifier,
                       stateNotifier: stateNotifier,
@@ -520,6 +523,7 @@ extension DeliverHelpDialogExtension on DeliverHelpDialog {
 
 mixin _OperationMixin on State<DeliverHelpDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _driverNameController = TextEditingController();
