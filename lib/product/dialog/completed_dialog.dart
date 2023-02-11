@@ -1,6 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
@@ -12,10 +10,9 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
-import 'package:sesimiduy/product/widget/product_checkbox.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class CompletedDialog extends StatefulWidget {
   const CompletedDialog({super.key});
@@ -31,9 +28,8 @@ class CompletedDialog extends StatefulWidget {
   }
 }
 
-class _CompletedDialogState extends State<CompletedDialog> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
+class _CompletedDialogState extends State<CompletedDialog>
+    with CompletedDialogMixin {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -41,6 +37,9 @@ class _CompletedDialogState extends State<CompletedDialog> {
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
+        onChanged: () {
+          _activeButtonValue.value = _formKey.currentState?.validate() ?? false;
+        },
         child: ResponsiveBuilder(
           builder: (windowSize) {
             return SizedBox(
@@ -59,8 +58,11 @@ class _CompletedDialogState extends State<CompletedDialog> {
                     const VerticalSpace.standard(),
                     const _PlateTextField(),
                     const VerticalSpace.standard(),
-                    const _KvkkCheckBox(),
-                    _ActionButton(formKey: _formKey),
+                    KvkkCheckBox(autovalidateMode),
+                    _ActionButton(
+                      formKey: _formKey,
+                      activeButtonValue: _activeButtonValue,
+                    ),
                     const VerticalSpace.small(),
                   ],
                 ),
@@ -68,69 +70,6 @@ class _CompletedDialogState extends State<CompletedDialog> {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class _KvkkCheckBox extends StatelessWidget {
-  const _KvkkCheckBox();
-
-  @override
-  Widget build(BuildContext context) {
-    const kvkkUrl =
-        'https://kvkk.gov.tr/yayinlar/K%C4%B0%C5%9E%C4%B0SEL%20VER%C4%B0LER%C4%B0N%20KORUNMASI%20KANUNU%20VE%20UYGULAMASI.pdf';
-    return ProductCheckbox(
-      title: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: LocaleKeys.kvkk.tr(),
-              style: const TextStyle(
-                color: Colors.blue,
-                decoration: TextDecoration.underline,
-                fontWeight: FontWeight.w600,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  _navigate(context, kvkkUrl);
-                },
-            ),
-            TextSpan(
-              text: LocaleKeys.kvkkReadApproved.tr(),
-              style: context.textTheme.bodySmall?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
-      onSaved: (value) {},
-      validator: (value) {
-        return value != null && value == true
-            ? null
-            : LocaleKeys.validation_kvkk.tr();
-      },
-    );
-  }
-
-  void _navigate(BuildContext context, String kvkkUrl) {
-    Navigator.push(
-      context,
-      CupertinoPageRoute(
-        fullscreenDialog: true,
-        builder: (BuildContext context) {
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.black),
-            ),
-            body: SfPdfViewer.network(kvkkUrl),
-          );
-        },
       ),
     );
   }
@@ -166,22 +105,36 @@ class _Header extends StatelessWidget {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.formKey});
-
+  const _ActionButton({
+    required this.formKey,
+    required this.activeButtonValue,
+  });
   final GlobalKey<FormState> formKey;
+  final ValueNotifier<bool> activeButtonValue;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.horizontalSymmetric(),
-      child: ActiveButton(
-        label: LocaleKeys.deliver.tr(),
-        onPressed: () {
-          if (formKey.currentState?.validate() ?? false) {
-            Navigator.of(context).pop();
-          }
-        },
-      ),
+    return ValueListenableBuilder<bool>(
+      valueListenable: activeButtonValue,
+      builder: (
+        BuildContext context,
+        bool activeState,
+        Widget? child,
+      ) {
+        return Padding(
+          padding: const PagePadding.horizontalSymmetric(),
+          child: ActiveButton(
+            label: LocaleKeys.deliver.tr(),
+            onPressed: !activeState
+                ? null
+                : () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+          ),
+        );
+      },
     );
   }
 }
@@ -246,4 +199,11 @@ class _CustomDivider extends StatelessWidget {
       height: AppConstants.kZero.toDouble(),
     );
   }
+}
+
+mixin CompletedDialogMixin on State<CompletedDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final autovalidateMode = AutovalidateMode.onUserInteraction;
+
+  final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
 }
