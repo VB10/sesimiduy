@@ -10,3 +10,7 @@ enum VehicleTypes implements ProductDropDownModel {
   @override
   String get name => title;
 }
+
+extension VehicleTypesExtension on VehicleTypes {
+  int get index => VehicleTypes.values.indexOf(this) + 1;
+}
