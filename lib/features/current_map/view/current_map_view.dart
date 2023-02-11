@@ -30,9 +30,11 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
     super.initState();
     service = MapService();
     mapProvider = StateNotifierProvider((ref) => MapProvider(service: service));
-    ref.read(mapProvider.notifier).init(context).whenComplete(
-          () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
-        );
+    ref.read(mapProvider.notifier).init(context);
+
+    // .whenComplete(
+    //       () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
+    //     );x
   }
 
   @override
@@ -58,7 +60,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
         alignment: Alignment.topCenter,
         children: [
           GoogleMap(
-            markers: ref.watch(mapProvider).allMarkers,
+            markers: ref.watch(mapProvider).selectedMarkers ?? {},
             initialCameraPosition: const CameraPosition(
               target: AppConstants.defaultLocation,
               zoom: AppConstants.defaultMapZoom,
