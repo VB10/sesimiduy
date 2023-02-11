@@ -233,6 +233,7 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
 
     final response =
         await context.navigateToPage<RequestHelpForm>(const RequestHelpView());
+
     if (response == null) {
       _changeLoading();
       return;
@@ -307,7 +308,7 @@ class _Header extends StatelessWidget {
               right: 0,
               child: SafeArea(
                 child: LanguageDropDown(
-                  value: CoreLocale.fromLocale(context.locale).changeCrossFlag,
+                  value: CoreLocale.fromLocale(context.locale),
                 ),
               ),
             ),

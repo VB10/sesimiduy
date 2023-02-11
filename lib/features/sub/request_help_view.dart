@@ -13,6 +13,7 @@ import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
@@ -78,6 +79,7 @@ class _RequestHelpViewState extends State<RequestHelpView>
               ),
               const VerticalSpace.standard(),
               const _CustomDivider(),
+              KvkkCheckBox(_autovalidateMode),
               const VerticalSpace.standard(),
               ValueListenableBuilder<bool>(
                 valueListenable: _activeButtonValue,
@@ -257,20 +259,9 @@ class _CustomDivider extends StatelessWidget {
   }
 }
 
-// extension RequestHelpDialogExtension on RequestHelpDialog {
-//   Future<T?> show<T>(BuildContext context) {
-//     return showDialog(
-//       context: context,
-//       builder: (context) {
-//         return this;
-//       },
-//     );
-//   }
-// }
-
 mixin _RequestTextEditingMixin on State<RequestHelpView> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final autovalidateMode = AutovalidateMode.onUserInteraction;
+  final _autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
   final ValueNotifier<List<Items>> _items = ValueNotifier([]);
