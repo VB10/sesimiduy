@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../../product/model/delivery_help_form.dart';
 import '../../../product/model/request_help_form.dart';
 
 class HelpUploadService {
@@ -20,6 +21,16 @@ class HelpUploadService {
       }
       var helpCallRef = db.collection('wantHelpTwo').doc();
       await helpCallRef.set(formJson);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> createDeliveryCall(
+      {required DeliveryHelpForm deliveryForm}) async {
+    try {
+      await db.collection('sendHelpTwo').doc().set(deliveryForm.toJson());
       return true;
     } catch (e) {
       return false;
