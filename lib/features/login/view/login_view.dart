@@ -205,7 +205,7 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: CustomButtonStyle.bold,
-      onPressed: _changeLoading,
+      onPressed: onPressed,
       child: FittedBox(
         child: Center(
           child: isLoading
