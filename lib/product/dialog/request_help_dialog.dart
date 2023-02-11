@@ -310,7 +310,7 @@ class _Header extends StatelessWidget {
 }
 
 extension RequestHelpDialogExtension on RequestHelpDialog {
-  Future<void> show(BuildContext context) {
+  Future<T?> show<T>(BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) {
