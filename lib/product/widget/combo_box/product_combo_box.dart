@@ -79,11 +79,11 @@ class _ProductDropdownItem<T extends ProductDropDownModel>
     extends DropdownMenuItem<T> {
   _ProductDropdownItem({required T item})
       : super(
-          child: Text(item.name),
+          child: Text(item.name ?? ''),
           value: item,
         );
 }
 
 mixin ProductDropDownModel {
-  String get name;
+  String? get name;
 }

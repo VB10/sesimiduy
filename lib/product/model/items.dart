@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
 part 'items.g.dart';
 
 @JsonSerializable()
-class Items {
-  Items({this.id, this.name});
+class Items with ProductDropDownModel {
+  Items({this.id, required this.name});
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
   factory Items.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -18,7 +19,7 @@ class Items {
   }
 
   final String? id;
-  final String? name;
+
   Items fromJson(Map<String, dynamic> json) {
     return _$ItemsFromJson(json);
   }
@@ -35,5 +36,13 @@ class Items {
       id: id ?? this.id,
       name: name ?? this.name,
     );
+  }
+
+  @override
+  String? name;
+
+  @override
+  String toString() {
+    return 'Items(id: $id, itemName: $name)';
   }
 }
