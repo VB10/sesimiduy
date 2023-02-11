@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/features/current_map/view/button/toggle_button.dart';
 import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
+
+import 'bottom_page_view.dart';
 
 class CurrentMapView extends StatefulWidget {
   const CurrentMapView({super.key});
@@ -18,7 +22,9 @@ class CurrentMapView extends StatefulWidget {
 class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
   static const _defaultLocation = LatLng(37.579609, 36.946812);
   static const _defaultLocationIST = LatLng(40.5333232, 31.0325468);
-
+  PageController controller = PageController(
+    viewportFraction: 0.3,
+  );
   @override
   void initState() {
     super.initState();
@@ -82,6 +88,15 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
                 icon: markerCarIcon ?? BitmapDescriptor.defaultMarker,
               ),
             },
+          ),
+          const ToggleButton(),
+          Positioned(
+            bottom: context.height * 0.1,
+            child: SizedBox(
+              height: context.height * 0.2,
+              width: context.width,
+              child: BottomPageView(),
+            ),
           ),
         ],
       ),
