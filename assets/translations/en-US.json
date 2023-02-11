@@ -5,6 +5,8 @@
         "successContent": "Information has been received successfully.",
         "errorContent": "An unexpected error occured."
     },
+    "requestFailed" : "Your request could not be received",
+    "supportRequestFaield" : "The help you went to could not be found",
     "needHelp": "Need Help",
     "nameAndSurname": "Fullname",
     "phoneNumber": "Phone number",
