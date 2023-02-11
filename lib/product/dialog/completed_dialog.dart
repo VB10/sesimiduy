@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -12,10 +10,9 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
-import 'package:sesimiduy/product/widget/product_checkbox.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class CompletedDialog extends StatefulWidget {
   const CompletedDialog({super.key});
@@ -33,6 +30,8 @@ class CompletedDialog extends StatefulWidget {
 
 class _CompletedDialogState extends State<CompletedDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  bool isAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +58,12 @@ class _CompletedDialogState extends State<CompletedDialog> {
                     const VerticalSpace.standard(),
                     const _PlateTextField(),
                     const VerticalSpace.standard(),
-                    const _KvkkCheckBox(),
-                    _ActionButton(formKey: _formKey),
+                    _kvkkCheckBox(),
+                    const VerticalSpace.standard(),
+                    _ActionButton(
+                      formKey: _formKey,
+                      isAccepted: isAccepted,
+                    ),
                     const VerticalSpace.small(),
                   ],
                 ),
@@ -71,67 +74,15 @@ class _CompletedDialogState extends State<CompletedDialog> {
       ),
     );
   }
-}
 
-class _KvkkCheckBox extends StatelessWidget {
-  const _KvkkCheckBox();
-
-  @override
-  Widget build(BuildContext context) {
-    const kvkkUrl =
-        'https://kvkk.gov.tr/yayinlar/K%C4%B0%C5%9E%C4%B0SEL%20VER%C4%B0LER%C4%B0N%20KORUNMASI%20KANUNU%20VE%20UYGULAMASI.pdf';
-    return ProductCheckbox(
-      title: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: LocaleKeys.kvkk.tr(),
-              style: const TextStyle(
-                color: Colors.blue,
-                decoration: TextDecoration.underline,
-                fontWeight: FontWeight.w600,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  _navigate(context, kvkkUrl);
-                },
-            ),
-            TextSpan(
-              text: LocaleKeys.kvkkReadApproved.tr(),
-              style: context.textTheme.bodySmall?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
-      onSaved: (value) {},
-      validator: (value) {
-        return value != null && value == true
-            ? null
-            : LocaleKeys.validation_kvkk.tr();
+  KVKKCheckBox _kvkkCheckBox() {
+    return KVKKCheckBox(
+      isAccepted: isAccepted,
+      onAccepted: (value) {
+        setState(() {
+          isAccepted = value;
+        });
       },
-    );
-  }
-
-  void _navigate(BuildContext context, String kvkkUrl) {
-    Navigator.push(
-      context,
-      CupertinoPageRoute(
-        fullscreenDialog: true,
-        builder: (BuildContext context) {
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.black),
-            ),
-            body: SfPdfViewer.network(kvkkUrl),
-          );
-        },
-      ),
     );
   }
 }
@@ -146,7 +97,7 @@ class _Header extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            LocaleKeys.delivered.tr(),
+            LocaleKeys.delivered.locale,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -166,18 +117,22 @@ class _Header extends StatelessWidget {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.formKey});
+  const _ActionButton({
+    required this.formKey,
+    required this.isAccepted,
+  });
 
   final GlobalKey<FormState> formKey;
+  final bool isAccepted;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: ActiveButton(
-        label: LocaleKeys.deliver.tr(),
+        label: LocaleKeys.deliver.locale,
         onPressed: () {
-          if (formKey.currentState?.validate() ?? false) {
+          if ((formKey.currentState?.validate() ?? false) && isAccepted) {
             Navigator.of(context).pop();
           }
         },
@@ -196,7 +151,7 @@ class _PhoneField extends StatelessWidget {
       child: LabeledProductTextField(
         hintText: StringConstants.phoneHint,
         formatters: [InputFormatter.instance.phoneFormatter],
-        labelText: LocaleKeys.phoneNumber.tr(),
+        labelText: LocaleKeys.phoneNumber.locale,
         validator: (text) => ValidatorItems(text).validatePhoneNumber,
       ),
     );
@@ -211,8 +166,8 @@ class _NameTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        hintText: LocaleKeys.nameAndSurname.tr(),
-        labelText: LocaleKeys.nameAndSurname.tr(),
+        hintText: LocaleKeys.nameAndSurname.locale,
+        labelText: LocaleKeys.nameAndSurname.locale,
         validator: (value) => ValidatorItems(value).validateFullName,
       ),
     );
@@ -227,8 +182,8 @@ class _PlateTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        hintText: LocaleKeys.plate.tr(),
-        labelText: LocaleKeys.plate.tr(),
+        hintText: LocaleKeys.plate.locale,
+        labelText: LocaleKeys.plate.locale,
         validator: (value) => ValidatorItems(value).validatePlate,
       ),
     );

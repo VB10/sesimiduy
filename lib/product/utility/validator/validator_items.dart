@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
 class ValidatorItems {
@@ -7,25 +7,31 @@ class ValidatorItems {
 
   static const int phoneLength = 16;
 
+  static const bool kvkk = false;
+
   final String? text;
 
   String? get validateFullName {
-    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_fullName.tr();
+    return text.isNotNullOrNoEmpty
+        ? null
+        : LocaleKeys.validation_fullName.locale;
   }
 
   String? get validatePhoneNumber {
     return (text?.phoneFormatValue.isNotNullOrNoEmpty ?? false) &&
             text!.length == phoneLength
         ? null
-        : LocaleKeys.validation_phoneNumber.tr();
+        : LocaleKeys.validation_phoneNumber.locale;
   }
 
   String? get validateAddress {
-    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_address.tr();
+    return text.isNotNullOrNoEmpty
+        ? null
+        : LocaleKeys.validation_address.locale;
   }
 
   String? get validatePlate {
-    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_plate.tr();
+    return text.isNotNullOrNoEmpty ? null : LocaleKeys.validation_plate.locale;
   }
 }
 
@@ -35,6 +41,6 @@ class ValidateGenericItems<T> {
   final T? item;
 
   String? get validateDropDown {
-    return item != null ? null : LocaleKeys.validation_needs.tr();
+    return item != null ? null : LocaleKeys.validation_needs.locale;
   }
 }

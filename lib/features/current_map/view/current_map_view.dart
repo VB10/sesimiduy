@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -35,7 +35,7 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsCustom.sambacus,
-        title: Text(LocaleKeys.login_currentMap.tr()),
+        title: Text(LocaleKeys.login_currentMap.locale),
       ),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(

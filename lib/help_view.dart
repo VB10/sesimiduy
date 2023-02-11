@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
 class CustomInputParameter extends StatelessWidget {
@@ -139,11 +140,11 @@ class _TryPageState extends State<TryPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              LocaleKeys.needHelp.tr(),
+              LocaleKeys.needHelp.locale,
             ),
             ElevatedButton(
               onPressed: () {
-                DeliverHelpDialog().show(context);
+                const DeliverHelpDialog().show(context);
               },
               child: const Text('FORM AÇ'),
             )
@@ -160,18 +161,18 @@ class _TryPageState extends State<TryPage> {
         const Divider(),
         const Text('Yardımcı ihtiyacı olan kişinin'),
         CustomInputParameter(
-          labelText: LocaleKeys.nameAndSurname.tr(),
-          hintText: LocaleKeys.nameAndSurname.tr(),
+          labelText: LocaleKeys.nameAndSurname.locale,
+          hintText: LocaleKeys.nameAndSurname.locale,
         ),
         CustomInputParameter(
-          labelText: LocaleKeys.phoneNumber.tr(),
+          labelText: LocaleKeys.phoneNumber.locale,
           hintText: '+09',
         ),
         CustomInputParameter(
-          labelText: LocaleKeys.address.tr(),
-          hintText: 'LocaleKeys.hintNameAdress.tr()',
+          labelText: LocaleKeys.address.locale,
+          hintText: 'LocaleKeys.hintNameAdress.locale',
         ),
-        Text(LocaleKeys.hintNameNeed.tr()),
+        Text(LocaleKeys.hintNameNeed.locale),
         CitySelectDropdown(
           items: const ['ss'],
           onChanged: (String? model) {},
@@ -190,11 +191,12 @@ class _TryPageState extends State<TryPage> {
 }
 
 class CustomAlertDialog extends StatefulWidget {
-  const CustomAlertDialog(
-      {super.key,
-      required this.title,
-      required this.context,
-      required this.content});
+  const CustomAlertDialog({
+    super.key,
+    required this.title,
+    required this.context,
+    required this.content,
+  });
   final BuildContext context;
   final Widget content;
   final String title;

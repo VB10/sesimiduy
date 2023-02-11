@@ -1,7 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
@@ -14,6 +14,7 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
@@ -30,6 +31,7 @@ class DeliverHelpDialog extends StatefulWidget {
 class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   HelpType _helpType = HelpType.personal;
+  bool isAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,12 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
-                    const _ActionButton(),
+                    _kvkkCheckBox(),
+                    const VerticalSpace.standard(),
+                    _ActionButton(
+                      formKey: _formKey,
+                      isAccepted: isAccepted,
+                    ),
                     const VerticalSpace.small(),
                   ],
                 ),
@@ -80,6 +87,17 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
           },
         ),
       ),
+    );
+  }
+
+  KVKKCheckBox _kvkkCheckBox() {
+    return KVKKCheckBox(
+      isAccepted: isAccepted,
+      onAccepted: (value) {
+        setState(() {
+          isAccepted = value;
+        });
+      },
     );
   }
 
@@ -94,10 +112,10 @@ class _CarriedItems extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductComboBox<NeedsModel>(
-        labelText: LocaleKeys.carriedItems.tr(),
+        labelText: LocaleKeys.carriedItems.locale,
         items: const [],
         onChanged: (_) {},
-        hintText: LocaleKeys.youMaySelectMultiple.tr(),
+        hintText: LocaleKeys.youMaySelectMultiple.locale,
         validator: (text) =>
             ValidateGenericItems<NeedsModel>(text).validateDropDown,
       ),
@@ -163,9 +181,9 @@ class _DestinationFromField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabeledProductComboBox<ProductDropDownModel>(
-      labelText: LocaleKeys.labelFromCity.tr(),
+      labelText: LocaleKeys.labelFromCity.locale,
       items: const [],
-      hintText: LocaleKeys.hintPickCity.tr(),
+      hintText: LocaleKeys.hintPickCity.locale,
       onChanged: (_) {},
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
@@ -179,9 +197,9 @@ class _DestinationToField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabeledProductComboBox<ProductDropDownModel>(
-      labelText: LocaleKeys.labelToCity.tr(),
+      labelText: LocaleKeys.labelToCity.locale,
       items: const [],
-      hintText: LocaleKeys.hintPickCity.tr(),
+      hintText: LocaleKeys.hintPickCity.locale,
       onChanged: (_) {},
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
@@ -195,22 +213,27 @@ class _CarPlateNumberTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabeledProductTextField(
-      labelText: LocaleKeys.labelVehiclePlate.tr(),
+      labelText: LocaleKeys.labelVehiclePlate.locale,
       validator: (text) => ValidatorItems(text).validateAddress,
     );
   }
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton();
+  const _ActionButton({required this.formKey, required this.isAccepted});
+
+  final GlobalKey<FormState> formKey;
+  final bool isAccepted;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: ActiveButton(
-        label: LocaleKeys.sendHelp.tr(),
-        onPressed: () {},
+        label: LocaleKeys.sendHelp.locale,
+        onPressed: () {
+          if ((formKey.currentState?.validate() ?? false) && isAccepted) {}
+        },
       ),
     );
   }
@@ -222,11 +245,11 @@ class _VehicleDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabeledProductComboBox<VehicleTypes>(
-      labelText: LocaleKeys.labelVehicleType.tr(),
+      labelText: LocaleKeys.labelVehicleType.locale,
       items: VehicleTypes.values,
       onChanged: (_) {},
       initialItem: VehicleTypes.car,
-      hintText: VehicleTypes.car.title.tr(),
+      hintText: VehicleTypes.car.title.locale,
       validator: (item) =>
           ValidateGenericItems<VehicleTypes>(item).validateDropDown,
     );
@@ -243,7 +266,7 @@ class _PhoneField extends StatelessWidget {
       child: LabeledProductTextField(
         hintText: StringConstants.phoneHint,
         formatters: [InputFormatter.instance.phoneFormatter],
-        labelText: LocaleKeys.labelDriverPhone.tr(),
+        labelText: LocaleKeys.labelDriverPhone.locale,
         validator: (text) => ValidatorItems(text).validatePhoneNumber,
       ),
     );
@@ -258,8 +281,8 @@ class _DriverNameField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        hintText: LocaleKeys.nameAndSurname.tr(),
-        labelText: LocaleKeys.labelDriverName.tr(),
+        hintText: LocaleKeys.nameAndSurname.locale,
+        labelText: LocaleKeys.labelDriverName.locale,
         validator: (text) => ValidatorItems(text).validateFullName,
       ),
     );
@@ -276,10 +299,10 @@ class _NameTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        hintText: LocaleKeys.nameAndSurname.tr(),
+        hintText: LocaleKeys.nameAndSurname.locale,
         labelText: isPersonal
-            ? LocaleKeys.nameAndSurname.tr()
-            : LocaleKeys.labelCompanyName.tr(),
+            ? LocaleKeys.nameAndSurname.locale
+            : LocaleKeys.labelCompanyName.locale,
         validator: (value) => ValidatorItems(value).validateFullName,
       ),
     );
@@ -300,13 +323,13 @@ class _HelpTypeSelectionRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _SelectionButton(
-            label: LocaleKeys.personalHelp.tr(),
+            label: LocaleKeys.personalHelp.locale,
             isSelected: selection == HelpType.personal,
             onPressed: () => onChanged(HelpType.personal),
           ),
           const HorizontalSpace.xSmall(),
           _SelectionButton(
-            label: LocaleKeys.companyHelp.tr(),
+            label: LocaleKeys.companyHelp.locale,
             isSelected: selection == HelpType.business,
             onPressed: () => onChanged(HelpType.business),
           ),
@@ -362,7 +385,7 @@ class _Header extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            LocaleKeys.goingtoHelp.tr(),
+            LocaleKeys.goingtoHelp.locale,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -402,7 +425,7 @@ class _SubHeader extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: Text(
-        LocaleKeys.hintSubHeader.tr(),
+        LocaleKeys.hintSubHeader.locale,
       ),
     );
   }

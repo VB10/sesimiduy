@@ -1,6 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
+// ignore_for_file: always_put_required_named_parameters_first
+
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/items.dart';
@@ -13,6 +15,7 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
@@ -36,6 +39,7 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
         _addressController.text,
         items?.id ?? '',
         _autoCompleteText.value,
+        isAccepted,
       ),
     );
   }
@@ -82,6 +86,8 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
                       },
                     ),
                     const VerticalSpace.standard(),
+                    _kvkkCheckBox(),
+                    const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
                     ValueListenableBuilder<bool>(
@@ -100,8 +106,9 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
                           ) {
                             return _ActionButton(
                               onPressed: onComplete,
-                              isEnabled:
-                                  autoCompleteState.isNotEmpty && activeState,
+                              isEnabled: autoCompleteState.isNotEmpty &&
+                                  activeState &&
+                                  isAccepted,
                             );
                           },
                         );
@@ -117,19 +124,31 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
       ),
     );
   }
+
+  KVKKCheckBox _kvkkCheckBox() {
+    return KVKKCheckBox(
+      isAccepted: isAccepted,
+      onAccepted: (value) {
+        setState(() {
+          isAccepted = value;
+        });
+      },
+    );
+  }
 }
 
 class _ActionButton extends StatelessWidget {
   const _ActionButton({this.isEnabled = false, required this.onPressed});
   final bool isEnabled;
   final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: ActiveButton(
         onPressed: !isEnabled ? null : onPressed.call,
-        label: LocaleKeys.askForHelp.tr(),
+        label: LocaleKeys.askForHelp.locale,
       ),
     );
   }
@@ -148,7 +167,7 @@ class _NeedsComboBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            LocaleKeys.hintNameNeed.tr(),
+            LocaleKeys.hintNameNeed.locale,
             style: context.textTheme.bodySmall,
           ),
           FutureBuilder(
@@ -197,8 +216,8 @@ class _AddressField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        hintText: LocaleKeys.addressHint.tr(),
-        labelText: LocaleKeys.address.tr(),
+        hintText: LocaleKeys.addressHint.locale,
+        labelText: LocaleKeys.address.locale,
         isMultiline: true,
         controller: _addressController,
         validator: (value) => ValidatorItems(value).validateAddress,
@@ -223,7 +242,7 @@ class _PhoneNumberField extends StatelessWidget {
         formatters: [InputFormatter.instance.phoneFormatter],
         validator: (value) => ValidatorItems(value).validatePhoneNumber,
         keyboardType: TextInputType.phone,
-        labelText: LocaleKeys.phoneNumber.tr(),
+        labelText: LocaleKeys.phoneNumber.locale,
       ),
     );
   }
@@ -240,8 +259,8 @@ class _FullNameField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: _fullNameController,
-        hintText: LocaleKeys.nameAndSurname.tr(),
-        labelText: LocaleKeys.nameAndSurname.tr(),
+        hintText: LocaleKeys.nameAndSurname.locale,
+        labelText: LocaleKeys.nameAndSurname.locale,
         validator: (value) => ValidatorItems(value).validateFullName,
       ),
     );
@@ -256,7 +275,7 @@ class _SubHeader extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: Text(
-        LocaleKeys.personNeedsHelp.tr(),
+        LocaleKeys.personNeedsHelp.locale,
       ),
     );
   }
@@ -285,7 +304,7 @@ class _Header extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            LocaleKeys.needHelp.tr(),
+            LocaleKeys.needHelp.locale,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -325,6 +344,8 @@ mixin _RequestTextEditingMixin on State<RequestHelpDialog> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  bool isAccepted = false;
 
   @override
   void dispose() {

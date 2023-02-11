@@ -13,6 +13,7 @@ RequestHelpForm _$RequestHelpFormFromJson(Map<String, dynamic> json) =>
       json['address'] as String,
       json['categoryId'] as String,
       json['newCategoryName'] as String?,
+      json['isKVKKAccepted'] as bool,
     );
 
 Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
       'address': instance.address,
       'categoryId': instance.categoryId,
       'newCategoryName': instance.newCategoryName,
+      'isKVKKAccepted': instance.isKVKKAccepted,
     };

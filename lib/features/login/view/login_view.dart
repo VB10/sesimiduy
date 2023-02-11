@@ -7,9 +7,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/product/dialog/completed_dialog.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
-import 'package:sesimiduy/product/dialog/completed_dialog.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
@@ -49,7 +50,7 @@ class LoginView extends StatelessWidget {
             child: Padding(
               padding: const PagePadding.all(),
               child: Text(
-                LocaleKeys.login_description.tr(),
+                LocaleKeys.login_description.locale,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodySmall
                     ?.copyWith(decoration: TextDecoration.underline),
@@ -89,7 +90,7 @@ class _CompletedButton extends StatelessWidget {
                 Padding(
                   padding: const PagePadding.onlyLeftLow(),
                   child: Text(
-                    LocaleKeys.login_arrived.tr().toUpperCase(),
+                    LocaleKeys.login_arrived.locale.toUpperCase(),
                     style: context.textTheme.titleLarge
                         ?.copyWith(color: ColorsCustom.white),
                   ),
@@ -129,7 +130,7 @@ class _CurrentMaps extends StatelessWidget {
                 Padding(
                   padding: const PagePadding.onlyLeftLow(),
                   child: Text(
-                    LocaleKeys.login_currentMap.tr().toUpperCase(),
+                    LocaleKeys.login_currentMap.locale.toUpperCase(),
                     style: context.textTheme.titleLarge
                         ?.copyWith(color: ColorsCustom.white),
                   ),
@@ -164,7 +165,7 @@ class _GoingHelpButton extends StatelessWidget {
             },
             child: Center(
               child: Text(
-                LocaleKeys.login_goingHelp.tr().toUpperCase(),
+                LocaleKeys.login_goingHelp.locale.toUpperCase(),
                 style: context.textTheme.titleLarge
                     ?.copyWith(color: ColorsCustom.white),
               ),
@@ -189,12 +190,12 @@ class _HelpWantedButton extends StatelessWidget {
           child: OutlinedButton(
             style: CustomButtonStyle.bold,
             onPressed: () {
-              RequestHelpDialog().show(context);
+              const RequestHelpDialog().show(context);
             },
             child: Center(
               child: FittedBox(
                 child: Text(
-                  LocaleKeys.login_wantHelp.tr().toUpperCase(),
+                  LocaleKeys.login_wantHelp.locale.toUpperCase(),
                   style: context.textTheme.titleLarge,
                 ),
               ),
@@ -231,7 +232,7 @@ class _Header extends StatelessWidget {
                     ),
                     const SizedBox(height: WidgetSizes.spacingXsMid),
                     Text(
-                      LocaleKeys.login_info.tr(),
+                      LocaleKeys.login_info.locale,
                       textAlign: TextAlign.center,
                       style: context.textTheme.titleLarge?.copyWith(
                         color: ColorsCustom.white,

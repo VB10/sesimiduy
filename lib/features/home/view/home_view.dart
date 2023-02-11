@@ -1,9 +1,8 @@
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/features/home/provider/home_provider.dart';
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/utility/dialog/register_error_dialog.dart';
 import 'package:sesimiduy/product/utility/dialog/register_success_dialog.dart';
@@ -43,14 +42,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Future<void> displayErrorDialog(BuildContext context) async {
     final dialog = RegisterErrorDialog(context: context);
     await dialog.showAlertDialog<void>(
-      content: LocaleKeys.dialog_errorContent.tr(),
+      content: LocaleKeys.dialog_errorContent.locale,
     );
   }
 
   Future<void> displaySuccessDialog(BuildContext context) async {
     final dialog = RegisterSuccessDialog(context: context);
     await dialog.showAlertDialog<void>(
-      content: LocaleKeys.dialog_successContent.tr(),
+      content: LocaleKeys.dialog_successContent.locale,
     );
   }
 }

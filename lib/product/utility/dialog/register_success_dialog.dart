@@ -1,15 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'package:sesimiduy/product/utility/dialog/display_dialog_mixin.dart';
-
+import 'package:sesimiduy/product/extension/string_lang_extension.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
+import 'package:sesimiduy/product/utility/dialog/display_dialog_mixin.dart';
 
 class RegisterSuccessDialog with DisplayDialogMixin {
   RegisterSuccessDialog({
     required this.context,
     String? title,
-  }) : title = title ?? LocaleKeys.dialog_successTitle.tr();
+  }) : title = title ?? LocaleKeys.dialog_successTitle.locale;
 
   @override
   final BuildContext context;
