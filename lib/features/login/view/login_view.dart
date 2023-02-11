@@ -11,6 +11,7 @@ import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
+import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
@@ -169,8 +170,12 @@ class _HelpWantedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: CustomButtonStyle.bold,
-      onPressed: () {
-        const RequestHelpDialog().show(context);
+      onPressed: () async {
+        final response =
+            await const RequestHelpDialog().show<RequestHelpForm>(context);
+        if (response != null) {
+          print(response);
+        }
       },
       child: FittedBox(
         child: Text(
