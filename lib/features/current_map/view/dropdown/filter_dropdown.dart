@@ -51,7 +51,6 @@ class _FilterDropDownState extends State<FilterDropDown> {
                 .map(
                   (e) => DropdownMenuItem<PoiCategory>(
                     value: e,
-                    onTap: () {},
                     child: _DropdownTitle(e.name),
                   ),
                 )

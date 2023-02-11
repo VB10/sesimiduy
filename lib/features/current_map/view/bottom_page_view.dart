@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
@@ -9,36 +11,50 @@ import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dar
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 
-class BottomPageView extends StatelessWidget {
-  BottomPageView({super.key});
+class BottomPageView extends ConsumerStatefulWidget {
+  const BottomPageView({required this.provider, super.key});
 
+  final StateNotifierProvider<MapProvider, MapState> provider;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _BottomPageViewState();
+}
+
+class _BottomPageViewState extends ConsumerState<BottomPageView> {
   final PageController controller = PageController(
     viewportFraction: kIsWeb ? 0.2 : 0.6,
   );
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return PageView(
+    return PageView.builder(
       controller: controller,
       padEnds: false,
-      children: const [
-        InfoCard(info: 'Page-1'),
-        InfoCard(info: 'Page-2'),
-        InfoCard(info: 'Page-3'),
-        InfoCard(info: 'Page-4'),
-        InfoCard(info: 'Page-5'),
-        InfoCard(info: 'Page-6'),
-      ],
+      itemBuilder: (context, index) {
+        final items = ref.watch(widget.provider).requestMarkers;
+        return const InfoCard(
+          address: '',
+          title: '',
+        );
+      },
+      itemCount: 1,
     );
   }
 }
 
 class InfoCard extends StatelessWidget {
   const InfoCard({
-    required this.info,
     super.key,
+    required this.title,
+    required this.address,
   });
-  final String info;
+  final String title;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +66,12 @@ class InfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const ListTile(
-              title: Text('YARDIM TITLE'),
-              subtitle: Text('YARDIM DESCRIPTION'),
-              leading: Icon(Icons.person_pin_circle_outlined),
+            ListTile(
+              title: Text(title),
+              subtitle: Text(address),
+              leading: const Icon(Icons.person_pin_circle_outlined),
             ),
             FloatingActionButton.extended(
-              heroTag: info,
               onPressed: () {
                 showDialog(
                   context: context,

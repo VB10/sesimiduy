@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sesimiduy/product/model/want_help_model.dart';
 
 part 'poi_model.g.dart';
 
@@ -64,4 +65,14 @@ class Poi with EquatableMixin {
         categoryName,
         location,
       ];
+
+  Poi fromWanted(WantHelpModel wanted) {
+    return Poi(
+      categoryId: wanted.categoryId,
+      id: wanted.id,
+      categoryName: wanted.categoryName,
+      name: wanted.name,
+      location: wanted.location,
+    );
+  }
 }

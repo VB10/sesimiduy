@@ -32,7 +32,6 @@ class WantHelpModel {
     return WantHelpModel.fromJson(data);
   }
 
-
   Map<String, dynamic> toJson() => _$WantHelpModelToJson(this);
 
   WantHelpModel copyWith({

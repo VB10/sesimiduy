@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/bitmap.dart';
-import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
 
