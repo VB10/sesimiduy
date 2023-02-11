@@ -13,13 +13,25 @@ import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
+import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  @override
+  void initState() {
+    super.initState();
+    MapsManager.checkPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
