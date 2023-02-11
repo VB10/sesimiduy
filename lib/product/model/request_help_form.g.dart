@@ -12,21 +12,24 @@ RequestHelpForm _$RequestHelpFormFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String,
       address: json['address'] as String,
       categoryId: json['categoryId'] as String,
-      newCategoryName: json['newCategoryName'] as String?,
-      location:
-          RequestHelpForm._geoPointConvertJson(json['location'] as GeoPoint?),
-      categories: (json['categories'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      categories: (json['categories'] as List<dynamic>)
+          .map((e) => Items.fromJson(e as Map<String, dynamic>))
           .toList(),
+      location: GeoParser.geoPointConvertJson(json['location'] as GeoPoint?),
+      startedDate: FirebaseTimeParser.datetimeFromTimestamp(
+          json['startedDate'] as Timestamp?),
+      updatedDate: FirebaseTimeParser.datetimeFromTimestamp(
+          json['updatedDate'] as Timestamp?),
     );
 
 Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>
     <String, dynamic>{
+      'startedDate': instance.startedDate?.toIso8601String(),
+      'updatedDate': instance.updatedDate?.toIso8601String(),
       'fullName': instance.fullName,
       'phoneNumber': instance.phoneNumber,
       'address': instance.address,
       'categoryId': instance.categoryId,
-      'newCategoryName': instance.newCategoryName,
-      'location': RequestHelpForm._geoPointConvertJson(instance.location),
-      'categories': instance.categories,
+      'location': GeoParser.geoPointConvertJson(instance.location),
+      'categories': instance.categories.map((e) => e.toJson()).toList(),
     };

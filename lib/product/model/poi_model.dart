@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sesimiduy/product/model/want_help_model.dart';
 
 part 'poi_model.g.dart';
 
@@ -14,6 +13,8 @@ class Poi with EquatableMixin {
     this.id,
     this.name,
     this.location,
+    this.latitude,
+    this.longitude,
   });
   factory Poi.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -22,7 +23,14 @@ class Poi with EquatableMixin {
     if (data == null) {
       throw Exception('Data is null');
     }
-    return Poi.fromJson(data).copyWith(id: snapshot.id);
+    final model = Poi.fromJson(data);
+    return model.copyWith(
+      id: snapshot.id,
+      location: GeoPoint(
+        double.tryParse(model.latitude ?? '') ?? 0,
+        double.tryParse(model.longitude ?? '') ?? 0,
+      ),
+    );
   }
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
@@ -32,6 +40,8 @@ class Poi with EquatableMixin {
   final String? name;
   @JsonKey(fromJson: _geoPointConvertJson, toJson: _geoPointConvertJson)
   final GeoPoint? location;
+  final String? latitude;
+  final String? longitude;
 
   static GeoPoint? _geoPointConvertJson(GeoPoint? geoPoint) {
     return geoPoint;
@@ -65,14 +75,4 @@ class Poi with EquatableMixin {
         categoryName,
         location,
       ];
-
-  Poi fromWanted(WantHelpModel wanted) {
-    return Poi(
-      categoryId: wanted.categoryId,
-      id: wanted.id,
-      categoryName: wanted.categoryName,
-      name: wanted.name,
-      location: wanted.location,
-    );
-  }
 }
