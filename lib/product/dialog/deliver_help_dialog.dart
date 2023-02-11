@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -33,8 +35,6 @@ class DeliverHelpDialog extends StatefulWidget {
 
 class _DeliverHelpDialogState extends State<DeliverHelpDialog>
     with _OperationMixin {
-  HelpType _helpType = HelpType.personal;
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -94,11 +94,9 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     _ActionButton(
                       notifier: itemNotifier,
                       stateNotifier: stateNotifier,
-                      onPressed: () {
-                        final request = returnRequestItem();
-                        if (request != null) {
-                          Navigator.pop(context, request);
-                        }
+                      onPressed: () async {
+                        final request = await returnRequestItem();
+                        Navigator.pop<DeliveryHelpForm>(context, request);
                       },
                     ),
                     const VerticalSpace.small(),
@@ -512,8 +510,8 @@ class _SubHeader extends StatelessWidget {
 }
 
 extension DeliverHelpDialogExtension on DeliverHelpDialog {
-  Future<void> show(BuildContext context) {
-    return showDialog(
+  Future<T?> show<T>(BuildContext context) {
+    return showDialog<T?>(
       context: context,
       builder: (context) => this,
     );
@@ -535,6 +533,7 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
   final TextEditingController toController = TextEditingController();
   ValueNotifier<Items?> itemNotifier = ValueNotifier(null);
   ValueNotifier<bool> stateNotifier = ValueNotifier(false);
+  HelpType _helpType = HelpType.personal;
 
   @override
   void dispose() {
@@ -549,21 +548,32 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
     super.dispose();
   }
 
-  DeliveryHelpForm? returnRequestItem() {
+  bool get isCompany => _helpType == HelpType.business;
+
+  Future<DeliveryHelpForm?> returnRequestItem() async {
     if (itemNotifier.value == null) return null;
+    final deviceID = await DeviceUtility.instance.getUniqueDeviceId();
     return DeliveryHelpForm(
-      fullName: _nameController.text,
+      deviceId: deviceID,
+      madeByCityId: 1,
+      madeByCityName: fromController.text,
+      isCompany: isCompany,
+      fullName: !isCompany ? _nameController.text : '',
       driverName: _driverNameController.text,
       phoneNumber: _phoneController.text.phoneFormatValue,
-      carPlate: _carPlateNumberController.text,
-      vehicleType: _vehicleTypeController.text.isNullOrEmpty
-          ? VehicleTypes.car.name
-          : _vehicleTypeController.text,
+      numberPlate: _carPlateNumberController.text,
+      carType: _vehicleTypeController.text.isNullOrEmpty
+          ? VehicleTypes.car.index
+          : VehicleTypes.values
+              .firstWhere((e) => e.name == _vehicleTypeController.text)
+              .index,
       fromPlace: fromController.text,
       toPlace: toController.text,
-      item: itemNotifier.value!,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      collectItem: itemNotifier.value?.name ?? '',
+      collectItemId: itemNotifier.value?.id ?? '',
+      companyName: isCompany ? _nameController.text : '',
     );
   }
 }
