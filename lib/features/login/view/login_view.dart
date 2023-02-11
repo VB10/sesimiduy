@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/features/login/service/help_upload_service.dart';
 import 'package:sesimiduy/product/dialog/completed_dialog.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/dialog/request_help_dialog.dart';
@@ -174,7 +175,8 @@ class _HelpWantedButton extends StatelessWidget {
         final response =
             await const RequestHelpDialog().show<RequestHelpForm>(context);
         if (response != null) {
-          print(response);
+          var uploadService = HelpUploadService();
+          await uploadService.createHelpCall(helpForm: response);
         }
       },
       child: FittedBox(
