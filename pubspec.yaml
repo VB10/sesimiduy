@@ -47,3 +47,4 @@ flutter:
   assets:
     - assets/translations/
     - assets/icons/
+    - assets/docs/

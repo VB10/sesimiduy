@@ -18,6 +18,8 @@ import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 
+import '../widget/checkbox/kvkk_checkbox.dart';
+
 class RequestHelpDialog extends StatefulWidget {
   const RequestHelpDialog({super.key});
 
@@ -55,7 +57,7 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
             width: windowSize.isMobile ? null : context.dynamicWidth(.5),
             child: SingleChildScrollView(
               child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: autovalidateMode,
                 key: _formKey,
                 onChanged: () {
                   _activeButtonValue.value =
@@ -89,6 +91,7 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
+                    KvkkCheckBox(autovalidateMode),
                     ValueListenableBuilder<bool>(
                       valueListenable: _activeButtonValue,
                       builder: (
@@ -322,6 +325,7 @@ extension RequestHelpDialogExtension on RequestHelpDialog {
 
 mixin _RequestTextEditingMixin on State<RequestHelpDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
   final ValueNotifier<String> _autoCompleteText = ValueNotifier('');
