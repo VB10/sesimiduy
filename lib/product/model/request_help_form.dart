@@ -14,6 +14,7 @@ class RequestHelpForm {
     required this.categoryId,
     this.newCategoryName,
     this.location,
+    this.categories,
   });
 
   final String fullName;
@@ -23,6 +24,7 @@ class RequestHelpForm {
   final String? newCategoryName;
   @JsonKey(fromJson: _geoPointConvertJson, toJson: _geoPointConvertJson)
   final GeoPoint? location;
+  final List<String>? categories;
 
   Map<String, dynamic> toJson() => _$RequestHelpFormToJson(this);
 

@@ -11,26 +11,24 @@ import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
-import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
-import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
+import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
 
-class RequestHelpDialog extends StatefulWidget {
-  const RequestHelpDialog({super.key});
+class RequestHelpView extends StatefulWidget {
+  const RequestHelpView({super.key});
 
   @override
-  State<RequestHelpDialog> createState() => _RequestHelpDialogState();
+  State<RequestHelpView> createState() => _RequestHelpViewState();
 }
 
-class _RequestHelpDialogState extends State<RequestHelpDialog>
+class _RequestHelpViewState extends State<RequestHelpView>
     with _RequestTextEditingMixin {
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    if (_autoCompleteText.value.isEmpty) return;
-
+    if (_items.value.isEmpty) return;
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
     await context.pop<RequestHelpForm>(
@@ -39,7 +37,7 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
         phoneNumber: _phoneNumberController.text.phoneFormatValue,
         address: _addressController.text,
         categoryId: items?.id ?? '',
-        newCategoryName: _autoCompleteText.value,
+        categories: _items.value.map((e) => e.id ?? '').toList(),
         location: GeoPoint(data.latitude, data.longitude),
       ),
     );
@@ -47,78 +45,66 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      insetPadding: const PagePadding.all(),
-      child: ResponsiveBuilder(
-        builder: (windowSize) {
-          return SizedBox(
-            width: windowSize.isMobile ? null : context.dynamicWidth(.5),
-            child: SingleChildScrollView(
-              child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: _formKey,
-                onChanged: () {
-                  _activeButtonValue.value =
-                      _formKey.currentState?.validate() ?? false;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(LocaleKeys.needHelp.tr()),
+        backgroundColor: ColorsCustom.sambacus,
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: _formKey,
+          onChanged: () {
+            _activeButtonValue.value =
+                _formKey.currentState?.validate() ?? false;
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const _CustomDivider(),
+              const VerticalSpace.standard(),
+              const _SubHeader(),
+              const VerticalSpace.standard(),
+              _FullNameField(_fullNameController),
+              const VerticalSpace.standard(),
+              _PhoneNumberField(_phoneNumberController),
+              const VerticalSpace.standard(),
+              _AddressField(_addressController),
+              const VerticalSpace.standard(),
+              _NeedsComboBox(
+                onSuggestionChanges: (value) {
+                  _items.value = value.toList();
                 },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const VerticalSpace.standard(),
-                    const _Header(),
-                    const _CustomDivider(),
-                    const VerticalSpace.standard(),
-                    const _SubHeader(),
-                    const VerticalSpace.standard(),
-                    _FullNameField(_fullNameController),
-                    const VerticalSpace.standard(),
-                    _PhoneNumberField(_phoneNumberController),
-                    const VerticalSpace.standard(),
-                    _AddressField(_addressController),
-                    const VerticalSpace.standard(),
-                    _NeedsComboBox(
-                      onSelected: (value) {
-                        _autoCompleteText.value = value.name ?? '';
-                        items = value;
-                      },
-                      onTextChange: (value) {
-                        items = null;
-                        _autoCompleteText.value = value;
-                      },
-                    ),
-                    const VerticalSpace.standard(),
-                    const _CustomDivider(),
-                    const VerticalSpace.standard(),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _activeButtonValue,
-                      builder: (
-                        BuildContext context,
-                        bool activeState,
-                        Widget? child,
-                      ) {
-                        return ValueListenableBuilder<String>(
-                          valueListenable: _autoCompleteText,
-                          builder: (
-                            BuildContext context,
-                            String autoCompleteState,
-                            Widget? child,
-                          ) {
-                            return _ActionButton(
-                              onPressed: onComplete,
-                              isEnabled:
-                                  autoCompleteState.isNotEmpty && activeState,
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    const VerticalSpace.standard(),
-                  ],
-                ),
               ),
-            ),
-          );
-        },
+              const VerticalSpace.standard(),
+              const _CustomDivider(),
+              const VerticalSpace.standard(),
+              ValueListenableBuilder<bool>(
+                valueListenable: _activeButtonValue,
+                builder: (
+                  BuildContext context,
+                  bool activeState,
+                  Widget? child,
+                ) {
+                  return ValueListenableBuilder<List<Items>>(
+                    valueListenable: _items,
+                    builder: (
+                      BuildContext context,
+                      List<Items> autoCompleteState,
+                      Widget? child,
+                    ) {
+                      return _ActionButton(
+                        onPressed: onComplete,
+                        isEnabled: autoCompleteState.isNotEmpty && activeState,
+                      );
+                    },
+                  );
+                },
+              ),
+              const VerticalSpace.standard(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -141,9 +127,11 @@ class _ActionButton extends StatelessWidget {
 }
 
 class _NeedsComboBox extends StatelessWidget {
-  const _NeedsComboBox({required this.onSelected, required this.onTextChange});
-  final ValueChanged<Items> onSelected;
-  final ValueChanged<String> onTextChange;
+  const _NeedsComboBox({
+    required this.onSuggestionChanges,
+  });
+
+  final ValueChanged<List<Items>> onSuggestionChanges;
 
   @override
   Widget build(BuildContext context) {
@@ -166,23 +154,12 @@ class _NeedsComboBox extends StatelessWidget {
               },
             ).get(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text(snapshot.data.toString());
-              }
+              if (snapshot.hasError) return const SizedBox();
               final data = snapshot.data;
-              return Autocomplete<Items>(
-                onSelected: onSelected.call,
-                displayStringForOption: (option) => option.name ?? '',
-                optionsBuilder: (textEditingValue) {
-                  onTextChange.call(textEditingValue.text);
-                  return (data?.docs ?? []).map((e) => e.data()).where(
-                        (element) =>
-                            element.name?.toLowerCase().contains(
-                                  textEditingValue.text.toLowerCase(),
-                                ) ??
-                            false,
-                      );
-                },
+
+              return ItemsTextField(
+                onSelected: onSuggestionChanges,
+                needItems: data?.docs.map((e) => e.data()).toList() ?? [],
               );
             },
           ),
@@ -280,51 +257,22 @@ class _CustomDivider extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
-  const _Header();
+// extension RequestHelpDialogExtension on RequestHelpDialog {
+//   Future<T?> show<T>(BuildContext context) {
+//     return showDialog(
+//       context: context,
+//       builder: (context) {
+//         return this;
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.all(),
-      child: Row(
-        children: [
-          Text(
-            LocaleKeys.needHelp.tr(),
-            style: context.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {
-              context.navigation.pop();
-            },
-            icon: const Icon(Icons.close),
-            iconSize: WidgetSizes.spacingXxl,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-extension RequestHelpDialogExtension on RequestHelpDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return this;
-      },
-    );
-  }
-}
-
-mixin _RequestTextEditingMixin on State<RequestHelpDialog> {
+mixin _RequestTextEditingMixin on State<RequestHelpView> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
-  final ValueNotifier<String> _autoCompleteText = ValueNotifier('');
+  final ValueNotifier<List<Items>> _items = ValueNotifier([]);
   Items? items;
 
   final TextEditingController _fullNameController = TextEditingController();
