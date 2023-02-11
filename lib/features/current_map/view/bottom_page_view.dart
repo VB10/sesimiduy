@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
@@ -7,7 +8,7 @@ class BottomPageView extends StatelessWidget {
   BottomPageView({super.key});
 
   final PageController controller = PageController(
-    viewportFraction: 0.6,
+    viewportFraction: kIsWeb ? 0.2 : 0.6,
   );
 
   @override
@@ -20,6 +21,8 @@ class BottomPageView extends StatelessWidget {
         InfoCard(info: 'Page-2'),
         InfoCard(info: 'Page-3'),
         InfoCard(info: 'Page-4'),
+        InfoCard(info: 'Page-5'),
+        InfoCard(info: 'Page-6'),
       ],
     );
   }
@@ -48,6 +51,7 @@ class InfoCard extends StatelessWidget {
               leading: Icon(Icons.person_pin_circle_outlined),
             ),
             FloatingActionButton.extended(
+              heroTag: info,
               onPressed: () {},
               backgroundColor: ColorsCustom.endless,
               label: const Text('Bildir'),
