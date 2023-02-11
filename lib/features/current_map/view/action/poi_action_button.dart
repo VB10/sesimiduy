@@ -19,7 +19,7 @@ class PoiActionButton extends StatelessWidget {
     return FilterDropDown(
       onSelected: (category) async {
         if (category == null) return;
-        final markers = await MapService().fetchPOI(category);
+        final markers = await MapService().fetchCategoryPOI(category);
         await onSelected.call(
           markers
               .map(
