@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
@@ -21,7 +23,6 @@ class CurrentMapView extends ConsumerStatefulWidget {
 class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
   late final StateNotifierProvider<MapProvider, MapState> mapProvider;
   late final MapService service;
-
   @override
   void initState() {
     super.initState();
@@ -42,11 +43,20 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
         centerTitle: false,
         actions: [
           PoiActionButton(
-            icon: ref.watch(mapProvider).markerHelpIcon,
             onSelected: (value) async {
               await ref
                   .read(mapProvider.notifier)
                   .updatePoiWithIconCheck(value, context);
+              final position = value.firstOrNull?.position;
+
+              if (position == null) return;
+
+              ref.read(mapProvider.notifier).changeMapView(
+                    GeoPoint(
+                      position.latitude,
+                      position.longitude,
+                    ),
+                  );
             },
           ),
         ],
@@ -54,9 +64,23 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          GoogleMap(
-            markers: ref.watch(mapProvider).selectedMarkers ?? {},
-            initialCameraPosition: initialCameraPosition,
+          Consumer(
+            builder: (context, widgetRef, child) {
+              final selectedCategoriesItems =
+                  ref.watch(mapProvider).selectedMarkers ?? {};
+              final requestedMarkers =
+                  ref.watch(mapProvider).requestMarkers ?? {};
+
+              return GoogleMap(
+                onMapCreated: (controller) {
+                  ref.read(mapProvider.notifier).setController(controller);
+                },
+                markers: Set.from(
+                  selectedCategoriesItems.toList() + requestedMarkers.toList(),
+                ),
+                initialCameraPosition: initialCameraPosition,
+              );
+            },
           ),
           Positioned(
             bottom: WidgetSizes.spacingL,
@@ -64,7 +88,10 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
             left: 0,
             height: WidgetSizes.spacingXxl8 * 3,
             child: SafeArea(
-              child: BottomPageView(provider: mapProvider),
+              child: BottomPageView(
+                wantedItems: ref.watch(mapProvider).wanteds ?? [],
+                mapProvider: ref.read(mapProvider.notifier),
+              ),
             ),
           ),
         ],

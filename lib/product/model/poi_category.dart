@@ -11,6 +11,7 @@ class PoiCategory with ProductDropDownModel, EquatableMixin {
   PoiCategory({
     required this.name,
     this.id,
+    this.categoryType,
   });
   factory PoiCategory.fromJson(Map<String, dynamic> json) =>
       _$PoiCategoryFromJson(json);
@@ -25,6 +26,7 @@ class PoiCategory with ProductDropDownModel, EquatableMixin {
   final String? id;
   @override
   final String? name;
+  final String? categoryType;
 
   PoiCategory fromJson(Map<String, dynamic> json) {
     return _$PoiCategoryFromJson(json);
@@ -50,6 +52,5 @@ class PoiCategory with ProductDropDownModel, EquatableMixin {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [id, name];
+  List<Object?> get props => [id, name, categoryType];
 }

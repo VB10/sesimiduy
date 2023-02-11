@@ -1,5 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:sesimiduy/product/model/want_help_model.dart';
+
 class ProductMarker extends Marker {
   ProductMarker(
     String? id,
@@ -16,6 +18,15 @@ class ProductMarker extends Marker {
           ),
           icon: icon ?? BitmapDescriptor.defaultMarker,
         );
+
+  factory ProductMarker.fromWantedHelpModel(WantHelpModel e) {
+    return ProductMarker(
+      e.id,
+      e.fullName,
+      e.location?.latitude,
+      e.location?.longitude,
+    );
+  }
 }
 
 class RequestHelpMarker extends Marker {

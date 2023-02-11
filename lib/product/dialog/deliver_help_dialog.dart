@@ -70,7 +70,6 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                       controller: _nameController,
                     ),
                     const VerticalSpace.standard(),
-                    _DriverNameField(controller: _driverNameController),
                     const VerticalSpace.standard(),
                     _PhoneField(controller: _phoneController),
                     const VerticalSpace.standard(),
@@ -552,7 +551,6 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
   final autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _driverNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _carPlateNumberController =
       TextEditingController();
@@ -568,7 +566,6 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
   @override
   void dispose() {
     _nameController.dispose();
-    _driverNameController.dispose();
     _phoneController.dispose();
     _carPlateNumberController.dispose();
     _vehicleTypeController.dispose();
@@ -588,8 +585,8 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
       madeByCityId: 1,
       madeByCityName: fromController.text,
       isCompany: isCompany,
-      fullName: !isCompany ? _nameController.text : '',
-      driverName: _driverNameController.text,
+      fullName: _nameController.text,
+      toPlaceId: 1,
       phoneNumber: _phoneController.text.phoneFormatValue,
       numberPlate: _carPlateNumberController.text,
       carType: _vehicleTypeController.text.isNullOrEmpty

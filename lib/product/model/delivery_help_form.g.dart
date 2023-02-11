@@ -9,13 +9,15 @@ part of 'delivery_help_form.dart';
 DeliveryHelpForm _$DeliveryHelpFormFromJson(Map<String, dynamic> json) =>
     DeliveryHelpForm(
       fullName: json['fullName'] as String,
-      driverName: json['driverName'] as String,
       phoneNumber: json['phoneNumber'] as String,
       numberPlate: json['numberPlate'] as String,
+      toPlaceId: json['toPlaceId'] as int,
       fromPlace: json['fromPlace'] as String,
       toPlace: json['toPlace'] as String,
-      createdAt: _datetimeFromTimestamp(json['createdAt'] as Timestamp?),
-      updatedAt: _datetimeFromTimestamp(json['updatedAt'] as Timestamp?),
+      createdAt: DeliveryHelpForm._datetimeFromTimestamp(
+          json['createdAt'] as Timestamp?),
+      updatedAt: DeliveryHelpForm._datetimeFromTimestamp(
+          json['updatedAt'] as Timestamp?),
       companyName: json['companyName'] as String,
       isCompany: json['isCompany'] as bool,
       madeByCityId: json['madeByCityId'] as int,
@@ -33,7 +35,6 @@ Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
       'isCompany': instance.isCompany,
       'madeByCityId': instance.madeByCityId,
       'madeByCityName': instance.madeByCityName,
-      'driverName': instance.driverName,
       'phoneNumber': instance.phoneNumber,
       'carType': instance.carType,
       'numberPlate': instance.numberPlate,
@@ -42,6 +43,7 @@ Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
       'deviceId': instance.deviceId,
       'fromPlace': instance.fromPlace,
       'toPlace': instance.toPlace,
-      'createdAt': _dateTimeToTimestamp(instance.createdAt),
-      'updatedAt': _dateTimeToTimestamp(instance.updatedAt),
+      'toPlaceId': instance.toPlaceId,
+      'createdAt': DeliveryHelpForm._dateTimeToTimestamp(instance.createdAt),
+      'updatedAt': DeliveryHelpForm._dateTimeToTimestamp(instance.updatedAt),
     };

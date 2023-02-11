@@ -238,7 +238,6 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
 
     if (response == null) {
       _changeLoading();
-      showInSnackBar(LocaleKeys.requestFailed.tr(), context);
       return;
     }
     final uploadService = HelpUploadService();
