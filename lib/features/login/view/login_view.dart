@@ -12,6 +12,7 @@ import 'package:sesimiduy/product/dialog/completed_dialog.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
+import 'package:sesimiduy/product/model/delivery_help_form.dart';
 import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
@@ -139,9 +140,15 @@ class _CurrentMaps extends StatelessWidget {
   }
 }
 
-class _GoingHelpButton extends StatelessWidget {
+class _GoingHelpButton extends StatefulWidget {
   const _GoingHelpButton();
 
+  @override
+  State<_GoingHelpButton> createState() => _GoingHelpButtonState();
+}
+
+class _GoingHelpButtonState extends State<_GoingHelpButton> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -150,23 +157,50 @@ class _GoingHelpButton extends StatelessWidget {
           ColorsCustom.sambacus,
         ),
       ),
-      onPressed: () {
-        const DeliverHelpDialog().show(context);
-      },
+      onPressed: onPressed,
       child: Center(
-        child: Text(
-          LocaleKeys.login_goingHelp.tr().toUpperCase(),
-          style:
-              context.textTheme.titleLarge?.copyWith(color: ColorsCustom.white),
-        ),
+        child: isLoading
+            ? const CircularProgressIndicator(
+                color: ColorsCustom.white,
+              )
+            : Text(
+                LocaleKeys.login_goingHelp.tr().toUpperCase(),
+                style: context.textTheme.titleLarge
+                    ?.copyWith(color: ColorsCustom.white),
+              ),
       ),
     );
   }
+
+  void _changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  Future<void> onPressed() async {
+    if (isLoading) return;
+    final request =
+        await const DeliverHelpDialog().show<DeliveryHelpForm>(context);
+    _changeLoading();
+    if (request == null) {
+      _changeLoading();
+      return;
+    }
+    await HelpUploadService().createDeliveryCall(deliveryForm: request);
+    _changeLoading();
+  }
 }
 
-class _HelpWantedButton extends StatelessWidget {
+class _HelpWantedButton extends StatefulWidget {
   const _HelpWantedButton();
 
+  @override
+  State<_HelpWantedButton> createState() => _HelpWantedButtonState();
+}
+
+class _HelpWantedButtonState extends State<_HelpWantedButton> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -179,12 +213,37 @@ class _HelpWantedButton extends StatelessWidget {
         await uploadService.createHelpCall(helpForm: response);
       },
       child: FittedBox(
-        child: Text(
-          LocaleKeys.login_wantHelp.tr().toUpperCase(),
-          style: context.textTheme.titleLarge,
+        child: Center(
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: ColorsCustom.sambacus,
+                )
+              : Text(
+                  LocaleKeys.login_wantHelp.tr().toUpperCase(),
+                  style: context.textTheme.titleLarge,
+                ),
         ),
       ),
     );
+  }
+
+  void _changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  Future<void> onPressed() async {
+    if (isLoading) return;
+
+    final response =
+        await const RequestHelpDialog().show<RequestHelpForm>(context);
+    _changeLoading();
+    if (response != null) {
+      final uploadService = HelpUploadService();
+      await uploadService.createHelpCall(helpForm: response);
+    }
+    _changeLoading();
   }
 }
 
