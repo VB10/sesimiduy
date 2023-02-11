@@ -14,7 +14,7 @@ class ActiveButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: const PagePadding.generalAllLow(),
-        backgroundColor: ColorsCustom.brandeisBlue,
+        backgroundColor: ColorsCustom.sambacus,
       ),
       child: Text(
         label,
