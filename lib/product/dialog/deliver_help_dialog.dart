@@ -489,23 +489,11 @@ class _Header extends StatelessWidget {
           IconButton(
             onPressed: () {
               context.navigation.pop();
-              showInSnackBar(LocaleKeys.supportRequestFaield.tr(), context);
             },
             icon: const Icon(Icons.close),
             iconSize: WidgetSizes.spacingXxl,
           )
         ],
-      ),
-    );
-  }
-
-  void showInSnackBar(String title, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(title),
-        backgroundColor: ColorsCustom.sambacus,
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
       ),
     );
   }
