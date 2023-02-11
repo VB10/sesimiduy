@@ -1,46 +1,33 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
+import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
 import 'package:sesimiduy/features/current_map/view/button/toggle_button.dart';
-import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dart';
-import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
-import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
-class CurrentMapView extends StatefulWidget {
+class CurrentMapView extends ConsumerStatefulWidget {
   const CurrentMapView({super.key});
 
   @override
-  State<CurrentMapView> createState() => _CurrentMapViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CurrentMapViewState();
 }
 
-class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
-  static const _defaultLocation = LatLng(37.579609, 36.946812);
-  static const _defaultLocationIST = LatLng(40.5333232, 31.0325468);
-
-  Set<Marker> _selectedMarkers = {};
+class _CurrentMapViewState extends ConsumerState<CurrentMapView>
+    with _ByteMapHelper {
+  late final StateNotifierProvider<MapProvider, MapState> mapProvider;
 
   @override
   void initState() {
     super.initState();
-    asyncInit();
-  }
-
-  Future<void> asyncInit() async {
-    markerHelpIcon = await _getBytesFromAsset(
-      ImageConstants.mapHelp,
-      WidgetSizes.spacingL.toInt(),
-    );
-    markerCarIcon = await _getBytesFromAsset(
-      ImageConstants.mapCarHelp,
-      WidgetSizes.spacingL.toInt(),
-    );
-    setState(() {});
+    mapProvider = StateNotifierProvider((ref) => MapProvider());
+    ref.read(mapProvider.notifier).init(context);
   }
 
   @override
@@ -52,22 +39,12 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
         titleSpacing: 0,
         centerTitle: false,
         actions: [
-          FilterDropDown(
-            onSelected: (category) async {
-              if (category == null) return;
-              final markers = await MapService().fetchPOI(category);
-              setState(() {
-                _selectedMarkers = markers
-                    .map(
-                      (e) => ProductMarker(
-                        e.id,
-                        e.name,
-                        e.location?.latitude,
-                        e.location?.longitude,
-                      ),
-                    )
-                    .toSet();
-              });
+          PoiActionButton(
+            icon: ref.watch(mapProvider).markerHelpIcon,
+            onSelected: (value) async {
+              await ref
+                  .read(mapProvider.notifier)
+                  .updatePoiWithIconCheck(value, context);
             },
           ),
         ],
@@ -76,9 +53,9 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
         alignment: Alignment.topCenter,
         children: [
           GoogleMap(
-            markers: _selectedMarkers,
+            markers: ref.watch(mapProvider).selectedMarkers ?? {},
             initialCameraPosition: const CameraPosition(
-              target: _defaultLocation,
+              target: AppConstants.defaultLocation,
               zoom: AppConstants.defaultMapZoom,
             ),
           ),
@@ -102,8 +79,8 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
 }
 
 mixin _ByteMapHelper on State<CurrentMapView> {
-  BitmapDescriptor? markerHelpIcon;
-  BitmapDescriptor? markerCarIcon;
+  // BitmapDescriptor? markerHelpIcon;
+  // BitmapDescriptor? markerCarIcon;
 
   Future<BitmapDescriptor> _getBytesFromAsset(String path, int width) async {
     final loadedFile = await DefaultAssetBundle.of(context).load(path);
@@ -114,13 +91,19 @@ mixin _ByteMapHelper on State<CurrentMapView> {
 }
 
 class ProductMarker extends Marker {
-  ProductMarker(String? id, String? info, double? lat, double? lang)
-      : super(
+  ProductMarker(
+    String? id,
+    String? info,
+    double? lat,
+    double? lang, {
+    BitmapDescriptor? icon,
+  }) : super(
           infoWindow: InfoWindow(title: info ?? ''),
           markerId: MarkerId(id ?? id.hashCode.toString()),
           position: LatLng(
             lat ?? 0.0,
             lang ?? 0.0,
           ),
+          icon: icon ?? BitmapDescriptor.defaultMarker,
         );
 }
