@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
+import 'package:sesimiduy/product/model/city_model.dart';
+import 'package:sesimiduy/product/model/delivery_help_form.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
-import 'package:sesimiduy/product/model/needs_model.dart';
+import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/vehicle_types.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
+import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
@@ -27,8 +31,8 @@ class DeliverHelpDialog extends StatefulWidget {
   State<DeliverHelpDialog> createState() => _DeliverHelpDialogState();
 }
 
-class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
+class _DeliverHelpDialogState extends State<DeliverHelpDialog>
+    with _OperationMixin {
   HelpType _helpType = HelpType.personal;
 
   @override
@@ -37,6 +41,9 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
       insetPadding: const PagePadding.all(),
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: () {
+          stateNotifier.value = _formKey.currentState?.validate() ?? false;
+        },
         key: _formKey,
         child: ResponsiveBuilder(
           builder: (windowSize) {
@@ -57,21 +64,44 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
                     const VerticalSpace.standard(),
                     const _SubHeader(),
                     const VerticalSpace.standard(),
-                    _NameTextField(_helpType == HelpType.personal),
+                    _NameTextField(
+                      _helpType == HelpType.personal,
+                      controller: _nameController,
+                    ),
                     const VerticalSpace.standard(),
-                    const _DriverNameField(),
+                    _DriverNameField(controller: _driverNameController),
                     const VerticalSpace.standard(),
-                    const _PhoneField(),
+                    _PhoneField(controller: _phoneController),
                     const VerticalSpace.standard(),
-                    const _DriverInfos(),
+                    _DriverInfos(
+                      carPlateNumberController: _carPlateNumberController,
+                      vehicleTypeController: _vehicleTypeController,
+                    ),
                     const VerticalSpace.standard(),
-                    const _DestinationInfos(),
+                    _DestinationInfos(
+                      fromController: fromController,
+                      toController: toController,
+                    ),
                     const VerticalSpace.standard(),
-                    const _CarriedItems(),
+                    _CarriedItems(
+                      onChanged: (value) {
+                        itemNotifier.value = value;
+                      },
+                    ),
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
-                    const _ActionButton(),
+                    _ActionButton(
+                      notifier: itemNotifier,
+                      stateNotifier: stateNotifier,
+                      onPressed: () {
+                        final request = returnRequestItem();
+                        if (request != null) {
+                     
+                          Navigator.pop(context, request);
+                        }
+                      },
+                    ),
                     const VerticalSpace.small(),
                   ],
                 ),
@@ -87,44 +117,67 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog> {
 }
 
 class _CarriedItems extends StatelessWidget {
-  const _CarriedItems();
-
+  const _CarriedItems({required this.onChanged});
+  final ValueChanged<Items?> onChanged;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.horizontalSymmetric(),
-      child: LabeledProductComboBox<NeedsModel>(
-        labelText: LocaleKeys.carriedItems.tr(),
-        items: const [],
-        onChanged: (_) {},
-        hintText: LocaleKeys.youMaySelectMultiple.tr(),
-        validator: (text) =>
-            ValidateGenericItems<NeedsModel>(text).validateDropDown,
+    return FutureBuilder(
+      future: CollectionEnums.items.collection
+          .withConverter<Items>(
+            fromFirestore: (snapshot, options) => Items.fromFirestore(snapshot),
+            toFirestore: (value, options) => value.toJson(),
+          )
+          .get(),
+      builder: (context, AsyncSnapshot<QuerySnapshot<Items>> snapshot) =>
+          Padding(
+        padding: const PagePadding.horizontalSymmetric(),
+        child: LabeledProductComboBox<Items>(
+          labelText: LocaleKeys.carriedItems.tr(),
+          items: snapshot.data?.docs.map((e) => e.data()).toList() ?? [],
+          onChanged: onChanged.call,
+          hintText: LocaleKeys.youMaySelectMultiple.tr(),
+          validator: (text) =>
+              ValidateGenericItems<Items>(text).validateDropDown,
+        ),
       ),
     );
   }
 }
 
 class _DriverInfos extends StatelessWidget {
-  const _DriverInfos();
+  const _DriverInfos({
+    required this.carPlateNumberController,
+    required this.vehicleTypeController,
+  });
 
+  final TextEditingController carPlateNumberController;
+
+  final TextEditingController vehicleTypeController;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: kIsWeb
           ? Row(
-              children: const [
-                Expanded(child: _VehicleDropDown()),
-                HorizontalSpace.standard(),
-                Expanded(child: _CarPlateNumberTextField()),
+              children: [
+                Expanded(
+                  child: _VehicleDropDown(
+                    controller: vehicleTypeController,
+                  ),
+                ),
+                const HorizontalSpace.standard(),
+                Expanded(
+                  child: _CarPlateNumberTextField(
+                    controller: carPlateNumberController,
+                  ),
+                ),
               ],
             )
           : Column(
-              children: const [
-                _VehicleDropDown(),
-                VerticalSpace.standard(),
-                _CarPlateNumberTextField(),
+              children: [
+                _VehicleDropDown(controller: vehicleTypeController),
+                const VerticalSpace.standard(),
+                _CarPlateNumberTextField(controller: carPlateNumberController),
               ],
             ),
     );
@@ -132,25 +185,31 @@ class _DriverInfos extends StatelessWidget {
 }
 
 class _DestinationInfos extends StatelessWidget {
-  const _DestinationInfos();
-
+  const _DestinationInfos({
+    required this.toController,
+    required this.fromController,
+  });
+  final TextEditingController toController;
+  final TextEditingController fromController;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: kIsWeb
           ? Row(
-              children: const [
-                Expanded(child: _DestinationFromField()),
-                HorizontalSpace.standard(),
-                Expanded(child: _DestinationToField()),
+              children: [
+                Expanded(
+                  child: _DestinationFromField(controller: fromController),
+                ),
+                const HorizontalSpace.standard(),
+                Expanded(child: _DestinationToField(controller: toController)),
               ],
             )
           : Column(
-              children: const [
-                _DestinationFromField(),
-                VerticalSpace.standard(),
-                _DestinationToField(),
+              children: [
+                _DestinationFromField(controller: fromController),
+                const VerticalSpace.standard(),
+                _DestinationToField(controller: toController),
               ],
             ),
     );
@@ -158,15 +217,22 @@ class _DestinationInfos extends StatelessWidget {
 }
 
 class _DestinationFromField extends StatelessWidget {
-  const _DestinationFromField();
-
+  const _DestinationFromField({required this.controller});
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    return LabeledProductComboBox<ProductDropDownModel>(
+    return LabeledProductComboBox<CityModel>(
       labelText: LocaleKeys.labelFromCity.tr(),
-      items: const [],
+      items: [
+        CityModel('ankara'),
+        CityModel('istanbul'),
+      ],
       hintText: LocaleKeys.hintPickCity.tr(),
-      onChanged: (_) {},
+      onChanged: (value) {
+        if (value != null) {
+          controller.text = value.name;
+        }
+      },
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
     );
@@ -174,15 +240,23 @@ class _DestinationFromField extends StatelessWidget {
 }
 
 class _DestinationToField extends StatelessWidget {
-  const _DestinationToField();
+  const _DestinationToField({required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return LabeledProductComboBox<ProductDropDownModel>(
+    return LabeledProductComboBox<CityModel>(
       labelText: LocaleKeys.labelToCity.tr(),
-      items: const [],
+      items: [
+        CityModel('ankara'),
+        CityModel('istanbul'),
+      ],
       hintText: LocaleKeys.hintPickCity.tr(),
-      onChanged: (_) {},
+      onChanged: (value) {
+        if (value != null) {
+          controller.text = value.name;
+        }
+      },
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
     );
@@ -190,11 +264,14 @@ class _DestinationToField extends StatelessWidget {
 }
 
 class _CarPlateNumberTextField extends StatelessWidget {
-  const _CarPlateNumberTextField();
+  const _CarPlateNumberTextField({required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return LabeledProductTextField(
+      controller: controller,
       labelText: LocaleKeys.labelVehiclePlate.tr(),
       validator: (text) => ValidatorItems(text).validateAddress,
     );
@@ -202,29 +279,49 @@ class _CarPlateNumberTextField extends StatelessWidget {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton();
+  const _ActionButton({
+    required this.notifier,
+    required this.stateNotifier,
+    required this.onPressed,
+  });
+
+  final ValueNotifier<Items?> notifier;
+  final ValueNotifier<bool> stateNotifier;
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
-      child: ActiveButton(
-        label: LocaleKeys.sendHelp.tr(),
-        onPressed: () {},
+      child: ValueListenableBuilder(
+        valueListenable: stateNotifier,
+        builder: (context, stateValue, child) {
+          return ValueListenableBuilder(
+            valueListenable: notifier,
+            builder: (context, value, child) => ActiveButton(
+              label: LocaleKeys.sendHelp.tr(),
+              onPressed: value == null || !stateValue ? null : onPressed,
+            ),
+          );
+        },
       ),
     );
   }
 }
 
 class _VehicleDropDown extends StatelessWidget {
-  const _VehicleDropDown();
+  const _VehicleDropDown({required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return LabeledProductComboBox<VehicleTypes>(
       labelText: LocaleKeys.labelVehicleType.tr(),
       items: VehicleTypes.values,
-      onChanged: (_) {},
+      onChanged: (value) {
+        controller.text = value?.name ?? VehicleTypes.car.name;
+      },
       initialItem: VehicleTypes.car,
       hintText: VehicleTypes.car.title.tr(),
       validator: (item) =>
@@ -234,13 +331,15 @@ class _VehicleDropDown extends StatelessWidget {
 }
 
 class _PhoneField extends StatelessWidget {
-  const _PhoneField();
+  const _PhoneField({required this.controller});
 
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: controller,
         hintText: StringConstants.phoneHint,
         formatters: [InputFormatter.instance.phoneFormatter],
         labelText: LocaleKeys.labelDriverPhone.tr(),
@@ -251,13 +350,16 @@ class _PhoneField extends StatelessWidget {
 }
 
 class _DriverNameField extends StatelessWidget {
-  const _DriverNameField();
+  const _DriverNameField({required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: controller,
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.labelDriverName.tr(),
         validator: (text) => ValidatorItems(text).validateFullName,
@@ -267,15 +369,17 @@ class _DriverNameField extends StatelessWidget {
 }
 
 class _NameTextField extends StatelessWidget {
-  const _NameTextField(this.isPersonal);
+  const _NameTextField(this.isPersonal, {required this.controller});
 
   final bool isPersonal;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: controller,
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: isPersonal
             ? LocaleKeys.nameAndSurname.tr()
@@ -413,6 +517,54 @@ extension DeliverHelpDialogExtension on DeliverHelpDialog {
     return showDialog(
       context: context,
       builder: (context) => this,
+    );
+  }
+}
+
+mixin _OperationMixin on State<DeliverHelpDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _driverNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _carPlateNumberController =
+      TextEditingController();
+
+  final TextEditingController _vehicleTypeController = TextEditingController();
+
+  final TextEditingController fromController = TextEditingController();
+  final TextEditingController toController = TextEditingController();
+  ValueNotifier<Items?> itemNotifier = ValueNotifier(null);
+  ValueNotifier<bool> stateNotifier = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _driverNameController.dispose();
+    _phoneController.dispose();
+    _carPlateNumberController.dispose();
+    _vehicleTypeController.dispose();
+    fromController.dispose();
+    toController.dispose();
+
+    super.dispose();
+  }
+
+  DeliveryHelpForm? returnRequestItem() {
+    if (itemNotifier.value == null) return null;
+    return DeliveryHelpForm(
+      fullName: _nameController.text,
+      driverName: _driverNameController.text,
+      phoneNumber: _phoneController.text.phoneFormatValue,
+      carPlate: _carPlateNumberController.text,
+      vehicleType: _vehicleTypeController.text.isNullOrEmpty
+          ? VehicleTypes.car.name
+          : _vehicleTypeController.text,
+      fromPlace: fromController.text,
+      toPlace: toController.text,
+      item: itemNotifier.value!,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
   }
 }
