@@ -23,13 +23,14 @@ dependencies:
   flutter_custom_clippers: ^2.1.0
   dash_flags: ^0.0.3
   syncfusion_flutter_pdfviewer: ^20.4.49
-  
+
   # Firebase
   firebase_core: ^2.5.0
   cloud_firestore: ^4.3.2
   google_maps_flutter: ^2.2.3
 
   json_annotation: ^4.8.0
+  google_maps_flutter_web: ^0.4.0+5
 
 dev_dependencies:
   flutter_test:
