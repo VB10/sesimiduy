@@ -26,13 +26,9 @@ class Items with ProductDropDownModel, EquatableMixin, TaggableMixin {
   @override
   final String? name;
 
-  Items fromJson(Map<String, dynamic> json) {
-    return _$ItemsFromJson(json);
-  }
+  Items fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return _$ItemsToJson(this);
-  }
+  Map<String, dynamic> toJson() => _$ItemsToJson(this);
 
   Items copyWith({
     String? id,

@@ -7,7 +7,9 @@ import 'package:sesimiduy/product/model/poi_category.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
 
 class FilterDropDown extends StatefulWidget {
-  const FilterDropDown({super.key});
+  const FilterDropDown({super.key, required this.onSelected});
+
+  final ValueChanged<PoiCategory?> onSelected;
 
   @override
   State<FilterDropDown> createState() => _FilterDropDownState();
@@ -54,16 +56,20 @@ class _FilterDropDownState extends State<FilterDropDown> {
                   ),
                 )
                 .toList(),
-            onChanged: (value) {
-              setState(() {
-                if (value != null) _selectedItem = value;
-              });
-            },
+            onChanged: _onChanged,
             value: _selectedItem,
           ),
         );
       },
     );
+  }
+
+  void _onChanged(PoiCategory? value) {
+    if (value == null) return;
+    setState(() {
+      _selectedItem = value;
+    });
+    widget.onSelected(value);
   }
 }
 
