@@ -1,34 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sesimiduy/product/model/items.dart';
+import 'package:sesimiduy/product/utility/firebase/geo_parser.dart';
+
+import 'package:sesimiduy/product/utility/firebase/time_parser.dart';
 
 part 'request_help_form.g.dart';
 
 @immutable
-@JsonSerializable()
+@JsonSerializable(
+  explicitToJson: true,
+)
 class RequestHelpForm {
   const RequestHelpForm({
     required this.fullName,
     required this.phoneNumber,
     required this.address,
     required this.categoryId,
-    this.newCategoryName,
+    required this.categories,
     this.location,
-    this.categories,
+    this.startedDate,
+    this.updatedDate,
   });
+  @JsonKey(
+    fromJson: FirebaseTimeParser.datetimeFromTimestamp,
+  )
+  final DateTime? startedDate, updatedDate;
 
   final String fullName;
   final String phoneNumber;
   final String address;
   final String categoryId;
-  final String? newCategoryName;
-  @JsonKey(fromJson: _geoPointConvertJson, toJson: _geoPointConvertJson)
+  @JsonKey(
+    fromJson: GeoParser.geoPointConvertJson,
+    toJson: GeoParser.geoPointConvertJson,
+  )
   final GeoPoint? location;
-  final List<String>? categories;
+
+  final List<Items> categories;
 
   Map<String, dynamic> toJson() => _$RequestHelpFormToJson(this);
-
-  static GeoPoint? _geoPointConvertJson(GeoPoint? geoPoint) {
-    return geoPoint;
-  }
 }

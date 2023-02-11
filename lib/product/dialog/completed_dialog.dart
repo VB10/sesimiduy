@@ -58,6 +58,7 @@ class _CompletedDialogState extends State<CompletedDialog>
                     const VerticalSpace.standard(),
                     const _PlateTextField(),
                     const VerticalSpace.standard(),
+                    const _AddressField(),
                     KvkkCheckBox(autovalidateMode),
                     _ActionButton(
                       formKey: _formKey,
@@ -70,6 +71,23 @@ class _CompletedDialogState extends State<CompletedDialog>
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _AddressField extends StatelessWidget {
+  const _AddressField();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const PagePadding.horizontalSymmetric(),
+      child: LabeledProductTextField(
+        validator: (value) => ValidatorItems(value).validateAddress,
+        labelText: LocaleKeys.address.tr(),
+        isMultiline: true,
+        hintText: LocaleKeys.addressHint.tr(),
       ),
     );
   }

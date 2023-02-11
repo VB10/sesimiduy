@@ -12,6 +12,8 @@ Poi _$PoiFromJson(Map<String, dynamic> json) => Poi(
       id: json['id'] as String?,
       name: json['name'] as String?,
       location: Poi._geoPointConvertJson(json['location'] as GeoPoint?),
+      latitude: json['latitude'] as String?,
+      longitude: json['longitude'] as String?,
     );
 
 Map<String, dynamic> _$PoiToJson(Poi instance) => <String, dynamic>{
@@ -20,4 +22,6 @@ Map<String, dynamic> _$PoiToJson(Poi instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'location': Poi._geoPointConvertJson(instance.location),
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };

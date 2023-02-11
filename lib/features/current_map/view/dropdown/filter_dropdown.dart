@@ -21,7 +21,7 @@ class _FilterDropDownState extends State<FilterDropDown> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: CollectionEnums.poiCategory.collection
+      future: CollectionEnums.poi_category.collection
           .withConverter<PoiCategory>(
             fromFirestore: (snapshot, options) =>
                 PoiCategory.fromFirestore(snapshot),
@@ -51,7 +51,6 @@ class _FilterDropDownState extends State<FilterDropDown> {
                 .map(
                   (e) => DropdownMenuItem<PoiCategory>(
                     value: e,
-                    onTap: () {},
                     child: _DropdownTitle(e.name),
                   ),
                 )

@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tagging_plus/flutter_tagging_plus.dart';
+import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/items.dart';
 
@@ -17,7 +20,7 @@ class ItemsTextField extends StatefulWidget {
 
 class _ItemsTextFieldState extends State<ItemsTextField> {
   late List<Items> needItems;
-  final List<Items> _selectedLanguages = [];
+  final List<Items> _selectedItems = [];
 
   @override
   void didUpdateWidget(covariant ItemsTextField oldWidget) {
@@ -41,28 +44,39 @@ class _ItemsTextFieldState extends State<ItemsTextField> {
       children: [
         FlutterTagging<Items>(
           onChanged: () {
-            widget.onSelected(_selectedLanguages);
+            widget.onSelected(_selectedItems);
           },
-          initialItems: _selectedLanguages,
-          textFieldConfiguration: const TextFieldConfiguration(
+          initialItems: _selectedItems,
+          textFieldConfiguration: TextFieldConfiguration(
             decoration: InputDecoration(
               border: InputBorder.none,
               filled: true,
-              hintText: 'İhtiyaçları seçiniz',
+              hintText: LocaleKeys.hintCategory.tr(),
             ),
           ),
+          hideOnError: true,
+          hideOnEmpty: true,
           findSuggestions: (String query) {
-            return needItems;
+            return needItems
+                .where(
+                  (element) =>
+                      element.name
+                          ?.toLowerCase()
+                          .withoutSpecialCharacters
+                          ?.contains(query.withoutSpecialCharacters ?? '') ??
+                      false,
+                )
+                .toList();
           },
-          onAdded: (language) => language,
-          configureSuggestion: (lang) {
+          onAdded: (item) => item,
+          configureSuggestion: (item) {
             return SuggestionConfiguration(
-              title: Text(lang.name ?? ''),
+              title: Text(item.name ?? ''),
             );
           },
-          configureChip: (lang) {
+          configureChip: (item) {
             return ChipConfiguration(
-              label: Text(lang.name ?? ''),
+              label: Text(item.name ?? ''),
               backgroundColor: ColorsCustom.sambacus,
               labelStyle: const TextStyle(color: ColorsCustom.white),
               deleteIconColor: ColorsCustom.white,

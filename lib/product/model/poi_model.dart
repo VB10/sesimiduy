@@ -13,6 +13,8 @@ class Poi with EquatableMixin {
     this.id,
     this.name,
     this.location,
+    this.latitude,
+    this.longitude,
   });
   factory Poi.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -21,7 +23,14 @@ class Poi with EquatableMixin {
     if (data == null) {
       throw Exception('Data is null');
     }
-    return Poi.fromJson(data).copyWith(id: snapshot.id);
+    final model = Poi.fromJson(data);
+    return model.copyWith(
+      id: snapshot.id,
+      location: GeoPoint(
+        double.tryParse(model.latitude ?? '') ?? 0,
+        double.tryParse(model.longitude ?? '') ?? 0,
+      ),
+    );
   }
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
@@ -31,6 +40,8 @@ class Poi with EquatableMixin {
   final String? name;
   @JsonKey(fromJson: _geoPointConvertJson, toJson: _geoPointConvertJson)
   final GeoPoint? location;
+  final String? latitude;
+  final String? longitude;
 
   static GeoPoint? _geoPointConvertJson(GeoPoint? geoPoint) {
     return geoPoint;
