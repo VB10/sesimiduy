@@ -16,8 +16,8 @@ DeliveryHelpForm _$DeliveryHelpFormFromJson(Map<String, dynamic> json) =>
       fromPlace: json['fromPlace'] as String,
       toPlace: json['toPlace'] as String,
       item: Items.fromJson(json['item'] as Map<String, dynamic>),
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: _datetimeFromTimestamp(json['createdAt'] as Timestamp?),
+      updatedAt: _datetimeFromTimestamp(json['updatedAt'] as Timestamp?),
     );
 
 Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
@@ -30,6 +30,6 @@ Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
       'fromPlace': instance.fromPlace,
       'toPlace': instance.toPlace,
       'item': instance.item,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': _dateTimeToTimestamp(instance.createdAt),
+      'updatedAt': _dateTimeToTimestamp(instance.updatedAt),
     };
