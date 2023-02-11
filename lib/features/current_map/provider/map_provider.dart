@@ -39,6 +39,10 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
     BuildContext context,
   ) async {
     var selectedValues = value;
+
+    if (value.isEmpty) {
+      return;
+    }
     if (value.any(
       (element) => element.icon == BitmapDescriptor.defaultMarker,
     )) {
