@@ -8,12 +8,26 @@ import 'package:sesimiduy/product/model/poi_model.dart';
 class MapService {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future<Set<Poi>> fetchPOI(PoiCategory category) async {
+  Future<Set<Poi>> fetchCategoryPOI(PoiCategory category) async {
     try {
       final snapshot = await db
           .collection('poi')
           .where('categoryId', isEqualTo: category.id)
           .get();
+      final poi = snapshot.docs.map((e) => Poi.fromJson(e.data())).toSet();
+      return poi;
+    } catch (e) {
+      if (kDebugMode) {
+        log(e.toString());
+        return {};
+      }
+      return {};
+    }
+  }
+
+  Future<Set<Poi>> fetchRequestPOIs() async {
+    try {
+      final snapshot = await db.collection('poi').get();
       final poi = snapshot.docs.map((e) => Poi.fromJson(e.data())).toSet();
       return poi;
     } catch (e) {
