@@ -31,11 +31,11 @@ class _ToggleButtonState extends State<ToggleButton> {
       children: const [
         Padding(
           padding: PagePadding.horizontalLowSymmetric(),
-          child: Text('Option1'),
+          child: Text('Talepler'),
         ),
         Padding(
           padding: PagePadding.horizontalLowSymmetric(),
-          child: Text('Option2'),
+          child: Text('Araçlar'),
         ),
       ],
     );

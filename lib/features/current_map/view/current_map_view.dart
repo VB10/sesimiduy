@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
 import 'package:sesimiduy/features/current_map/view/button/toggle_button.dart';
 import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
@@ -9,8 +9,6 @@ import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
-
-import 'bottom_page_view.dart';
 
 class CurrentMapView extends StatefulWidget {
   const CurrentMapView({super.key});
@@ -33,9 +31,13 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
 
   Future<void> asyncInit() async {
     markerHelpIcon = await _getBytesFromAsset(
-        ImageConstants.mapHelp, WidgetSizes.spacingL.toInt());
+      ImageConstants.mapHelp,
+      WidgetSizes.spacingL.toInt(),
+    );
     markerCarIcon = await _getBytesFromAsset(
-        ImageConstants.mapCarHelp, WidgetSizes.spacingL.toInt());
+      ImageConstants.mapCarHelp,
+      WidgetSizes.spacingL.toInt(),
+    );
     setState(() {});
   }
 
@@ -44,13 +46,10 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsCustom.sambacus,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(LocaleKeys.login_currentMap.tr()),
-            const FilterDropDown()
-          ],
-        ),
+        title: FittedBox(child: Text(LocaleKeys.login_currentMap.tr())),
+        titleSpacing: 0,
+        centerTitle: false,
+        actions: const [FilterDropDown()],
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -91,10 +90,11 @@ class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
           ),
           const ToggleButton(),
           Positioned(
-            bottom: context.height * 0.1,
-            child: SizedBox(
-              height: context.height * 0.2,
-              width: context.width,
+            bottom: WidgetSizes.spacingL,
+            right: 0,
+            left: 0,
+            height: WidgetSizes.spacingXxl8 * 3,
+            child: SafeArea(
               child: BottomPageView(),
             ),
           ),
