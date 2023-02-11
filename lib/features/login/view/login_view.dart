@@ -175,7 +175,7 @@ class _HelpWantedButton extends StatelessWidget {
         final response =
             await const RequestHelpDialog().show<RequestHelpForm>(context);
         if (response != null) {
-          var uploadService = HelpUploadService();
+          final uploadService = HelpUploadService();
           await uploadService.createHelpCall(helpForm: response);
         }
       },

@@ -32,7 +32,7 @@ class _RequestHelpDialogState extends State<RequestHelpDialog>
     if (_autoCompleteText.value.isEmpty) return;
 
     final data = await MapsManager.determinePosition();
-    if (mounted) return;
+    if (!mounted) return;
     await context.pop<RequestHelpForm>(
       RequestHelpForm(
         fullName: _fullNameController.text,
