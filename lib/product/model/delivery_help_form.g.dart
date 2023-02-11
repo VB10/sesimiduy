@@ -14,9 +14,9 @@ DeliveryHelpForm _$DeliveryHelpFormFromJson(Map<String, dynamic> json) =>
       toPlaceId: json['toPlaceId'] as int,
       fromPlace: json['fromPlace'] as String,
       toPlace: json['toPlace'] as String,
-      createdAt: DeliveryHelpForm._datetimeFromTimestamp(
+      createdAt: FirebaseTimeParser.datetimeFromTimestamp(
           json['createdAt'] as Timestamp?),
-      updatedAt: DeliveryHelpForm._datetimeFromTimestamp(
+      updatedAt: FirebaseTimeParser.datetimeFromTimestamp(
           json['updatedAt'] as Timestamp?),
       companyName: json['companyName'] as String,
       isCompany: json['isCompany'] as bool,
@@ -44,6 +44,6 @@ Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
       'fromPlace': instance.fromPlace,
       'toPlace': instance.toPlace,
       'toPlaceId': instance.toPlaceId,
-      'createdAt': DeliveryHelpForm._dateTimeToTimestamp(instance.createdAt),
-      'updatedAt': DeliveryHelpForm._dateTimeToTimestamp(instance.updatedAt),
+      'createdAt': FirebaseTimeParser.dateTimeToTimestamp(instance.createdAt),
+      'updatedAt': FirebaseTimeParser.dateTimeToTimestamp(instance.updatedAt),
     };

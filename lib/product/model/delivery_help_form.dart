@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sesimiduy/product/utility/firebase/time_parser.dart';
 
 part 'delivery_help_form.g.dart';
 
@@ -23,7 +24,10 @@ class DeliveryHelpForm {
   final String toPlace;
   final int toPlaceId;
 
-  @JsonKey(toJson: _dateTimeToTimestamp, fromJson: _datetimeFromTimestamp)
+  @JsonKey(
+    toJson: FirebaseTimeParser.dateTimeToTimestamp,
+    fromJson: FirebaseTimeParser.datetimeFromTimestamp,
+  )
   final DateTime? createdAt, updatedAt;
   const DeliveryHelpForm({
     required this.fullName,
@@ -46,13 +50,5 @@ class DeliveryHelpForm {
 
   Map<String, dynamic> toJson() => _$DeliveryHelpFormToJson(this);
 
-  static DateTime? _datetimeFromTimestamp(Timestamp? timestamp) {
-    return timestamp != null
-        ? DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch)
-        : null;
-  }
 
-  static Timestamp? _dateTimeToTimestamp(DateTime? datetime) {
-    return datetime != null ? Timestamp.fromDate(datetime) : null;
-  }
 }

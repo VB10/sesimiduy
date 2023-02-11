@@ -6,6 +6,7 @@ enum CollectionEnums {
   items,
   poi_list,
   wantHelp,
+  sendHelp,
   poi_category,
   wantHelpItems;
 
