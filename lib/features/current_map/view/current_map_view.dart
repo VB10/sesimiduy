@@ -5,12 +5,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
-import 'package:sesimiduy/features/current_map/view/button/toggle_button.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
-import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
 class CurrentMapView extends ConsumerStatefulWidget {
@@ -20,8 +18,7 @@ class CurrentMapView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _CurrentMapViewState();
 }
 
-class _CurrentMapViewState extends ConsumerState<CurrentMapView>
-    with _ByteMapHelper {
+class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
   late final StateNotifierProvider<MapProvider, MapState> mapProvider;
   late final MapService service;
 
@@ -30,11 +27,9 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
     super.initState();
     service = MapService();
     mapProvider = StateNotifierProvider((ref) => MapProvider(service: service));
-    ref.read(mapProvider.notifier).init(context);
-
-    // .whenComplete(
-    //       () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
-    //     );x
+    ref.read(mapProvider.notifier).init(context).whenComplete(
+          () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
+        );
   }
 
   @override
@@ -61,14 +56,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
         children: [
           GoogleMap(
             markers: ref.watch(mapProvider).selectedMarkers ?? {},
-            initialCameraPosition: const CameraPosition(
-              target: AppConstants.defaultLocation,
-              zoom: AppConstants.defaultMapZoom,
-            ),
-          ),
-          const Padding(
-            padding: PagePadding.allLow(),
-            child: ToggleButton(),
+            initialCameraPosition: initialCameraPosition,
           ),
           Positioned(
             bottom: WidgetSizes.spacingL,
@@ -76,59 +64,16 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
             left: 0,
             height: WidgetSizes.spacingXxl8 * 3,
             child: SafeArea(
-              child: BottomPageView(),
+              child: BottomPageView(provider: mapProvider),
             ),
           ),
         ],
       ),
     );
   }
-}
 
-mixin _ByteMapHelper on State<CurrentMapView> {
-  // BitmapDescriptor? markerHelpIcon;
-  // BitmapDescriptor? markerCarIcon;
-
-  Future<BitmapDescriptor> _getBytesFromAsset(String path, int width) async {
-    final loadedFile = await DefaultAssetBundle.of(context).load(path);
-    final bytes = loadedFile.buffer.asUint8List();
-
-    return BitmapDescriptor.fromBytes(bytes);
-  }
-}
-
-class ProductMarker extends Marker {
-  ProductMarker(
-    String? id,
-    String? info,
-    double? lat,
-    double? lang, {
-    BitmapDescriptor? icon,
-  }) : super(
-          infoWindow: InfoWindow(title: info ?? ''),
-          markerId: MarkerId(id ?? id.hashCode.toString()),
-          position: LatLng(
-            lat ?? 0.0,
-            lang ?? 0.0,
-          ),
-          icon: icon ?? BitmapDescriptor.defaultMarker,
-        );
-}
-
-class RequestHelpMarker extends Marker {
-  RequestHelpMarker(
-    String? id,
-    String? info,
-    double? lat,
-    double? lang,
-    BitmapDescriptor? icon,
-  ) : super(
-          icon: icon ?? BitmapDescriptor.defaultMarker,
-          infoWindow: InfoWindow(title: info ?? ''),
-          markerId: MarkerId(id ?? id.hashCode.toString()),
-          position: LatLng(
-            lat ?? 0.0,
-            lang ?? 0.0,
-          ),
-        );
+  CameraPosition get initialCameraPosition => const CameraPosition(
+        target: AppConstants.defaultLocation,
+        zoom: AppConstants.defaultMapZoom,
+      );
 }

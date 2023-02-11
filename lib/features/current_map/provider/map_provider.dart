@@ -3,8 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
+import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
+import 'package:sesimiduy/product/model/poi_model.dart';
+import 'package:sesimiduy/product/model/want_help_model.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
@@ -65,8 +67,9 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
   }
 
   Future<void> fetchRequestPOI(BuildContext context) async {
-    final requestPois = await service.fetchRequestPOIs();
-    final requestMarkers = requestPois
+    final wanteds = await service.fetchRequestPOIs();
+    final pois = wanteds.map((e) => Poi)
+    final requestMarkers = wanteds
         .map(
           (e) => ProductMarker(
             e.id,
@@ -93,11 +96,13 @@ class MapState extends Equatable {
     this.markerHelpIcon,
     this.markerCarIcon,
     this.requestMarkers,
+    this.wanteds,
   });
 
   final String? title;
   final Set<Marker>? selectedMarkers;
   final Set<Marker>? requestMarkers;
+  final Set<WantHelpModel>? wanteds;
   final BitmapDescriptor? markerHelpIcon;
   final BitmapDescriptor? markerCarIcon;
   @override
@@ -107,6 +112,7 @@ class MapState extends Equatable {
         markerHelpIcon,
         markerCarIcon,
         requestMarkers,
+        wanteds,
       ];
 
   MapState copyWith({
@@ -115,6 +121,7 @@ class MapState extends Equatable {
     BitmapDescriptor? markerHelpIcon,
     BitmapDescriptor? markerCarIcon,
     Set<Marker>? requestMarkers,
+    Set<WantHelpModel>? wanteds,
   }) {
     return MapState(
       title: title ?? this.title,
@@ -122,6 +129,7 @@ class MapState extends Equatable {
       markerHelpIcon: markerHelpIcon ?? this.markerHelpIcon,
       markerCarIcon: markerCarIcon ?? this.markerCarIcon,
       requestMarkers: requestMarkers ?? this.requestMarkers,
+      wanteds: wanteds ?? this.wanteds,
     );
   }
 
