@@ -143,7 +143,7 @@ class _TryPageState extends State<TryPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                DeliverHelpDialog().show(context);
+                const DeliverHelpDialog().show(context);
               },
               child: const Text('FORM AÇ'),
             )
@@ -190,11 +190,12 @@ class _TryPageState extends State<TryPage> {
 }
 
 class CustomAlertDialog extends StatefulWidget {
-  const CustomAlertDialog(
-      {super.key,
-      required this.title,
-      required this.context,
-      required this.content});
+  const CustomAlertDialog({
+    super.key,
+    required this.title,
+    required this.context,
+    required this.content,
+  });
   final BuildContext context;
   final Widget content;
   final String title;

@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sesimiduy/product/model/items.dart';
 
 part 'delivery_help_form.g.dart';
 
@@ -10,33 +9,46 @@ part 'delivery_help_form.g.dart';
 @JsonSerializable()
 class DeliveryHelpForm {
   final String fullName;
+  final String companyName;
+  final bool isCompany;
+  final int madeByCityId;
+  final String madeByCityName;
   final String driverName;
   final String phoneNumber;
-  final String vehicleType;
-  final String carPlate;
+  final int carType;
+  final String numberPlate;
+  final String collectItem;
+  final String collectItemId;
+  final String deviceId;
   final String fromPlace;
   final String toPlace;
-  final Items item;
+
   @JsonKey(toJson: _dateTimeToTimestamp, fromJson: _datetimeFromTimestamp)
   final DateTime? createdAt, updatedAt;
   const DeliveryHelpForm({
     required this.fullName,
     required this.driverName,
     required this.phoneNumber,
-    this.vehicleType = 'Araba',
-    required this.carPlate,
+    required this.numberPlate,
     required this.fromPlace,
     required this.toPlace,
-    required this.item,
     required this.createdAt,
     required this.updatedAt,
+    required this.companyName,
+    required this.isCompany,
+    required this.madeByCityId,
+    required this.madeByCityName,
+    required this.collectItem,
+    required this.collectItemId,
+    required this.deviceId,
+    this.carType = 1,
   });
 
   Map<String, dynamic> toJson() => _$DeliveryHelpFormToJson(this);
 
   @override
   String toString() {
-    return 'DeliveryHelpForm(fullName: $fullName, driverName: $driverName, phoneNumber: $phoneNumber, vehicleType: $vehicleType, carPlate: $carPlate, fromPlace: $fromPlace, toPlace: $toPlace, item: $item, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'DeliveryHelpForm(fullName: $fullName, driverName: $driverName, phoneNumber: $phoneNumber, vehicleType: $carType, carPlate: $numberPlate, fromPlace: $fromPlace, toPlace: $toPlace, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
