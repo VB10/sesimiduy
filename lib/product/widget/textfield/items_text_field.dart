@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tagging_plus/flutter_tagging_plus.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/items.dart';
-import 'package:textfield_tags/textfield_tags.dart';
 
 class ItemsTextField extends StatefulWidget {
   const ItemsTextField({
@@ -17,7 +16,6 @@ class ItemsTextField extends StatefulWidget {
 }
 
 class _ItemsTextFieldState extends State<ItemsTextField> {
-  late TextfieldTagsController _controller;
   late List<Items> needItems;
   final List<Items> _selectedLanguages = [];
 
@@ -32,15 +30,8 @@ class _ItemsTextFieldState extends State<ItemsTextField> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
-    _controller = TextfieldTagsController();
     needItems = widget.needItems;
   }
 
