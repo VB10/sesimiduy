@@ -233,7 +233,10 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
 
     final response =
         await context.navigateToPage<RequestHelpForm>(const RequestHelpView());
-    if (response == null) return;
+    if (response == null) {
+      _changeLoading();
+      return;
+    }
     final uploadService = HelpUploadService();
     await uploadService.createHelpCall(helpForm: response);
     _changeLoading();
