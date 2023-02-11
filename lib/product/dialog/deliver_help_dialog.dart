@@ -97,7 +97,6 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                       onPressed: () {
                         final request = returnRequestItem();
                         if (request != null) {
-                     
                           Navigator.pop(context, request);
                         }
                       },
