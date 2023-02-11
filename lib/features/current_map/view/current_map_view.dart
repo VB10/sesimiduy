@@ -20,9 +20,7 @@ class CurrentMapView extends StatefulWidget {
 class _CurrentMapViewState extends State<CurrentMapView> with _ByteMapHelper {
   static const _defaultLocation = LatLng(37.579609, 36.946812);
   static const _defaultLocationIST = LatLng(40.5333232, 31.0325468);
-  PageController controller = PageController(
-    viewportFraction: 0.3,
-  );
+
   @override
   void initState() {
     super.initState();
