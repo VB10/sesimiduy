@@ -567,11 +567,12 @@ mixin _OperationMixin on State<DeliverHelpDialog> {
   void dispose() {
     _nameController.dispose();
     _phoneController.dispose();
+    stateNotifier.dispose();
+    itemNotifier.dispose();
     _carPlateNumberController.dispose();
     _vehicleTypeController.dispose();
     fromController.dispose();
     toController.dispose();
-
     super.dispose();
   }
 

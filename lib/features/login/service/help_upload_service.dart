@@ -40,7 +40,7 @@ class HelpUploadService {
   }) async {
     try {
       final json = deliveryForm.toJson();
-      await db.collection('sendHelpTwo').doc().set(json);
+      await CollectionEnums.sendHelp.collection.doc().set(json);
       return true;
     } catch (e) {
       log(e.toString());
