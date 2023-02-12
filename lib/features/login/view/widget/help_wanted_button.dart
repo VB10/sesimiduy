@@ -37,7 +37,7 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
                   color: ColorsCustom.sambacus,
                 )
               : ButtonLargeText(
-                  title: LocaleKeys.login_wantHelp.tr().toUpperCase(),
+                  title: LocaleKeys.login_wantHelp.tr(),
                 ),
         ),
       ),
