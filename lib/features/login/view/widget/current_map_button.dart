@@ -9,6 +9,8 @@ import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
+import 'package:sesimiduy/product/widget/padding/padding_normal_button.dart';
+import 'package:sesimiduy/product/widget/text/button_normal_text.dart';
 
 class CurrentMaps extends StatelessWidget {
   const CurrentMaps({super.key});
@@ -24,8 +26,7 @@ class CurrentMaps extends StatelessWidget {
       onPressed: () {
         context.navigateToPage<void>(const CurrentMapView());
       },
-      child: Padding(
-        padding: const PagePadding.all(),
+      child: PaddingNormalButton(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,11 +37,8 @@ class CurrentMaps extends StatelessWidget {
             Flexible(
               child: Padding(
                 padding: const PagePadding.onlyLeftLow(),
-                child: Text(
-                  LocaleKeys.login_currentMap.tr().toUpperCase(),
-                  style: context.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+                child: ButtonNormalText(
+                  title: LocaleKeys.login_currentMap.tr().toUpperCase(),
                 ),
               ),
             )

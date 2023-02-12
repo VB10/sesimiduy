@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sesimiduy/features/login/view/widget/complete_buutton.dart';
 import 'package:sesimiduy/features/login/view/widget/current_map_button.dart';
 import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
@@ -15,7 +16,6 @@ import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
-import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/social_media_button.dart';
 
 class LoginView extends StatefulWidget {
@@ -41,25 +41,11 @@ class _LoginViewState extends State<LoginView> {
         children: [
           const LoginHeader(),
           const SizedBox(height: WidgetSizes.spacingXsMid),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const PagePadding.horizontalSymmetric() +
-                    const PagePadding.onlyTopNormal(),
-                child: Wrap(
-                  runSpacing: WidgetSizes.spacingL,
-                  spacing: WidgetSizes.spacingL,
-                  children: const [
-                    HelpWantedButton(),
-                    GoingHelpButton(),
-                    CurrentMaps(),
-                    CompletedButton(),
-                  ].map((e) => _ButtonResponsive(child: e)).toList(),
-                ),
-              ),
-            ),
+          const Expanded(
+            child: _Body(),
           ),
           SafeArea(
+            top: false,
             child: Column(
               children: [
                 Padding(
@@ -80,9 +66,9 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Row _socialMediaButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget _socialMediaButtons() {
+    return Wrap(
+      spacing: WidgetSizes.spacingM,
       children: [
         SocialMediaButton(
           onTap: () => openWeb(SocialMediaLinksConstants.twitterUrl),
@@ -104,20 +90,60 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
+class _Body extends StatelessWidget {
+  const _Body();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const PagePadding.horizontalSymmetric() +
+            const PagePadding.onlyTopNormal(),
+        child: Wrap(
+          runSpacing: WidgetSizes.spacingL,
+          spacing: WidgetSizes.spacingL,
+          children: const [
+            HelpWantedButton(),
+            GoingHelpButton(),
+            CurrentMaps(),
+            CompletedButton(),
+          ].map((e) => _ButtonResponsive(child: e)).toList(),
+        ),
+      ),
+    );
+  }
+}
+
 class _ButtonResponsive extends StatelessWidget {
   const _ButtonResponsive({required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (windowSize) {
-        return SizedBox(
-          width: windowSize.isMobile != true
-              ? MediaQuery.of(context).size.width / 3
-              : MediaQuery.of(context).size.width,
-          child: child,
-        );
-      },
+    return SizedBox(
+      width: getValueForScreenType<double>(
+        context: context,
+        mobile: context.width,
+        tablet: context.width / 3,
+        desktop: context.width / 3,
+      ),
+      child: child,
     );
+    // return getValueForScreenType<bool>(
+    //   context: context,
+    //   mobile: false,
+    //   tablet: true,
+    // )
+    //     ? child()
+    //     : child;
+    // return ResponsiveBuilder(
+    //   builder: (windowSize) {
+    //     return SizedBox(
+    //       width: windowSize.isMobile != true
+    //           ? MediaQuery.of(context).size.width / 3
+    //           : MediaQuery.of(context).size.width,
+    //       child: child,
+    //     );
+    //   },
+    // );
   }
 }

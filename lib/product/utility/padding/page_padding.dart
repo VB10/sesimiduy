@@ -8,31 +8,47 @@ class PagePadding extends EdgeInsets {
       : super.symmetric(
           horizontal: WidgetSizes.spacingM,
         );
-  const PagePadding.horizontalSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingL);
+  const PagePadding.horizontalSymmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingL);
   const PagePadding.horizontal18Symmetric()
       : super.symmetric(
           horizontal: WidgetSizes.spacingM + WidgetSizes.spacingXSS,
         );
-  const PagePadding.horizontalNormalSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingS);
-  const PagePadding.horizontalHighSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingXxl4);
-  const PagePadding.horizontalLowSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingXsMid);
-  const PagePadding.horizontalVeryLowSymmetric() : super.symmetric(horizontal: WidgetSizes.spacingXxs);
+  const PagePadding.horizontalNormalSymmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingS);
+  const PagePadding.horizontalHighSymmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingXxl4);
+  const PagePadding.horizontalLowSymmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingXsMid);
+  const PagePadding.horizontalVeryLowSymmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingXxs);
   const PagePadding.horizontalLowXss()
       : super.symmetric(
           horizontal: WidgetSizes.spacingXxs + WidgetSizes.spacingXSS,
         );
-  const PagePadding.horizontal16Symmetric() : super.symmetric(horizontal: WidgetSizes.spacingM);
+  const PagePadding.horizontal16Symmetric()
+      : super.symmetric(horizontal: WidgetSizes.spacingM);
 
-  const PagePadding.verticalSymmetric() : super.symmetric(vertical: WidgetSizes.spacingL);
-  const PagePadding.verticalMediumHighSymmetric() : super.symmetric(vertical: WidgetSizes.spacingXxl2);
-  const PagePadding.verticalMediumSymmetric() : super.symmetric(vertical: WidgetSizes.spacingM);
-  const PagePadding.verticalHigh() : super.symmetric(vertical: WidgetSizes.spacingXxl4);
-  const PagePadding.verticalVeryLowSymmetric() : super.symmetric(vertical: WidgetSizes.spacingXxs);
-  const PagePadding.verticalNormalSymmetric() : super.symmetric(vertical: WidgetSizes.spacingXl);
-  const PagePadding.verticalLowSymmetric() : super.symmetric(vertical: WidgetSizes.spacingXsMid);
-  const PagePadding.vertical8Symmetric() : super.symmetric(vertical: WidgetSizes.spacingXs);
-  const PagePadding.vertical6Symmetric() : super.symmetric(vertical: WidgetSizes.spacingXSs);
-  const PagePadding.vertical12Symmetric() : super.symmetric(vertical: WidgetSizes.spacingS);
+  const PagePadding.verticalSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingL);
+  const PagePadding.verticalMediumHighSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXxl2);
+  const PagePadding.verticalMediumSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingM);
+  const PagePadding.verticalHigh()
+      : super.symmetric(vertical: WidgetSizes.spacingXxl4);
+  const PagePadding.verticalVeryLowSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXxs);
+  const PagePadding.verticalNormalSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXl);
+  const PagePadding.verticalLowSymmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXsMid);
+  const PagePadding.vertical8Symmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXs);
+  const PagePadding.vertical6Symmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingXSs);
+  const PagePadding.vertical12Symmetric()
+      : super.symmetric(vertical: WidgetSizes.spacingS);
   const PagePadding.highVerticalLowHorizontal()
       : super.symmetric(
           vertical: WidgetSizes.spacingXxl4,
@@ -49,7 +65,8 @@ class PagePadding extends EdgeInsets {
 
   const PagePadding.generalCardAll() : super.all(WidgetSizes.spacingS);
 
-  const PagePadding.generalCardOnlyRight() : super.only(right: WidgetSizes.spacingXs);
+  const PagePadding.generalCardOnlyRight()
+      : super.only(right: WidgetSizes.spacingXs);
 
   const PagePadding.generalIconAll() : super.all(WidgetSizes.spacingXxs);
   const PagePadding.generalIconLowAll() : super.all(WidgetSizes.spacingXSS);
@@ -63,29 +80,40 @@ class PagePadding extends EdgeInsets {
   const PagePadding.onlyLeftLow() : super.only(left: WidgetSizes.spacingS);
   const PagePadding.onlyLeftVeryLow() : super.only(left: WidgetSizes.spacingXs);
 
-  const PagePadding.onlyBottomMedium() : super.only(bottom: WidgetSizes.spacingS);
-  const PagePadding.onlyBottomNormal() : super.only(bottom: WidgetSizes.spacingXl);
+  const PagePadding.onlyBottomMedium()
+      : super.only(bottom: WidgetSizes.spacingS);
+  const PagePadding.onlyBottomNormal()
+      : super.only(bottom: WidgetSizes.spacingXl);
   const PagePadding.onlyBottom() : super.only(bottom: WidgetSizes.spacingM);
-  const PagePadding.onlyBottomLow() : super.only(bottom: WidgetSizes.spacingXsMid);
-  const PagePadding.onlyBottomVeryLow() : super.only(bottom: WidgetSizes.spacingXxs);
+  const PagePadding.onlyBottomLow()
+      : super.only(bottom: WidgetSizes.spacingXsMid);
+  const PagePadding.onlyBottomVeryLow()
+      : super.only(bottom: WidgetSizes.spacingXxs);
 
   const PagePadding.onlyTopMedium() : super.only(top: WidgetSizes.spacingS);
   const PagePadding.onlyTop() : super.only(top: WidgetSizes.spacingXsMid);
-  const PagePadding.onlyTopNormalMedium() : super.only(top: WidgetSizes.spacingXxl3 / 2);
+  const PagePadding.onlyTopNormalMedium()
+      : super.only(top: WidgetSizes.spacingXxl3 / 2);
   const PagePadding.onlyTopVeryLow() : super.only(top: WidgetSizes.spacingXSS);
   const PagePadding.onlyTopLow() : super.only(top: WidgetSizes.spacingXxs);
-  const PagePadding.onlyTopLowNormal() : super.only(top: WidgetSizes.spacingXxl3 / 2);
+  const PagePadding.onlyTopLowNormal()
+      : super.only(top: WidgetSizes.spacingXxl3 / 2);
   const PagePadding.onlyTopNormal() : super.only(top: WidgetSizes.spacingXl);
-  const PagePadding.onlyTopNormalX() : super.only(top: WidgetSizes.spacingXxl2 - WidgetSizes.spacingXSS);
+  const PagePadding.onlyTopNormalX()
+      : super.only(top: WidgetSizes.spacingXxl2 - WidgetSizes.spacingXSS);
   const PagePadding.onlyTopHigh() : super.only(top: WidgetSizes.spacingXxl3);
 
   const PagePadding.onlyRight() : super.only(right: WidgetSizes.spacingM);
   const PagePadding.onlyRightMedium() : super.only(right: WidgetSizes.spacingL);
-  const PagePadding.onlyRightNormal() : super.only(right: WidgetSizes.spacingXl);
-  const PagePadding.onlyRightHigh() : super.only(right: WidgetSizes.spacingXl + WidgetSizes.spacingM);
+  const PagePadding.onlyRightNormal()
+      : super.only(right: WidgetSizes.spacingXl);
+  const PagePadding.onlyRightHigh()
+      : super.only(right: WidgetSizes.spacingXl + WidgetSizes.spacingM);
 
-  const PagePadding.onlyRightLow() : super.only(right: WidgetSizes.spacingXsMid);
-  const PagePadding.onlyRightVeryLow() : super.only(right: WidgetSizes.spacingXSs);
+  const PagePadding.onlyRightLow()
+      : super.only(right: WidgetSizes.spacingXsMid);
+  const PagePadding.onlyRightVeryLow()
+      : super.only(right: WidgetSizes.spacingXSs);
 
   const PagePadding.horizontalLowVerticalVeryLowSymmetric()
       : super.symmetric(
