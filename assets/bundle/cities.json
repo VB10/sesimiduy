@@ -1,802 +1,488 @@
 [
-{
-"plaka": 1,
-"il_adi": "ADANA",
-"lat": 37,
-"lon": 35.3213333
-
-
-
-
-},
-{
-"plaka": 2,
-"il_adi": "ADIYAMAN",
-"lat": 37.7641667,
-"lon": 38.2761667
-
-
-
-
-},
-{
-"plaka": 3,
-"il_adi": "AFYONKARAHİSAR",
-"lat": 38.76376,
-"lon": 30.54034
-
-
-
-
-},
-{
-"plaka": 4,
-"il_adi": "AĞRI",
-"lat": 39.7216667,
-"lon": 43.0566667
-
-
-
-
-},
-{
-"plaka": 5,
-"il_adi": "AMASYA",
-"lat": 40.65,
-"lon": 35.8333333
-
-
-
-
-},
-{
-"plaka": 6,
-"il_adi": "ANKARA",
-"lat": 39.92077,
-"lon": 32.85411
-
-
-
-
-},
-{
-"plaka": 7,
-"il_adi": "ANTALYA",
-"lat": 36.88414,
-"lon": 30.70563
-
-
-
-
-},
-{
-"plaka": 8,
-"il_adi": "ARTVİN",
-"lat": 41.1833333,
-"lon": 41.8166667
-
-
-
-
-},
-{
-"plaka": 9,
-"il_adi": "AYDIN",
-"lat": 37.8444,
-"lon": 27.8458
-
-
-
-
-},
-{
-"plaka": 10,
-"il_adi": "BALIKESİR",
-"lat": 39.648369,
-"lon": 27.88261
-
-
-
-
-},
-{
-"plaka": 11,
-"il_adi": "BİLECİK",
-"lat": 40.150131,
-"lon": 29.983061
-
-
-
-
-},
-{
-"plaka": 12,
-"il_adi": "BİNGÖL",
-"lat": 38.885349,
-"lon": 40.498291
-
-
-
-
-},
-{
-"plaka": 13,
-"il_adi": "BİTLİS",
-"lat": 38.4,
-"lon": 42.1166667
-
-
-
-
-},
-{
-"plaka": 14,
-"il_adi": "BOLU",
-"lat": 40.739479,
-"lon": 31.611561
-
-
-
-
-},
-{
-"plaka": 15,
-"il_adi": "BURDUR",
-"lat": 37.726909,
-"lon": 30.288876
-
-
-
-},
-{
-"plaka": 16,
-"il_adi": "BURSA",
-"lat": 40.18257,
-"lon": 29.06687
-
-
-
-
-},
-{
-"plaka": 17,
-"il_adi": "ÇANAKKALE",
-"lat": 40.155312,
-"lon": 26.41416
-
-
-
-},
-{
-"plaka": 18,
-"il_adi": "ÇANKIRI",
-"lat": 40.6,
-"lon": 33.6166667
-
-
-
-
-},
-{
-"plaka": 19,
-"il_adi": "ÇORUM",
-"lat": 40.5505556,
-"lon": 34.9555556
-
-
-
-
-},
-{
-"plaka": 20,
-"il_adi": "DENİZLİ",
-"lat": 37.77652,
-"lon": 29.08639
-
-
-
-
-},
-{
-"plaka": 21,
-"il_adi": "DİYARBAKIR",
-"lat": 37.91441,
-"lon": 40.230629
-
-
-
-
-},
-{
-"plaka": 22,
-"il_adi": "EDİRNE",
-"lat": 41.6666667,
-"lon": 26.5666667
-
-
-
-
-},
-{
-"plaka": 23,
-"il_adi": "ELAZIĞ",
-"lat": 38.680969,
-"lon": 39.226398
-
-
-
-
-},
-{
-"plaka": 24,
-"il_adi": "ERZİNCAN",
-"lat": 39.75,
-"lon": 39.5
-
-
-
-
-},
-{
-"plaka": 25,
-"il_adi": "ERZURUM",
-"lat": 39.9043189,
-"lon": 41.2678853
-
-
-
-
-},
-{
-"plaka": 26,
-"il_adi": "ESKİŞEHİR",
-"lat": 39.784302,
-"lon": 30.51922
-
-
-
-
-},
-{
-"plaka": 27,
-"il_adi": "GAZİANTEP",
-"lat": 37.06622,
-"lon": 37.38332
-
-
-
-
-},
-{
-"plaka": 28,
-"il_adi": "GİRESUN",
-"lat": 40.912811,
-"lon": 38.38953
-
-
-
-
-},
-{
-"plaka": 29,
-"il_adi": "GÜMÜŞHANE",
-"lat": 40.4602778,
-"lon": 39.4813889
-
-
-
-
-},
-{
-"plaka": 30,
-"il_adi": "HAKKARİ",
-"lat": 37.5833333,
-"lon": 43.7333333
-
-
-
-
-},
-{
-"plaka": 31,
-"il_adi": "HATAY",
-"lat": 36.4018488,
-"lon": 36.3498097
-
-
-
-
-},
-{
-"plaka": 32,
-"il_adi": "ISPARTA",
-"lat": 37.7666667,
-"lon": 30.55
-
-
-
-
-},
-{
-"plaka": 33,
-"il_adi": "MERSİN(İÇEL)",
-"lat": 36.8,
-"lon": 34.6333333
-
-
-
-
-},
-{
-"plaka": 34,
-"il_adi": "İSTANBUL",
-"lat": 41.00527,
-"lon": 28.97696
-
-
-
-},
-{
-"plaka": 35,
-"il_adi": "İZMİR",
-"lat": 38.41885,
-"lon": 27.12872
-
-
-
-},
-{
-"plaka": 36,
-"il_adi": "KARS",
-"lat": 40.59267,
-"lon": 43.077831
-
-
-},
-{
-"plaka": 37,
-"il_adi": "KASTAMONU",
-"lat": 41.38871,
-"lon": 33.78273
-
-
-
-
-},
-{
-"plaka": 38,
-"il_adi": "KAYSERİ",
-"lat": 38.7333333,
-"lon": 35.4833333
-
-
-
-
-},
-{
-"plaka": 39,
-"il_adi": "KIRKLARELİ",
-"lat": 41.7333333,
-"lon": 27.2166667
-
-
-
-
-},
-{
-"plaka": 40,
-"il_adi": "KIRŞEHİR",
-"lat": 39.15,
-"lon": 34.1666667
-
-
-
-
-},
-{
-"plaka": 41,
-"il_adi": "KOCAELİ",
-"lat": 40.8532704,
-"lon": 29.8815203
-
-
-
-
-},
-{
-"plaka": 42,
-"il_adi": "KONYA",
-"lat": 37.8666667,
-"lon": 32.4833333
-
-
-
-
-},
-{
-"plaka": 43,
-"il_adi": "KÜTAHYA",
-"lat": 39.4166667,
-"lon": 29.9833333
-
-
-
-
-},
-{
-"plaka": 44,
-"il_adi": "MALATYA",
-"lat": 38.35519,
-"lon": 38.30946
-
-
-
-
-},
-{
-"plaka": 45,
-"il_adi": "MANİSA",
-"lat": 38.619099,
-"lon": 27.428921
-
-
-
-
-},
-{
-"plaka": 46,
-"il_adi": "KAHRAMANMARAŞ",
-"lat": 37.5833333,
-"lon": 36.9333333
-
-
-
-
-},
-{
-"plaka": 47,
-"il_adi": "MARDİN",
-"lat": 37.3122361,
-"lon": 40.735112
-
-
-
-
-},
-{
-"plaka": 48,
-"il_adi": "MUĞLA",
-"lat": 37.2152778,
-"lon": 28.3636111
-
-
-
-
-},
-{
-"plaka": 49,
-"il_adi": "MUŞ",
-"lat": 38.7432926,
-"lon": 41.5064823
-
-
-
-
-},
-{
-"plaka": 50,
-"il_adi": "NEVŞEHİR",
-"lat": 38.62442,
-"lon": 34.723969
-
-
-
-
-},
-{
-"plaka": 51,
-"il_adi": "NİĞDE",
-"lat": 37.9666667,
-"lon": 34.6833333
-
-
-
-
-},
-{
-"plaka": 52,
-"il_adi": "ORDU",
-"lat": 40.9833333,
-"lon": 37.8833333
-
-
-
-
-},
-{
-"plaka": 53,
-"il_adi": "RİZE",
-"lat": 41.02005,
-"lon": 40.523449
-
-
-
-
-},
-{
-"plaka": 54,
-"il_adi": "SAKARYA",
-"lat": 40.7568793,
-"lon": 30.378138
-
-
-
-
-},
-{
-"plaka": 55,
-"il_adi": "SAMSUN",
-"lat": 41.292782,
-"lon": 36.33128
-
-
-
-
-},
-{
-"plaka": 56,
-"il_adi": "SİİRT",
-"lat": 37.94429,
-"lon": 41.93288
-
-
-
-
-},
-{
-"plaka": 57,
-"il_adi": "SİNOP",
-"lat": 42.0264222,
-"lon": 35.1550745
-
-
-
-
-},
-{
-"plaka": 58,
-"il_adi": "SİVAS",
-"lat": 39.747662,
-"lon": 37.017879
-
-
-
-
-},
-{
-"plaka": 59,
-"il_adi": "TEKİRDAĞ",
-"lat": 40.9833333,
-"lon": 27.5166667
-
-
-
-
-},
-{
-"plaka": 60,
-"il_adi": "TOKAT",
-"lat": 40.3166667,
-"lon": 36.55
-
-
-
-
-},
-{
-"plaka": 61,
-"il_adi": "TRABZON",
-"lat": 41,
-"lon": 39.7333333
-
-
-
-
-},
-{
-"plaka": 62,
-"il_adi": "TUNCELİ",
-"lat": 39.1079868,
-"lon": 39.5401672
-
-
-
-
-},
-{
-"plaka": 63,
-"il_adi": "ŞANLIURFA",
-"lat": 37.15,
-"lon": 38.8
-
-
-
-
-},
-{
-"plaka": 64,
-"il_adi": "UŞAK",
-"lat": 38.682301,
-"lon": 29.40819
-
-
-
-
-},
-{
-"plaka": 65,
-"il_adi": "VAN",
-"lat": 38.4941667,
-"lon": 43.38
-
-
-
-
-},
-{
-"plaka": 66,
-"il_adi": "YOZGAT",
-"lat": 39.82,
-"lon": 34.8044444
-
-
-
-
-},
-{
-"plaka": 67,
-"il_adi": "ZONGULDAK",
-"lat": 41.456409,
-"lon": 31.798731
-
-
-
-
-},
-{
-"plaka": 68,
-"il_adi": "AKSARAY",
-"lat": 38.36869,
-"lon": 34.03698
-
-
-
-
-},
-{
-"plaka": 69,
-"il_adi": "BAYBURT",
-"lat": 40.255169,
-"lon": 40.22488
-
-
-
-
-},
-{
-"plaka": 70,
-"il_adi": "KARAMAN",
-"lat": 37.17593,
-"lon": 33.228748
-
-
-
-
-},
-{
-"plaka": 71,
-"il_adi": "KIRIKKALE",
-"lat": 39.846821,
-"lon": 33.515251
-
-
-
-
-},
-{
-"plaka": 72,
-"il_adi": "BATMAN",
-"lat": 37.881168,
-"lon": 41.13509
-
-
-
-
-},
-{
-"plaka": 73,
-"il_adi": "ŞIRNAK",
-"lat": 37.5163889,
-"lon": 42.4611111
-
-
-
-
-},
-{
-"plaka": 74,
-"il_adi": "BARTIN",
-"lat": 41.6344444,
-"lon": 32.3375
-
-
-
-},
-{
-"plaka": 75,
-"il_adi": "ARDAHAN",
-"lat": 41.110481,
-"lon": 42.702171
-
-
-
-},
-{
-"plaka": 76,
-"il_adi": "IĞDIR",
-"lat": 39.9166667,
-"lon": 44.0333333
-
-
-
-
-},
-{
-"plaka": 77,
-"il_adi": "YALOVA",
-"lat": 40.65,
-"lon": 29.2666667
-
-
-
-
-},
-{
-"plaka": 78,
-"il_adi": "KARABÜK",
-"lat": 41.2,
-"lon": 32.6333333
-
-
-
-
-},
-{
-"plaka": 79,
-"il_adi": "KİLİS",
-"lat": 36.718399,
-"lon": 37.12122
-
-
-
-},
-{
-"plaka": 80,
-"il_adi": "OSMANİYE",
-"lat": 37.06805,
-"lon": 36.261589
-
-
-
-},
-{
-"plaka": 81,
-"il_adi": "DÜZCE",
-"lat": 40.843849,
-"lon": 31.15654
-
-
-
-
-}
+    {
+        "plaka": 1,
+        "il_adi": "ADANA",
+        "lat": 37,
+        "lon": 35.3213333
+    },
+    {
+        "plaka": 2,
+        "il_adi": "ADIYAMAN",
+        "lat": 37.7641667,
+        "lon": 38.2761667
+    },
+    {
+        "plaka": 3,
+        "il_adi": "AFYONKARAHİSAR",
+        "lat": 38.76376,
+        "lon": 30.54034
+    },
+    {
+        "plaka": 4,
+        "il_adi": "AĞRI",
+        "lat": 39.7216667,
+        "lon": 43.0566667
+    },
+    {
+        "plaka": 5,
+        "il_adi": "AMASYA",
+        "lat": 40.65,
+        "lon": 35.8333333
+    },
+    {
+        "plaka": 6,
+        "il_adi": "ANKARA",
+        "lat": 39.92077,
+        "lon": 32.85411
+    },
+    {
+        "plaka": 7,
+        "il_adi": "ANTALYA",
+        "lat": 36.88414,
+        "lon": 30.70563
+    },
+    {
+        "plaka": 8,
+        "il_adi": "ARTVİN",
+        "lat": 41.1833333,
+        "lon": 41.8166667
+    },
+    {
+        "plaka": 9,
+        "il_adi": "AYDIN",
+        "lat": 37.8444,
+        "lon": 27.8458
+    },
+    {
+        "plaka": 10,
+        "il_adi": "BALIKESİR",
+        "lat": 39.648369,
+        "lon": 27.88261
+    },
+    {
+        "plaka": 11,
+        "il_adi": "BİLECİK",
+        "lat": 40.150131,
+        "lon": 29.983061
+    },
+    {
+        "plaka": 12,
+        "il_adi": "BİNGÖL",
+        "lat": 38.885349,
+        "lon": 40.498291
+    },
+    {
+        "plaka": 13,
+        "il_adi": "BİTLİS",
+        "lat": 38.4,
+        "lon": 42.1166667
+    },
+    {
+        "plaka": 14,
+        "il_adi": "BOLU",
+        "lat": 40.739479,
+        "lon": 31.611561
+    },
+    {
+        "plaka": 15,
+        "il_adi": "BURDUR",
+        "lat": 37.726909,
+        "lon": 30.288876
+    },
+    {
+        "plaka": 16,
+        "il_adi": "BURSA",
+        "lat": 40.18257,
+        "lon": 29.06687
+    },
+    {
+        "plaka": 17,
+        "il_adi": "ÇANAKKALE",
+        "lat": 40.155312,
+        "lon": 26.41416
+    },
+    {
+        "plaka": 18,
+        "il_adi": "ÇANKIRI",
+        "lat": 40.6,
+        "lon": 33.6166667
+    },
+    {
+        "plaka": 19,
+        "il_adi": "ÇORUM",
+        "lat": 40.5505556,
+        "lon": 34.9555556
+    },
+    {
+        "plaka": 20,
+        "il_adi": "DENİZLİ",
+        "lat": 37.77652,
+        "lon": 29.08639
+    },
+    {
+        "plaka": 21,
+        "il_adi": "DİYARBAKIR",
+        "lat": 37.91441,
+        "lon": 40.230629
+    },
+    {
+        "plaka": 22,
+        "il_adi": "EDİRNE",
+        "lat": 41.6666667,
+        "lon": 26.5666667
+    },
+    {
+        "plaka": 23,
+        "il_adi": "ELAZIĞ",
+        "lat": 38.680969,
+        "lon": 39.226398
+    },
+    {
+        "plaka": 24,
+        "il_adi": "ERZİNCAN",
+        "lat": 39.75,
+        "lon": 39.5
+    },
+    {
+        "plaka": 25,
+        "il_adi": "ERZURUM",
+        "lat": 39.9043189,
+        "lon": 41.2678853
+    },
+    {
+        "plaka": 26,
+        "il_adi": "ESKİŞEHİR",
+        "lat": 39.784302,
+        "lon": 30.51922
+    },
+    {
+        "plaka": 27,
+        "il_adi": "GAZİANTEP",
+        "lat": 37.06622,
+        "lon": 37.38332
+    },
+    {
+        "plaka": 28,
+        "il_adi": "GİRESUN",
+        "lat": 40.912811,
+        "lon": 38.38953
+    },
+    {
+        "plaka": 29,
+        "il_adi": "GÜMÜŞHANE",
+        "lat": 40.4602778,
+        "lon": 39.4813889
+    },
+    {
+        "plaka": 30,
+        "il_adi": "HAKKARİ",
+        "lat": 37.5833333,
+        "lon": 43.7333333
+    },
+    {
+        "plaka": 31,
+        "il_adi": "HATAY",
+        "lat": 36.4018488,
+        "lon": 36.3498097
+    },
+    {
+        "plaka": 32,
+        "il_adi": "ISPARTA",
+        "lat": 37.7666667,
+        "lon": 30.55
+    },
+    {
+        "plaka": 33,
+        "il_adi": "MERSİN(İÇEL)",
+        "lat": 36.8,
+        "lon": 34.6333333
+    },
+    {
+        "plaka": 34,
+        "il_adi": "İSTANBUL",
+        "lat": 41.00527,
+        "lon": 28.97696
+    },
+    {
+        "plaka": 35,
+        "il_adi": "İZMİR",
+        "lat": 38.41885,
+        "lon": 27.12872
+    },
+    {
+        "plaka": 36,
+        "il_adi": "KARS",
+        "lat": 40.59267,
+        "lon": 43.077831
+    },
+    {
+        "plaka": 37,
+        "il_adi": "KASTAMONU",
+        "lat": 41.38871,
+        "lon": 33.78273
+    },
+    {
+        "plaka": 38,
+        "il_adi": "KAYSERİ",
+        "lat": 38.7333333,
+        "lon": 35.4833333
+    },
+    {
+        "plaka": 39,
+        "il_adi": "KIRKLARELİ",
+        "lat": 41.7333333,
+        "lon": 27.2166667
+    },
+    {
+        "plaka": 40,
+        "il_adi": "KIRŞEHİR",
+        "lat": 39.15,
+        "lon": 34.1666667
+    },
+    {
+        "plaka": 41,
+        "il_adi": "KOCAELİ",
+        "lat": 40.8532704,
+        "lon": 29.8815203
+    },
+    {
+        "plaka": 42,
+        "il_adi": "KONYA",
+        "lat": 37.8666667,
+        "lon": 32.4833333
+    },
+    {
+        "plaka": 43,
+        "il_adi": "KÜTAHYA",
+        "lat": 39.4166667,
+        "lon": 29.9833333
+    },
+    {
+        "plaka": 44,
+        "il_adi": "MALATYA",
+        "lat": 38.35519,
+        "lon": 38.30946
+    },
+    {
+        "plaka": 45,
+        "il_adi": "MANİSA",
+        "lat": 38.619099,
+        "lon": 27.428921
+    },
+    {
+        "plaka": 46,
+        "il_adi": "KAHRAMANMARAŞ",
+        "lat": 37.5833333,
+        "lon": 36.9333333
+    },
+    {
+        "plaka": 47,
+        "il_adi": "MARDİN",
+        "lat": 37.3122361,
+        "lon": 40.735112
+    },
+    {
+        "plaka": 48,
+        "il_adi": "MUĞLA",
+        "lat": 37.2152778,
+        "lon": 28.3636111
+    },
+    {
+        "plaka": 49,
+        "il_adi": "MUŞ",
+        "lat": 38.7432926,
+        "lon": 41.5064823
+    },
+    {
+        "plaka": 50,
+        "il_adi": "NEVŞEHİR",
+        "lat": 38.62442,
+        "lon": 34.723969
+    },
+    {
+        "plaka": 51,
+        "il_adi": "NİĞDE",
+        "lat": 37.9666667,
+        "lon": 34.6833333
+    },
+    {
+        "plaka": 52,
+        "il_adi": "ORDU",
+        "lat": 40.9833333,
+        "lon": 37.8833333
+    },
+    {
+        "plaka": 53,
+        "il_adi": "RİZE",
+        "lat": 41.02005,
+        "lon": 40.523449
+    },
+    {
+        "plaka": 54,
+        "il_adi": "SAKARYA",
+        "lat": 40.7568793,
+        "lon": 30.378138
+    },
+    {
+        "plaka": 55,
+        "il_adi": "SAMSUN",
+        "lat": 41.292782,
+        "lon": 36.33128
+    },
+    {
+        "plaka": 56,
+        "il_adi": "SİİRT",
+        "lat": 37.94429,
+        "lon": 41.93288
+    },
+    {
+        "plaka": 57,
+        "il_adi": "SİNOP",
+        "lat": 42.0264222,
+        "lon": 35.1550745
+    },
+    {
+        "plaka": 58,
+        "il_adi": "SİVAS",
+        "lat": 39.747662,
+        "lon": 37.017879
+    },
+    {
+        "plaka": 59,
+        "il_adi": "TEKİRDAĞ",
+        "lat": 40.9833333,
+        "lon": 27.5166667
+    },
+    {
+        "plaka": 60,
+        "il_adi": "TOKAT",
+        "lat": 40.3166667,
+        "lon": 36.55
+    },
+    {
+        "plaka": 61,
+        "il_adi": "TRABZON",
+        "lat": 41,
+        "lon": 39.7333333
+    },
+    {
+        "plaka": 62,
+        "il_adi": "TUNCELİ",
+        "lat": 39.1079868,
+        "lon": 39.5401672
+    },
+    {
+        "plaka": 63,
+        "il_adi": "ŞANLIURFA",
+        "lat": 37.15,
+        "lon": 38.8
+    },
+    {
+        "plaka": 64,
+        "il_adi": "UŞAK",
+        "lat": 38.682301,
+        "lon": 29.40819
+    },
+    {
+        "plaka": 65,
+        "il_adi": "VAN",
+        "lat": 38.4941667,
+        "lon": 43.38
+    },
+    {
+        "plaka": 66,
+        "il_adi": "YOZGAT",
+        "lat": 39.82,
+        "lon": 34.8044444
+    },
+    {
+        "plaka": 67,
+        "il_adi": "ZONGULDAK",
+        "lat": 41.456409,
+        "lon": 31.798731
+    },
+    {
+        "plaka": 68,
+        "il_adi": "AKSARAY",
+        "lat": 38.36869,
+        "lon": 34.03698
+    },
+    {
+        "plaka": 69,
+        "il_adi": "BAYBURT",
+        "lat": 40.255169,
+        "lon": 40.22488
+    },
+    {
+        "plaka": 70,
+        "il_adi": "KARAMAN",
+        "lat": 37.17593,
+        "lon": 33.228748
+    },
+    {
+        "plaka": 71,
+        "il_adi": "KIRIKKALE",
+        "lat": 39.846821,
+        "lon": 33.515251
+    },
+    {
+        "plaka": 72,
+        "il_adi": "BATMAN",
+        "lat": 37.881168,
+        "lon": 41.13509
+    },
+    {
+        "plaka": 73,
+        "il_adi": "ŞIRNAK",
+        "lat": 37.5163889,
+        "lon": 42.4611111
+    },
+    {
+        "plaka": 74,
+        "il_adi": "BARTIN",
+        "lat": 41.6344444,
+        "lon": 32.3375
+    },
+    {
+        "plaka": 75,
+        "il_adi": "ARDAHAN",
+        "lat": 41.110481,
+        "lon": 42.702171
+    },
+    {
+        "plaka": 76,
+        "il_adi": "IĞDIR",
+        "lat": 39.9166667,
+        "lon": 44.0333333
+    },
+    {
+        "plaka": 77,
+        "il_adi": "YALOVA",
+        "lat": 40.65,
+        "lon": 29.2666667
+    },
+    {
+        "plaka": 78,
+        "il_adi": "KARABÜK",
+        "lat": 41.2,
+        "lon": 32.6333333
+    },
+    {
+        "plaka": 79,
+        "il_adi": "KİLİS",
+        "lat": 36.718399,
+        "lon": 37.12122
+    },
+    {
+        "plaka": 80,
+        "il_adi": "OSMANİYE",
+        "lat": 37.06805,
+        "lon": 36.261589
+    },
+    {
+        "plaka": 81,
+        "il_adi": "DÜZCE",
+        "lat": 40.843849,
+        "lon": 31.15654
+    }
 ]

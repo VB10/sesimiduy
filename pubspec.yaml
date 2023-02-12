@@ -52,3 +52,4 @@ flutter:
     - assets/translations/
     - assets/icons/
     - assets/docs/
+    - assets/bundle/

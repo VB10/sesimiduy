@@ -5,9 +5,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/dialog/mixin/deliver_operation_mixin.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
-import 'package:sesimiduy/product/model/city_model.dart';
+import 'package:sesimiduy/product/model/cities.dart';
 import 'package:sesimiduy/product/model/delivery_help_form.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
 import 'package:sesimiduy/product/model/items.dart';
@@ -35,7 +36,7 @@ class DeliverHelpDialog extends StatefulWidget {
 }
 
 class _DeliverHelpDialogState extends State<DeliverHelpDialog>
-    with _OperationMixin {
+    with DeliverOperationMixin {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -43,9 +44,9 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
       child: Form(
         autovalidateMode: autovalidateMode,
         onChanged: () {
-          stateNotifier.value = _formKey.currentState?.validate() ?? false;
+          stateNotifier.value = formKey.currentState?.validate() ?? false;
         },
-        key: _formKey,
+        key: formKey,
         child: ResponsiveBuilder(
           builder: (windowSize) {
             return SizedBox(
@@ -59,28 +60,35 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     const _CustomDivider(),
                     const VerticalSpace.xSmall(),
                     _HelpTypeSelectionRow(
-                      _helpType,
-                      onChanged: _change,
+                      helpType,
+                      onChanged: changeHelpType,
                     ),
                     const VerticalSpace.standard(),
                     const _SubHeader(),
                     const VerticalSpace.standard(),
                     _NameTextField(
-                      _helpType == HelpType.personal,
-                      controller: _nameController,
+                      helpType == HelpType.personal,
+                      controller: nameController,
                     ),
                     const VerticalSpace.standard(),
                     const VerticalSpace.standard(),
-                    _PhoneField(controller: _phoneController),
+                    _PhoneField(controller: phoneController),
                     const VerticalSpace.standard(),
                     _DriverInfos(
-                      carPlateNumberController: _carPlateNumberController,
-                      vehicleTypeController: _vehicleTypeController,
+                      carPlateNumberController: carPlateNumberController,
+                      vehicleTypeController: vehicleTypeController,
                     ),
                     const VerticalSpace.standard(),
                     _DestinationInfos(
                       fromController: fromController,
                       toController: toController,
+                      cities: cities,
+                      onSelectedFromCity: (value) {
+                        selectedFromCity = value;
+                      },
+                      onSelectedToCity: (value) {
+                        selectedToCity = value;
+                      },
                     ),
                     const VerticalSpace.standard(),
                     _CarriedItems(
@@ -114,19 +122,6 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
       ),
     );
   }
-
-  void showInSnackBar(String title, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(title),
-        backgroundColor: ColorsCustom.sambacus,
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
-      ),
-    );
-  }
-
-  void _change(HelpType type) => setState(() => _helpType = type);
 }
 
 class _CarriedItems extends StatelessWidget {
@@ -201,50 +196,80 @@ class _DestinationInfos extends StatelessWidget {
   const _DestinationInfos({
     required this.toController,
     required this.fromController,
+    required this.cities,
+    required this.onSelectedToCity,
+    required this.onSelectedFromCity,
   });
   final TextEditingController toController;
   final TextEditingController fromController;
+  final List<City> cities;
+  final ValueChanged<City> onSelectedToCity;
+  final ValueChanged<City> onSelectedFromCity;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
-      child: kIsWeb
-          ? Row(
-              children: [
-                Expanded(
-                  child: _DestinationFromField(controller: fromController),
-                ),
-                const HorizontalSpace.standard(),
-                Expanded(child: _DestinationToField(controller: toController)),
-              ],
-            )
-          : Column(
-              children: [
-                _DestinationFromField(controller: fromController),
-                const VerticalSpace.standard(),
-                _DestinationToField(controller: toController),
-              ],
+      child: Visibility(
+        visible: kIsWeb,
+        replacement: Column(
+          children: [
+            _DestinationFromField(
+              controller: fromController,
+              cities: cities,
+              onSelected: onSelectedFromCity,
             ),
+            const VerticalSpace.standard(),
+            // TODO: Remove duplication
+            _DestinationToField(
+              controller: toController,
+              cities: cities,
+              onSelected: onSelectedToCity,
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: _DestinationFromField(
+                controller: fromController,
+                cities: cities,
+                onSelected: onSelectedFromCity,
+              ),
+            ),
+            const HorizontalSpace.standard(),
+            Expanded(
+              child: _DestinationToField(
+                controller: toController,
+                cities: cities,
+                onSelected: onSelectedToCity,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class _DestinationFromField extends StatelessWidget {
-  const _DestinationFromField({required this.controller});
+  const _DestinationFromField({
+    required this.controller,
+    required this.cities,
+    required this.onSelected,
+  });
   final TextEditingController controller;
+  final List<City> cities;
+  final ValueChanged<City> onSelected;
   @override
   Widget build(BuildContext context) {
-    return LabeledProductComboBox<CityModel>(
+    return LabeledProductComboBox<City>(
       labelText: LocaleKeys.labelFromCity.tr(),
-      items: [
-        CityModel('ankara'),
-        CityModel('istanbul'),
-      ],
+      items: cities,
       hintText: LocaleKeys.hintPickCity.tr(),
       onChanged: (value) {
-        if (value != null) {
-          controller.text = value.name;
-        }
+        if (value == null) return;
+        controller.text = value.name ?? '';
+        onSelected.call(value);
       },
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
@@ -253,22 +278,24 @@ class _DestinationFromField extends StatelessWidget {
 }
 
 class _DestinationToField extends StatelessWidget {
-  const _DestinationToField({required this.controller});
+  const _DestinationToField({
+    required this.controller,
+    required this.cities,
+    required this.onSelected,
+  });
   final TextEditingController controller;
-
+  final List<City> cities;
+  final ValueChanged<City> onSelected;
   @override
   Widget build(BuildContext context) {
-    return LabeledProductComboBox<CityModel>(
+    return LabeledProductComboBox<City>(
       labelText: LocaleKeys.labelToCity.tr(),
-      items: [
-        CityModel('ankara'),
-        CityModel('istanbul'),
-      ],
+      items: cities,
       hintText: LocaleKeys.hintPickCity.tr(),
       onChanged: (value) {
-        if (value != null) {
-          controller.text = value.name;
-        }
+        if (value == null) return;
+        controller.text = value.name ?? '';
+        onSelected.call(value);
       },
       validator: (item) =>
           ValidateGenericItems<ProductDropDownModel>(item).validateDropDown,
@@ -357,25 +384,6 @@ class _PhoneField extends StatelessWidget {
         formatters: [InputFormatter.instance.phoneFormatter],
         labelText: LocaleKeys.labelDriverPhone.tr(),
         validator: (text) => ValidatorItems(text).validatePhoneNumber,
-      ),
-    );
-  }
-}
-
-class _DriverNameField extends StatelessWidget {
-  const _DriverNameField({required this.controller});
-
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.horizontalSymmetric(),
-      child: LabeledProductTextField(
-        controller: controller,
-        hintText: LocaleKeys.nameAndSurname.tr(),
-        labelText: LocaleKeys.labelDriverName.tr(),
-        validator: (text) => ValidatorItems(text).validateFullName,
       ),
     );
   }
@@ -542,66 +550,6 @@ extension DeliverHelpDialogExtension on DeliverHelpDialog {
     return showDialog<T?>(
       context: context,
       builder: (context) => this,
-    );
-  }
-}
-
-mixin _OperationMixin on State<DeliverHelpDialog> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final autovalidateMode = AutovalidateMode.onUserInteraction;
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _carPlateNumberController =
-      TextEditingController();
-
-  final TextEditingController _vehicleTypeController = TextEditingController();
-
-  final TextEditingController fromController = TextEditingController();
-  final TextEditingController toController = TextEditingController();
-  ValueNotifier<Items?> itemNotifier = ValueNotifier(null);
-  ValueNotifier<bool> stateNotifier = ValueNotifier(false);
-  HelpType _helpType = HelpType.personal;
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    stateNotifier.dispose();
-    itemNotifier.dispose();
-    _carPlateNumberController.dispose();
-    _vehicleTypeController.dispose();
-    fromController.dispose();
-    toController.dispose();
-    super.dispose();
-  }
-
-  bool get isCompany => _helpType == HelpType.business;
-
-  Future<DeliveryHelpForm?> returnRequestItem() async {
-    if (itemNotifier.value == null) return null;
-    final deviceID = await DeviceUtility.instance.getUniqueDeviceId();
-    return DeliveryHelpForm(
-      deviceId: deviceID,
-      madeByCityId: 1,
-      madeByCityName: fromController.text,
-      isCompany: isCompany,
-      fullName: _nameController.text,
-      toPlaceId: 1,
-      phoneNumber: _phoneController.text.phoneFormatValue,
-      numberPlate: _carPlateNumberController.text,
-      carType: _vehicleTypeController.text.isNullOrEmpty
-          ? VehicleTypes.car.index
-          : VehicleTypes.values
-              .firstWhere((e) => e.name == _vehicleTypeController.text)
-              .index,
-      fromPlace: fromController.text,
-      toPlace: toController.text,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      collectItem: itemNotifier.value?.name ?? '',
-      collectItemId: itemNotifier.value?.id ?? '',
-      companyName: isCompany ? _nameController.text : '',
     );
   }
 }
