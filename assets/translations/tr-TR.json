@@ -52,7 +52,7 @@
     "login": {
         "wantHelp": "YARDIM İSTİYORUM",
         "goingHelp": "YARDIMA GİDİYORUM",
-        "currentMap": "HARİTA",
+        "currentMap": "GÜNCEL YARDIM HARİTASI",
         "arrived": "TESLİM ETTİM",
         "info": "Afet alanına yardım ulaştıracak olan araçları ve yardıma ihtiyacı olanları buluşturan uygulama",
         "description": "BU BİR SOSYAL SORUMLULUK PROJESIDIR"
