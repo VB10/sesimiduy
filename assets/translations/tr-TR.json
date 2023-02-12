@@ -50,11 +50,11 @@
         "kvkk": "Lütfen KVKK'yi kabul ediniz"
     },
     "login": {
-        "wantHelp": "Yardım İstiyorum",
+        "wantHelp": "YARDIM İSTİYORUM",
         "goingHelp": "YARDIMA GİDİYORUM",
         "currentMap": "GÜNCEL YARDIM HARİTASI",
         "arrived": "TESLİM ETTİM",
-        "info": "Afet alanına yardım ulaştıracak olan araçların ve yardıma ihtiyacı olanların buluşturulmasını hedefliyoruz",
+        "info": "Afet alanına yardım ulaştıracak olan araçları ve yardıma ihtiyacı olanları buluşturan uygulama",
         "description": "BU BİR SOSYAL SORUMLULUK PROJESIDIR"
     },
     "category": "Category"
