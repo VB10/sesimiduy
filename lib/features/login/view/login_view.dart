@@ -250,7 +250,7 @@ class _HelpWantedButtonState extends State<_HelpWantedButton> {
                   color: ColorsCustom.sambacus,
                 )
               : Text(
-                  LocaleKeys.login_wantHelp.tr().toUpperCase(),
+                  LocaleKeys.login_wantHelp.tr(),
                   style: context.textTheme.titleLarge,
                 ),
         ),
