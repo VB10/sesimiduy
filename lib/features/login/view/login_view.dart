@@ -7,19 +7,15 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
-import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
-import 'package:sesimiduy/features/login/service/help_upload_service.dart';
-import 'package:sesimiduy/features/sub/request_help_view.dart';
-import 'package:sesimiduy/product/dialog/completed_dialog.dart';
-import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
+import 'package:sesimiduy/features/login/view/widget/complete_buutton.dart';
+import 'package:sesimiduy/features/login/view/widget/current_map_button.dart';
+import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
+import 'package:sesimiduy/features/login/view/widget/help_wanted_button.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
-import 'package:sesimiduy/product/model/delivery_help_form.dart';
-import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/constants/social_media_links_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
-import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
@@ -53,18 +49,20 @@ class _LoginViewState extends State<LoginView> {
           const _Header(),
           const SizedBox(height: WidgetSizes.spacingXsMid),
           Expanded(
-            child: Padding(
-              padding: const PagePadding.horizontalSymmetric() +
-                  const PagePadding.onlyTopNormal(),
-              child: Wrap(
-                runSpacing: WidgetSizes.spacingL,
-                spacing: WidgetSizes.spacingL,
-                children: const [
-                  _HelpWantedButton(),
-                  _GoingHelpButton(),
-                  _CurrentMaps(),
-                  _CompletedButton(),
-                ].map((e) => _ButtonResponsive(child: e)).toList(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const PagePadding.horizontalSymmetric() +
+                    const PagePadding.onlyTopNormal(),
+                child: Wrap(
+                  runSpacing: WidgetSizes.spacingL,
+                  spacing: WidgetSizes.spacingL,
+                  children: const [
+                    HelpWantedButton(),
+                    GoingHelpButton(),
+                    CurrentMaps(),
+                    CompletedButton(),
+                  ].map((e) => _ButtonResponsive(child: e)).toList(),
+                ),
               ),
             ),
           ),
@@ -109,185 +107,6 @@ class _LoginViewState extends State<LoginView> {
           title: StringConstants.afad,
         ),
       ],
-    );
-  }
-}
-
-class _CompletedButton extends StatelessWidget {
-  const _CompletedButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.braziliante,
-        ),
-      ),
-      onPressed: () {
-        const CompletedDialog().show(context);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(FontAwesomeIcons.circleCheck),
-          Padding(
-            padding: const PagePadding.onlyLeftLow(),
-            child: Text(
-              LocaleKeys.login_arrived.tr().toUpperCase(),
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: ColorsCustom.white),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _CurrentMaps extends StatelessWidget {
-  const _CurrentMaps();
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.endless,
-        ),
-      ),
-      onPressed: () {
-        context.navigateToPage<void>(const CurrentMapView());
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(FontAwesomeIcons.earthAfrica),
-          Padding(
-            padding: const PagePadding.onlyLeftLow(),
-            child: Text(
-              LocaleKeys.login_currentMap.tr().toUpperCase(),
-              style: context.textTheme.titleLarge
-                  ?.copyWith(color: ColorsCustom.white),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _GoingHelpButton extends StatefulWidget {
-  const _GoingHelpButton();
-
-  @override
-  State<_GoingHelpButton> createState() => _GoingHelpButtonState();
-}
-
-class _GoingHelpButtonState extends State<_GoingHelpButton> {
-  bool isLoading = false;
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: CustomButtonStyle.normal.copyWith(
-        backgroundColor: MaterialStateProperty.all(
-          ColorsCustom.sambacus,
-        ),
-      ),
-      onPressed: onPressed,
-      child: Center(
-        child: isLoading
-            ? const CircularProgressIndicator(
-                color: ColorsCustom.white,
-              )
-            : Text(
-                LocaleKeys.login_goingHelp.tr().toUpperCase(),
-                style: context.textTheme.titleLarge
-                    ?.copyWith(color: ColorsCustom.white),
-              ),
-      ),
-    );
-  }
-
-  void _changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
-  }
-
-  Future<void> onPressed() async {
-    if (isLoading) return;
-    final request =
-        await const DeliverHelpDialog().show<DeliveryHelpForm>(context);
-    _changeLoading();
-    if (request == null) {
-      _changeLoading();
-      return;
-    }
-    await HelpUploadService().createDeliveryCall(deliveryForm: request);
-    _changeLoading();
-  }
-}
-
-class _HelpWantedButton extends StatefulWidget {
-  const _HelpWantedButton();
-
-  @override
-  State<_HelpWantedButton> createState() => _HelpWantedButtonState();
-}
-
-class _HelpWantedButtonState extends State<_HelpWantedButton> {
-  bool isLoading = false;
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: CustomButtonStyle.bold,
-      onPressed: onPressed,
-      child: FittedBox(
-        child: Center(
-          child: isLoading
-              ? const CircularProgressIndicator(
-                  color: ColorsCustom.sambacus,
-                )
-              : Text(
-                  LocaleKeys.login_wantHelp.tr().toUpperCase(),
-                  style: context.textTheme.titleLarge,
-                ),
-        ),
-      ),
-    );
-  }
-
-  void _changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
-  }
-
-  Future<void> onPressed() async {
-    if (isLoading) return;
-    _changeLoading();
-
-    final response =
-        await context.navigateToPage<RequestHelpForm>(const RequestHelpView());
-
-    if (response == null) {
-      _changeLoading();
-      return;
-    }
-    final uploadService = HelpUploadService();
-    await uploadService.createHelpCall(helpForm: response);
-    _changeLoading();
-  }
-
-  void showInSnackBar(String title, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(title),
-        backgroundColor: ColorsCustom.sambacus,
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
-      ),
     );
   }
 }
