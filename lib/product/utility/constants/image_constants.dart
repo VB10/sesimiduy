@@ -8,3 +8,10 @@ class ImageConstants {
   static const String mapHelp = 'assets/icons/ic_map_help.png';
   static const String mapCarHelp = 'assets/icons/ic_car_help.png';
 }
+
+@immutable
+class FileProductConstants {
+  const FileProductConstants._();
+
+  static const String cities = 'assets/bundle/cities.json';
+}
