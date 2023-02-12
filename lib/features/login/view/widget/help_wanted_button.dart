@@ -12,6 +12,8 @@ import 'package:sesimiduy/product/utility/mixin/loading_state_mixin.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/widget/text/button_large_text.dart';
 
+import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
+
 class HelpWantedButton extends StatefulWidget {
   const HelpWantedButton({super.key});
 
@@ -23,7 +25,7 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: WidgetSizes.spacingXxlL12,
+      height: ButtonHeightHelper(context).height,
       child: OutlinedButton(
         style: CustomButtonStyle.normal.copyWith(
           backgroundColor:

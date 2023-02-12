@@ -4,8 +4,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:sesimiduy/product/items/colors_custom.dart';
 
-class ButtonLargeText extends StatelessWidget {
-  const ButtonLargeText({
+class ButtonNormalText extends StatelessWidget {
+  const ButtonNormalText({
     required this.title,
     super.key,
   });
@@ -17,12 +17,12 @@ class ButtonLargeText extends StatelessWidget {
       textAlign: TextAlign.center,
       style: getValueForScreenType<TextStyle?>(
         context: context,
-        mobile: context.textTheme.titleLarge,
-        tablet: context.textTheme.headlineLarge,
-        desktop: context.textTheme.headlineLarge,
+        mobile: context.textTheme.titleMedium,
+        tablet: context.textTheme.titleMedium,
+        desktop: context.textTheme.titleLarge,
       )?.copyWith(
         fontWeight: FontWeight.bold,
-        color: ColorsCustom.white,
+        color: ColorsCustom.sambacus,
       ),
     );
   }

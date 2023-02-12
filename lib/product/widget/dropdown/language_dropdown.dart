@@ -32,8 +32,10 @@ class _LanguageDropDownState extends State<LanguageDropDown> with LoadingState {
             .map(
               (e) => DropdownMenuItem(
                 value: e,
-                onTap: () {
-                  context.setLocale(e.locale);
+                onTap: () async {
+                  await context.setLocale(e.locale);
+                  final engine = WidgetsFlutterBinding.ensureInitialized();
+                  await engine.performReassemble();
                 },
                 child: _FlagText(item: e, isOpened: true),
               ),

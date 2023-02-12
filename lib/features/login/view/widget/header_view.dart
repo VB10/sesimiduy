@@ -24,30 +24,39 @@ class LoginHeader extends StatelessWidget {
       child: SizedBox(
         height: WidgetCustomSize.header.value,
         child: Stack(
+          alignment: Alignment.topCenter,
           children: [
             Positioned.fill(
               child: ColoredBox(
                 color: ColorsCustom.sambacus,
-                child: Padding(
-                  padding: const PagePadding.horizontalSymmetric() +
-                      const PagePadding.onlyTopNormal(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        ImageConstants.logoHigh,
-                        height: WidgetCustomSize.header.value / 2,
-                      ),
-                      const SizedBox(height: WidgetSizes.spacingXsMid),
-                      Text(
-                        LocaleKeys.login_info.tr(),
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.titleLarge?.copyWith(
-                          color: ColorsCustom.white,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const PagePadding.horizontalSymmetric(),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: LanguageDropDown(
+                            value: CoreLocale.fromLocale(context.locale),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: WidgetSizes.spacingL),
-                    ],
+                        Expanded(
+                          child: Image.asset(
+                            ImageConstants.logoHigh,
+                          ),
+                        ),
+                        const SizedBox(height: WidgetSizes.spacingXsMid),
+                        Expanded(
+                          child: Text(
+                            LocaleKeys.login_info.tr(),
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.titleLarge?.copyWith(
+                              color: ColorsCustom.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -56,16 +65,6 @@ class LoginHeader extends StatelessWidget {
               bottom: 0,
               left: context.dynamicWidth(.3),
               child: const _ClipperTriangle(),
-            ),
-            Positioned(
-              right: 0,
-              child: SizedBox(
-                child: SafeArea(
-                  child: LanguageDropDown(
-                    value: CoreLocale.fromLocale(context.locale),
-                  ),
-                ),
-              ),
             ),
           ],
         ),

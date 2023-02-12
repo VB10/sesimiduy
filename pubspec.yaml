@@ -25,6 +25,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.49
   textfield_tags: ^2.0.2
   flutter_tagging_plus: ^4.0.1
+  responsive_builder: ^0.5.1
 
   # Firebase
   firebase_core: ^2.5.0

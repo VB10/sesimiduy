@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sesimiduy/features/login/service/help_upload_service.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
@@ -21,7 +22,7 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: WidgetSizes.spacingXxlL12,
+      height: ButtonHeightHelper(context).height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const CustomRectangleBorder(),
@@ -51,5 +52,19 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
     }
     await HelpUploadService().createDeliveryCall(deliveryForm: request);
     changeLoading();
+  }
+}
+
+class ButtonHeightHelper {
+  ButtonHeightHelper(this.context);
+
+  final BuildContext context;
+  double get height {
+    return getValueForScreenType<double>(
+      context: context,
+      mobile: WidgetSizes.spacingXxlL12 / 2,
+      tablet: WidgetSizes.spacingXxlL12,
+      desktop: WidgetSizes.spacingXxlL12,
+    );
   }
 }

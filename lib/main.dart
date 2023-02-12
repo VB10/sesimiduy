@@ -24,6 +24,7 @@ void main() async {
       supportedLocales: coreLocalize.supportedItems,
       path: coreLocalize.initialPath,
       startLocale: CoreLocale.tr.locale,
+      // useOnlyLangCode: false,
       child: const ProviderScope(child: MyApp()),
     ),
   );
