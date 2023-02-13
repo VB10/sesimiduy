@@ -2,21 +2,19 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 import 'package:sesimiduy/features/login/view/widget/complete_buutton.dart';
 import 'package:sesimiduy/features/login/view/widget/current_map_button.dart';
 import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
 import 'package:sesimiduy/features/login/view/widget/header_view.dart';
 import 'package:sesimiduy/features/login/view/widget/help_wanted_button.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
-import 'package:sesimiduy/product/utility/constants/social_media_links_constants.dart';
-import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
-import 'package:sesimiduy/product/widget/button/social_media_button.dart';
+import 'package:sesimiduy/product/widget/wrap/social_media_buttons.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -31,8 +29,6 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
     MapsManager.checkPermission();
   }
-
-  void openWeb(String value) => value.launchWebsite;
 
   @override
   Widget build(BuildContext context) {
@@ -57,35 +53,12 @@ class _LoginViewState extends State<LoginView> {
                         ?.copyWith(decoration: TextDecoration.underline),
                   ),
                 ),
-                _socialMediaButtons()
+                const SocialMediaButtons()
               ],
             ),
           )
         ],
       ),
-    );
-  }
-
-  Widget _socialMediaButtons() {
-    return Wrap(
-      spacing: WidgetSizes.spacingM,
-      children: [
-        SocialMediaButton(
-          onTap: () => openWeb(SocialMediaLinksConstants.twitterUrl),
-          icon: FontAwesomeIcons.twitter,
-          title: StringConstants.twitter,
-        ),
-        SocialMediaButton(
-          onTap: () => openWeb(SocialMediaLinksConstants.instagramUrl),
-          icon: FontAwesomeIcons.instagram,
-          title: StringConstants.instagram,
-        ),
-        SocialMediaButton(
-          onTap: () => openWeb(SocialMediaLinksConstants.afadUrl),
-          icon: FontAwesomeIcons.a,
-          title: StringConstants.afad,
-        ),
-      ],
     );
   }
 }
