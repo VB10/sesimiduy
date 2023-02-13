@@ -1,0 +1,63 @@
+[
+    {
+        "plaka": 1,
+        "il_adi": "ADANA",
+        "lat": 37,
+        "lon": 35.3213333
+    },
+    {
+        "plaka": 2,
+        "il_adi": "ADIYAMAN",
+        "lat": 37.7641667,
+        "lon": 38.2761667
+    },
+    {
+        "plaka": 21,
+        "il_adi": "DİYARBAKIR",
+        "lat": 37.91441,
+        "lon": 40.230629
+    },
+    
+    {
+        "plaka": 27,
+        "il_adi": "GAZİANTEP",
+        "lat": 37.06622,
+        "lon": 37.38332
+    },
+    {
+        "plaka": 31,
+        "il_adi": "HATAY",
+        "lat": 36.4018488,
+        "lon": 36.3498097
+    },
+    {
+        "plaka": 44,
+        "il_adi": "MALATYA",
+        "lat": 38.35519,
+        "lon": 38.30946
+    },
+    {
+        "plaka": 46,
+        "il_adi": "KAHRAMANMARAŞ",
+        "lat": 37.5833333,
+        "lon": 36.9333333
+    },
+    {
+        "plaka": 63,
+        "il_adi": "ŞANLIURFA",
+        "lat": 37.15,
+        "lon": 38.8
+    },
+    {
+        "plaka": 79,
+        "il_adi": "KİLİS",
+        "lat": 36.718399,
+        "lon": 37.12122
+    },
+    {
+        "plaka": 80,
+        "il_adi": "OSMANİYE",
+        "lat": 37.06805,
+        "lon": 36.261589
+    }
+]
