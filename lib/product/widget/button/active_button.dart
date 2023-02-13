@@ -13,14 +13,16 @@ class ActiveButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        padding: const PagePadding.generalAllLow(),
+        padding: const PagePadding.generalAllNormal(),
         backgroundColor: ColorsCustom.sambacus,
       ),
       child: Text(
         label,
         style: context.textTheme.titleMedium?.copyWith(
           fontWeight: FontWeight.w500,
-          color: Colors.white,
+          color: onPressed == null
+              ? ColorsCustom.sambacus.withOpacity(0.5)
+              : Colors.white,
         ),
       ),
     );
