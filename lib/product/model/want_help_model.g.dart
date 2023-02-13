@@ -18,6 +18,10 @@ WantHelpModel _$WantHelpModelFromJson(Map<String, dynamic> json) =>
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => Items.fromJson(e as Map<String, dynamic>))
           .toList(),
+      startedDate: FirebaseTimeParser.datetimeFromTimestamp(
+          json['startedDate'] as Timestamp?),
+      updatedDate: FirebaseTimeParser.datetimeFromTimestamp(
+          json['updatedDate'] as Timestamp?),
     );
 
 Map<String, dynamic> _$WantHelpModelToJson(WantHelpModel instance) =>
@@ -29,4 +33,8 @@ Map<String, dynamic> _$WantHelpModelToJson(WantHelpModel instance) =>
       'phoneNumber': instance.phoneNumber,
       'categories': instance.categories,
       'location': WantHelpModel._geoPointConvertJson(instance.location),
+      'startedDate':
+          FirebaseTimeParser.dateTimeToTimestamp(instance.startedDate),
+      'updatedDate':
+          FirebaseTimeParser.dateTimeToTimestamp(instance.updatedDate),
     };

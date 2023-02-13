@@ -28,16 +28,14 @@ class DeliveryHelpForm {
     toJson: FirebaseTimeParser.dateTimeToTimestamp,
     fromJson: FirebaseTimeParser.datetimeFromTimestamp,
   )
-  final DateTime? createdAt, updatedAt;
-  const DeliveryHelpForm({
+  DateTime? createdAt = DateTime.now(), updatedAt = DateTime.now();
+  DeliveryHelpForm({
     required this.fullName,
     required this.phoneNumber,
     required this.numberPlate,
     required this.toPlaceId,
     required this.fromPlace,
     required this.toPlace,
-    required this.createdAt,
-    required this.updatedAt,
     required this.companyName,
     required this.isCompany,
     required this.madeByCityId,
@@ -46,6 +44,8 @@ class DeliveryHelpForm {
     required this.collectItemId,
     required this.deviceId,
     this.carType = 1,
+    this.createdAt,
+    this.updatedAt,
   });
 
   Map<String, dynamic> toJson() => _$DeliveryHelpFormToJson(this);

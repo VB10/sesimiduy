@@ -13,7 +13,7 @@ part 'request_help_form.g.dart';
   explicitToJson: true,
 )
 class RequestHelpForm {
-  const RequestHelpForm({
+  RequestHelpForm({
     required this.fullName,
     required this.phoneNumber,
     required this.address,
@@ -24,9 +24,10 @@ class RequestHelpForm {
     this.updatedDate,
   });
   @JsonKey(
+    toJson: FirebaseTimeParser.dateTimeToTimestamp,
     fromJson: FirebaseTimeParser.datetimeFromTimestamp,
   )
-  final DateTime? startedDate, updatedDate;
+  DateTime? startedDate = DateTime.now(), updatedDate = DateTime.now();
 
   final String fullName;
   final String phoneNumber;

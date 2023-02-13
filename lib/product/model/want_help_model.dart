@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:sesimiduy/product/model/items.dart';
+import 'package:sesimiduy/product/utility/firebase/time_parser.dart';
 
 part 'want_help_model.g.dart';
 
@@ -17,7 +18,12 @@ class WantHelpModel extends Equatable {
   final List<Items>? categories;
   @JsonKey(fromJson: _geoPointConvertJson, toJson: _geoPointConvertJson)
   final GeoPoint? location;
-  const WantHelpModel({
+  @JsonKey(
+    toJson: FirebaseTimeParser.dateTimeToTimestamp,
+    fromJson: FirebaseTimeParser.datetimeFromTimestamp,
+  )
+  DateTime? startedDate = DateTime.now(), updatedDate = DateTime.now();
+  WantHelpModel({
     this.address,
     this.deviceId,
     this.fullName,
@@ -25,6 +31,8 @@ class WantHelpModel extends Equatable {
     this.location,
     this.id,
     this.categories,
+    this.startedDate,
+    this.updatedDate,
   });
 
   factory WantHelpModel.fromJson(Map<String, dynamic> json) =>
@@ -51,6 +59,8 @@ class WantHelpModel extends Equatable {
     String? phoneNumber,
     List<Items>? categories,
     GeoPoint? location,
+    DateTime? startedDate,
+    DateTime? updatedDate,
   }) {
     return WantHelpModel(
       id: id ?? this.id,
@@ -60,6 +70,8 @@ class WantHelpModel extends Equatable {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       categories: categories ?? this.categories,
       location: location ?? this.location,
+      startedDate: startedDate ?? this.startedDate,
+      updatedDate: updatedDate ?? this.updatedDate,
     );
   }
 
@@ -75,6 +87,8 @@ class WantHelpModel extends Equatable {
       phoneNumber,
       location,
       categories,
+      startedDate,
+      updatedDate,
     ];
   }
 }
