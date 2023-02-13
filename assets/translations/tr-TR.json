@@ -11,7 +11,7 @@
     "address": "Adresi",
     "hintNameNeed": "Neye İhtiyacınız Var?",
     "hintCategory": "İhtiyaçları seçiniz",
-    "personNeedsHelp": "Yardıma ihtiyacı olan kişinin",
+    "personNeedsHelp": "Yardıma ihtiyacı olan kişinin;",
     "askForHelp": "YARDIM İSTE",
     "youMaySelectMultiple": "Çoklu seçim yapabilirsiniz...",
     "addressHint": "Cadde, Mahalle, Sokak, No, Aparatman",
@@ -22,8 +22,8 @@
     "labelCompanyName": "Kurum Adı",
     "labelHelperPersonalName": "Yardımı Yapan Kişi",
     "labelHelperCompanyName": "Yardımı Yapan Kurum",
-    "labelDriverName": "Yardıma Giden Şöför Adı Soyadı",
-    "labelDriverPhone": "Yardıma Giden Şöför Telefon Numarası",
+    "labelDriverName": "Yardıma Giden Şoför Adı Soyadı",
+    "labelDriverPhone": "Yardıma Giden Şoför Telefon Numarası",
     "labelVehicleType": "Neyle Yardıma Gidiliyor",
     "sendHelp": "YARDIMI GÖTÜR",
     "plate": "Plaka",
@@ -47,7 +47,8 @@
         "address": "Adres boş bırakılamaz",
         "needs": "Lütfen ihtiyacınızı seçiniz",
         "plate": "Lütfen plaka giriniz",
-        "kvkk": "Lütfen KVKK'yi kabul ediniz"
+        "kvkk": "Lütfen KVKK'yi kabul ediniz",
+        "surname": "Soyadınızı girmelisiniz"
     },
     "login": {
         "wantHelp": "YARDIM İSTİYORUM",

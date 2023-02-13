@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+
+import 'package:sesimiduy/core/enums/core_locale.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
+import 'package:sesimiduy/product/utility/constants/regex_types.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
@@ -14,9 +17,11 @@ import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
+import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
+import 'package:sesimiduy/product/widget/wrap/social_media_buttons.dart';
 
 class RequestHelpView extends StatefulWidget {
   const RequestHelpView({super.key});
@@ -30,6 +35,15 @@ class _RequestHelpViewState extends State<RequestHelpView>
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_items.value.isEmpty) return;
+    final isValid =
+        RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
+    if (!isValid) {
+      showInSnackBar(
+        LocaleKeys.validation_surname.tr(),
+        context,
+      );
+      return;
+    }
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
     showInSnackBar(
@@ -68,63 +82,76 @@ class _RequestHelpViewState extends State<RequestHelpView>
       appBar: AppBar(
         title: Text(LocaleKeys.needHelp.tr()),
         backgroundColor: ColorsCustom.sambacus,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: _formKey,
-          onChanged: () {
-            _activeButtonValue.value =
-                _formKey.currentState?.validate() ?? false;
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const _CustomDivider(),
-              const VerticalSpace.standard(),
-              const _SubHeader(),
-              const VerticalSpace.standard(),
-              _FullNameField(_fullNameController),
-              const VerticalSpace.standard(),
-              _PhoneNumberField(_phoneNumberController),
-              const VerticalSpace.standard(),
-              _AddressField(_addressController),
-              const VerticalSpace.standard(),
-              _NeedsComboBox(
-                onSuggestionChanges: (value) {
-                  _items.value = value.toList();
-                },
-              ),
-              const VerticalSpace.standard(),
-              const _CustomDivider(),
-              KvkkCheckBox(_autovalidateMode),
-              const VerticalSpace.standard(),
-              ValueListenableBuilder<bool>(
-                valueListenable: _activeButtonValue,
-                builder: (
-                  BuildContext context,
-                  bool activeState,
-                  Widget? child,
-                ) {
-                  return ValueListenableBuilder<List<Items>>(
-                    valueListenable: _items,
-                    builder: (
-                      BuildContext context,
-                      List<Items> autoCompleteState,
-                      Widget? child,
-                    ) {
-                      return _ActionButton(
-                        onPressed: onComplete,
-                        isEnabled: autoCompleteState.isNotEmpty && activeState,
-                      );
-                    },
-                  );
-                },
-              ),
-              const VerticalSpace.standard(),
-            ],
+        actions: [
+          LanguageDropDown(
+            value: CoreLocale.fromLocale(context.locale),
           ),
-        ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: _formKey,
+                onChanged: () {
+                  _activeButtonValue.value =
+                      _formKey.currentState?.validate() ?? false;
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const _CustomDivider(),
+                    const VerticalSpace.standard(),
+                    const _SubHeader(),
+                    const VerticalSpace.standard(),
+                    _FullNameField(_fullNameController),
+                    const VerticalSpace.standard(),
+                    _PhoneNumberField(_phoneNumberController),
+                    const VerticalSpace.standard(),
+                    _AddressField(_addressController),
+                    const VerticalSpace.standard(),
+                    _NeedsComboBox(
+                      onSuggestionChanges: (value) {
+                        _items.value = value.toList();
+                      },
+                    ),
+                    const VerticalSpace.standard(),
+                    const _CustomDivider(),
+                    KvkkCheckBox(_autovalidateMode),
+                    const VerticalSpace.standard(),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _activeButtonValue,
+                      builder: (
+                        BuildContext context,
+                        bool activeState,
+                        Widget? child,
+                      ) {
+                        return ValueListenableBuilder<List<Items>>(
+                          valueListenable: _items,
+                          builder: (
+                            BuildContext context,
+                            List<Items> autoCompleteState,
+                            Widget? child,
+                          ) {
+                            return _ActionButton(
+                              onPressed: onComplete,
+                              isEnabled:
+                                  autoCompleteState.isNotEmpty && activeState,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    const VerticalSpace.standard(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SocialMediaButtons(),
+        ],
       ),
     );
   }
