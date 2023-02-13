@@ -10,6 +10,7 @@ import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/cities.dart';
 import 'package:sesimiduy/product/model/delivery_help_form.dart';
+import 'package:sesimiduy/product/model/earthquake_cities.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
 import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/vehicle_types.dart';
@@ -83,6 +84,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                       fromController: fromController,
                       toController: toController,
                       cities: cities,
+                      earthquakeCities: eartquakeCities,
                       onSelectedFromCity: (value) {
                         selectedFromCity = value;
                       },
@@ -199,11 +201,13 @@ class _DestinationInfos extends StatelessWidget {
     required this.cities,
     required this.onSelectedToCity,
     required this.onSelectedFromCity,
+    required this.earthquakeCities,
   });
   final TextEditingController toController;
   final TextEditingController fromController;
   final List<City> cities;
-  final ValueChanged<City> onSelectedToCity;
+  final List<EarthquakeCities> earthquakeCities;
+  final ValueChanged<EarthquakeCities> onSelectedToCity;
   final ValueChanged<City> onSelectedFromCity;
   @override
   Widget build(BuildContext context) {
@@ -222,7 +226,7 @@ class _DestinationInfos extends StatelessWidget {
             // TODO: Remove duplication
             _DestinationToField(
               controller: toController,
-              cities: cities,
+              earthquakeCities: earthquakeCities,
               onSelected: onSelectedToCity,
             ),
           ],
@@ -240,7 +244,7 @@ class _DestinationInfos extends StatelessWidget {
             Expanded(
               child: _DestinationToField(
                 controller: toController,
-                cities: cities,
+                earthquakeCities: earthquakeCities,
                 onSelected: onSelectedToCity,
               ),
             ),
@@ -280,17 +284,17 @@ class _DestinationFromField extends StatelessWidget {
 class _DestinationToField extends StatelessWidget {
   const _DestinationToField({
     required this.controller,
-    required this.cities,
+    required this.earthquakeCities,
     required this.onSelected,
   });
   final TextEditingController controller;
-  final List<City> cities;
-  final ValueChanged<City> onSelected;
+  final List<EarthquakeCities> earthquakeCities;
+  final ValueChanged<EarthquakeCities> onSelected;
   @override
   Widget build(BuildContext context) {
-    return LabeledProductComboBox<City>(
+    return LabeledProductComboBox<EarthquakeCities>(
       labelText: LocaleKeys.labelToCity.tr(),
-      items: cities,
+      items: earthquakeCities,
       hintText: LocaleKeys.hintPickCity.tr(),
       onChanged: (value) {
         if (value == null) return;

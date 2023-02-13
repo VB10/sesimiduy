@@ -15,4 +15,5 @@ class FileProductConstants {
   const FileProductConstants._();
 
   static const String cities = 'assets/bundle/cities.json';
+  static const String earthquakeCities = 'assets/bundle/earthquake_cities.json';
 }

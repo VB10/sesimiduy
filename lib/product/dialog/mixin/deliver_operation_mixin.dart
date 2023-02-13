@@ -6,6 +6,7 @@ import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/cities.dart';
 import 'package:sesimiduy/product/model/delivery_help_form.dart';
+import 'package:sesimiduy/product/model/earthquake_cities.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
 import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/vehicle_types.dart';
@@ -27,7 +28,8 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
   ValueNotifier<bool> stateNotifier = ValueNotifier(false);
   HelpType helpType = HelpType.personal;
   List<City> cities = [];
-  City? selectedToCity;
+  List<EarthquakeCities> eartquakeCities = [];
+  EarthquakeCities? selectedToCity;
   City? selectedFromCity;
 
   @override
@@ -36,6 +38,11 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
     City.fromAssets().then((value) {
       setState(() {
         cities = value;
+      });
+    });
+    EarthquakeCities.fromAssets().then((value) {
+      setState(() {
+        eartquakeCities = value;
       });
     });
   }
