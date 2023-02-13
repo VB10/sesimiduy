@@ -48,6 +48,7 @@ abstract class  LocaleKeys {
   static const validation_needs = 'validation.needs';
   static const validation_plate = 'validation.plate';
   static const validation_kvkk = 'validation.kvkk';
+  static const validation_surname = 'validation.surname';
   static const validation = 'validation';
   static const login_wantHelp = 'login.wantHelp';
   static const login_goingHelp = 'login.goingHelp';

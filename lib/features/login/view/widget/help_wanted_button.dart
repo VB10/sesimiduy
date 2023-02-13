@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+
 import 'package:sesimiduy/features/login/service/help_upload_service.dart';
+import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
 import 'package:sesimiduy/features/sub/request_help_view.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
@@ -9,10 +13,9 @@ import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/decorations/style/button_rectangle_border.dart';
 import 'package:sesimiduy/product/utility/mixin/loading_state_mixin.dart';
-import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/widget/text/button_large_text.dart';
 
-import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
+import 'package:sesimiduy/features/current_map/view/current_map_view.dart';
 
 class HelpWantedButton extends StatefulWidget {
   const HelpWantedButton({super.key});
@@ -60,6 +63,7 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
     final uploadService = HelpUploadService();
     await uploadService.createHelpCall(helpForm: response);
     changeLoading();
+    await context.navigateToPage<void>(const CurrentMapView());
   }
 
   void showInSnackBar(String title, BuildContext context) {
