@@ -58,5 +58,8 @@
         "info": "Afet alanına yardım ulaştıracak olan araçları ve yardıma ihtiyacı olanları buluşturan uygulama",
         "description": "BU BİR SOSYAL SORUMLULUK PROJESIDIR"
     },
+    "completeDialog": {
+        "nameDelivered": "Teslim edilen kişi ad soyad"
+    },
     "category": "Category"
 }

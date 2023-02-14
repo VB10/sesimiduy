@@ -57,5 +57,8 @@
         "info": "نهدف إلى الجمع بين المركبات التي ستقدم المساعدة إلى منطقة الكارثة وأولئك الذين يحتاجون إلى المساعدة",
         "description": "مشروع مسؤولية اجتماعية"
     },
+    "completeDialog": {
+        "nameDelivered": "Teslim edilen kişi ad soyad"
+    },
     "category": "فئة"
 }

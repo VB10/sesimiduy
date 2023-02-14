@@ -17,9 +17,9 @@ RequestHelpForm _$RequestHelpFormFromJson(Map<String, dynamic> json) =>
           .toList(),
       location: GeoParser.geoPointConvertJson(json['location'] as GeoPoint?),
       startedDate: FirebaseTimeParser.datetimeFromTimestamp(
-          json['startedDate'] as Timestamp?,),
+          json['startedDate'] as Timestamp?),
       updatedDate: FirebaseTimeParser.datetimeFromTimestamp(
-          json['updatedDate'] as Timestamp?,),
+          json['updatedDate'] as Timestamp?),
     );
 
 Map<String, dynamic> _$RequestHelpFormToJson(RequestHelpForm instance) =>

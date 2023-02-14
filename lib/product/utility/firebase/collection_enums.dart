@@ -8,7 +8,8 @@ enum CollectionEnums {
   wantHelp,
   sendHelp,
   poi_category,
-  wantHelpItems;
+  wantHelpItems,
+  completeArrived;
 
   CollectionReference<Map<String, dynamic>> get collection {
     return FirebaseFirestore.instance.collection(name);
