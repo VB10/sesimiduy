@@ -49,6 +49,4 @@ class DeliveryHelpForm {
   });
 
   Map<String, dynamic> toJson() => _$DeliveryHelpFormToJson(this);
-
-
 }

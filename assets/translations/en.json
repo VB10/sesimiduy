@@ -57,5 +57,8 @@
         "info": "The application that brings together the vehicles that will deliver aid to the disaster area and those who need help.",
         "description": "THIS IS A SOCIAL RESPONSIBILITY INITIATIVE"
     },
+    "completeDialog": {
+        "nameDelivered": "The person delivered"
+    },
     "category": "Kategori"
 }
