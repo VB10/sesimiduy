@@ -14,12 +14,14 @@ CompletePackage _$CompletePackageFromJson(Map<String, dynamic> json) =>
       deliveredAddress: json['deliveredAddress'] as String,
       deliveredCarPlate: json['deliveredCarPlate'] as String,
     )
-      ..createdAt = FirebaseTimeParser.datetimeFromTimestamp(
-        json['createdAt'] as Timestamp?,
-      )
-      ..updatedAt = FirebaseTimeParser.datetimeFromTimestamp(
-        json['updatedAt'] as Timestamp?,
-      );
+      ..createdAt = json['createdAt'] == null
+          ? DateTime.now()
+          : FirebaseTimeParser.datetimeFromTimestamp(
+              json['createdAt'] as Timestamp?)
+      ..updatedAt = json['updatedAt'] == null
+          ? DateTime.now()
+          : FirebaseTimeParser.datetimeFromTimestamp(
+              json['updatedAt'] as Timestamp?);
 
 Map<String, dynamic> _$CompletePackageToJson(CompletePackage instance) =>
     <String, dynamic>{
