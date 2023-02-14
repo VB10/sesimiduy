@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/core/enums/core_locale.dart';
+import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
-import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 import 'package:sesimiduy/product/utility/size/widget_custom_size.dart';
@@ -42,7 +42,7 @@ class LoginHeader extends StatelessWidget {
                         ),
                         Expanded(
                           child: Image.asset(
-                            ImageConstants.logoHigh,
+                            Assets.icons.icAppHighLogo.path,
                           ),
                         ),
                         const SizedBox(height: WidgetSizes.spacingXsMid),
