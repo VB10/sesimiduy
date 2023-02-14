@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
@@ -11,6 +12,7 @@ import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
+import 'package:sesimiduy/product/utility/mixin/app_provider_mixin.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
 class CurrentMapView extends ConsumerStatefulWidget {
@@ -20,19 +22,8 @@ class CurrentMapView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _CurrentMapViewState();
 }
 
-class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
-  late final StateNotifierProvider<MapProvider, MapState> mapProvider;
-  late final MapService service;
-  @override
-  void initState() {
-    super.initState();
-    service = MapService();
-    mapProvider = StateNotifierProvider((ref) => MapProvider(service: service));
-    ref.read(mapProvider.notifier).init(context).whenComplete(
-          () => ref.read(mapProvider.notifier).fetchRequestPOI(context),
-        );
-  }
-
+class _CurrentMapViewState extends ConsumerState<CurrentMapView>
+    with AppProviderMixin, _CurrentMapMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,21 +34,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
         centerTitle: false,
         actions: [
           PoiActionButton(
-            onSelected: (value) async {
-              await ref
-                  .read(mapProvider.notifier)
-                  .updatePoiWithIconCheck(value, context);
-              final position = value.firstOrNull?.position;
-
-              if (position == null) return;
-
-              ref.read(mapProvider.notifier).changeMapView(
-                    GeoPoint(
-                      position.latitude,
-                      position.longitude,
-                    ),
-                  );
-            },
+            onSelected: onPoiCategoryUpdate,
           ),
         ],
       ),
@@ -98,9 +75,44 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView> {
       ),
     );
   }
+}
+
+mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
+  late final StateNotifierProvider<MapProvider, MapState> mapProvider;
+  late final MapService service;
 
   CameraPosition get initialCameraPosition => const CameraPosition(
         target: AppConstants.defaultLocation,
         zoom: AppConstants.defaultMapZoom,
       );
+  @override
+  void initState() {
+    super.initState();
+    service = MapService();
+    mapProvider = StateNotifierProvider((ref) => MapProvider(service: service));
+    ref.read(mapProvider.notifier).init(context).whenComplete(
+      () async {
+        await ref.read(mapProvider.notifier).fetchRequestPOI(context);
+        final position = appState.position;
+        if (position == null) return;
+        ref
+            .read(mapProvider.notifier)
+            .changeMapView(GeoPoint(position.latitude, position.longitude));
+      },
+    );
+  }
+
+  Future<void> onPoiCategoryUpdate(Set<ProductMarker> value) async {
+    await ref.read(mapProvider.notifier).updatePoiWithIconCheck(value, context);
+    final position = value.firstOrNull?.position;
+
+    if (position == null) return;
+
+    ref.read(mapProvider.notifier).changeMapView(
+          GeoPoint(
+            position.latitude,
+            position.longitude,
+          ),
+        );
+  }
 }

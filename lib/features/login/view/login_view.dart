@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -11,23 +12,23 @@ import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
 import 'package:sesimiduy/features/login/view/widget/header_view.dart';
 import 'package:sesimiduy/features/login/view/widget/help_wanted_button.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
-import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
+import 'package:sesimiduy/product/utility/state/app_provider.dart';
 import 'package:sesimiduy/product/widget/wrap/social_media_buttons.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   @override
   void initState() {
     super.initState();
-    MapsManager.checkPermission();
+    ref.read(AppProvider.provider.notifier).checkMapsPermission();
   }
 
   @override
