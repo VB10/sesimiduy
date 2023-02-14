@@ -6,3 +6,5 @@ Sesimi Duydum 6 Şubat 2022 tarihinde ülkemizde gerçekleşen ve doğudaki 10 i
 
  
 - Android ve iOS cihazlarda kullanıma çok yakında Google Play ve App Store üzerinde erişime açılacaktır. 
+
+<img width="800" alt="webmobil" src="https://user-images.githubusercontent.com/57248151/218607542-611f29e8-7c00-40ef-9046-c521841e8160.png">
