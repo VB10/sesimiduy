@@ -57,6 +57,8 @@ abstract class  LocaleKeys {
   static const login_info = 'login.info';
   static const login_description = 'login.description';
   static const login = 'login';
+  static const completeDialog_nameDelivered = 'completeDialog.nameDelivered';
+  static const completeDialog = 'completeDialog';
   static const category = 'category';
 
 }

@@ -3,11 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'package:sesimiduy/features/login/service/firebase_service.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 
 class AppProvider extends StateNotifier<AppProviderState> {
   AppProvider() : super(const AppProviderState());
+
+  final FirebaseService firebaseService = FirebaseService();
 
   static final provider =
       StateNotifierProvider<AppProvider, AppProviderState>((_) {

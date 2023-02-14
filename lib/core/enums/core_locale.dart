@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 
 enum CoreLocale {
   en(Locale('en', 'US')),
+  ar(Locale('ar', 'AR')),
   tr(Locale('tr', 'TR'));
 
   final Locale locale;
   // ignore: sort_constructors_first
   const CoreLocale(this.locale);
 
-  static List<Locale> get supportedLocales => [
-        const Locale('en', 'US'),
-        const Locale('tr', 'TR'),
-      ];
+  static final List<Locale> supportedLocales =
+      CoreLocale.values.map((e) => e.locale).toList();
 
   Country get flag {
     switch (this) {
@@ -20,6 +19,9 @@ enum CoreLocale {
         return Country.us;
       case CoreLocale.tr:
         return Country.tr;
+
+      case CoreLocale.ar:
+        return Country.ar;
     }
   }
 

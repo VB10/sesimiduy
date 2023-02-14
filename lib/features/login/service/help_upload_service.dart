@@ -27,7 +27,7 @@ class HelpUploadService {
           WantHelpMigrate(
             itemId: e.id,
             wantHelpId: helpCallRef.id,
-          ).tojson(),
+          ).toJson(),
         );
       }),
     );
