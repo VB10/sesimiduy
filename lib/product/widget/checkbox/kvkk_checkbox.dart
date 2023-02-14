@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
-import 'package:sesimiduy/product/utility/constants/docs_constants.dart';
 import 'package:sesimiduy/product/widget/checkbox/product_checkbox.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -64,7 +64,7 @@ class KvkkCheckBox extends StatelessWidget {
               elevation: 0,
               iconTheme: const IconThemeData(color: Colors.black),
             ),
-            body: SfPdfViewer.asset(DocsConstants.kvkk),
+            body: SfPdfViewer.asset(Assets.docs.kvkk),
           );
         },
       ),
