@@ -31,6 +31,8 @@ enum CoreLocale {
         return CoreLocale.en;
       case 'tr':
         return CoreLocale.tr;
+      case 'ar':
+        return CoreLocale.ar;
       default:
         throw Exception('Unsupported locale: $locale');
     }
