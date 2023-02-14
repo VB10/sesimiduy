@@ -34,11 +34,15 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.3.3
+  flutter_gen_runner: ^5.2.0
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.6.1
 
+  json_serializable: ^6.6.1
   very_good_analysis: ^4.0.0+1
+
+flutter_gen:
+  output: lib/product/generated/
 
 flutter:
   uses-material-design: true

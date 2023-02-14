@@ -6,9 +6,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
+import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/model/want_help_model.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
-import 'package:sesimiduy/product/utility/constants/image_constants.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
 class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
@@ -22,14 +22,14 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
 
   Future<void> init(BuildContext context) async {
     final helpIcon = await _getBytesFromAsset(
-      ImageConstants.mapHelp,
+      Assets.icons.icMapHelp.path,
       WidgetSizes.spacingL.toInt(),
       context,
     );
     // ignore: use_build_context_synchronously
     if (!context.mounted) return;
     final carIcon = await _getBytesFromAsset(
-      ImageConstants.mapCarHelp,
+      Assets.icons.icCarHelp.path,
       WidgetSizes.spacingL.toInt(),
       context,
     );

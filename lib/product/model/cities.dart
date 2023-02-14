@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kartal/kartal.dart';
 import 'package:kartal/src/utility/bundle/i_network_model.dart';
-import 'package:sesimiduy/product/utility/constants/image_constants.dart';
+import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
 part 'cities.g.dart';
@@ -19,7 +19,7 @@ class City extends INetworkModel<City>
   final String? name;
 
   static Future<List<City>> fromAssets() async {
-    final fileItems = await BundleDecoder(FileProductConstants.cities)
+    final fileItems = await BundleDecoder(Assets.bundle.cities)
         .crackBundle<City, List<City>>(model: City());
     return fileItems ?? [];
   }

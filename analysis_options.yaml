@@ -5,6 +5,7 @@ analyzer:
     - lib/product/init/language/
     - lib/product/init/generation/
     - "/*.g.dart"
+    - "/*.gen.dart"
     - "/*.freezed.dart"
     - "test/.test_coverage.dart"
     - "bin/cache/**"
