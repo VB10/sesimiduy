@@ -9,6 +9,7 @@ import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
+import 'package:sesimiduy/product/enums/poi_types.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -102,8 +103,13 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
     );
   }
 
-  Future<void> onPoiCategoryUpdate(Set<ProductMarker> value) async {
-    await ref.read(mapProvider.notifier).updatePoiWithIconCheck(value, context);
+  Future<void> onPoiCategoryUpdate(
+      Set<ProductMarker> value) async {
+    await ref.read(mapProvider.notifier).updatePoiWithIconCheck(
+          value,
+          context,
+      
+        );
     final position = value.firstOrNull?.position;
 
     if (position == null) return;
