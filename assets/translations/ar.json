@@ -58,7 +58,7 @@
         "description": "مشروع مسؤولية اجتماعية"
     },
     "completeDialog": {
-        "nameDelivered": "Teslim edilen kişi ad soyad"
+        "nameDelivered": "تسليم: اسم الشخص واللقب"
     },
     "category": "فئة"
 }
