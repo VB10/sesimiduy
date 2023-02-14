@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kartal/kartal.dart';
 import 'package:kartal/src/utility/bundle/i_network_model.dart';
-import 'package:sesimiduy/product/utility/constants/image_constants.dart';
+import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
 part 'earthquake_cities.g.dart';
@@ -19,7 +19,7 @@ class EarthquakeCities extends INetworkModel<EarthquakeCities>
   final String? name;
 
   static Future<List<EarthquakeCities>> fromAssets() async {
-    final fileItems = await BundleDecoder(FileProductConstants.earthquakeCities)
+    final fileItems = await BundleDecoder(Assets.bundle.earthquakeCities)
         .crackBundle<EarthquakeCities, List<EarthquakeCities>>(
       model: EarthquakeCities(),
     );
