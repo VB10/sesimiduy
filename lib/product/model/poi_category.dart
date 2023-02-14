@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 
 part 'poi_category.g.dart';
@@ -39,10 +38,12 @@ class PoiCategory with ProductDropDownModel, EquatableMixin {
   PoiCategory copyWith({
     String? id,
     String? name,
+    String? categoryType,
   }) {
     return PoiCategory(
       id: id ?? this.id,
       name: name ?? this.name,
+      categoryType: categoryType ?? this.categoryType,
     );
   }
 

@@ -6,7 +6,8 @@
         "Polyline",
         "polylines",
         "riverpod",
-        "sesimiduy"
+        "sesimiduy",
+        "wanteds"
     ],
     "dart.lineLength": 80
 }
