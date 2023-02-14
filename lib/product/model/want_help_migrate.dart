@@ -12,5 +12,5 @@ class WantHelpMigrate {
   final String? itemId;
   final String? wantHelpId;
 
-  Map<String, dynamic> tojson() => _$WantHelpMigrateToJson(this);
+  Map<String, dynamic> toJson() => _$WantHelpMigrateToJson(this);
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
+import 'package:sesimiduy/product/model/complete_package.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
@@ -19,13 +20,6 @@ class CompletedDialog extends StatefulWidget {
 
   @override
   State<CompletedDialog> createState() => _CompletedDialogState();
-
-  Future<void> show(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) => this,
-    );
-  }
 }
 
 class _CompletedDialogState extends State<CompletedDialog>
@@ -40,36 +34,40 @@ class _CompletedDialogState extends State<CompletedDialog>
         onChanged: () {
           _activeButtonValue.value = _formKey.currentState?.validate() ?? false;
         },
-        child: ResponsiveBuilder(
-          builder: (windowSize) {
-            return SizedBox(
-              width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
-              child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const _Header(),
-                    const _CustomDivider(),
-                    const VerticalSpace.standard(),
-                    const _NameTextField(),
-                    const VerticalSpace.standard(),
-                    const _PhoneField(),
-                    const VerticalSpace.standard(),
-                    const _PlateTextField(),
-                    const VerticalSpace.standard(),
-                    const _AddressField(),
-                    KvkkCheckBox(autovalidateMode),
-                    _ActionButton(
-                      formKey: _formKey,
-                      activeButtonValue: _activeButtonValue,
-                    ),
-                    const VerticalSpace.small(),
-                  ],
+        child: CompleteDialogContext(
+          child: ResponsiveBuilder(
+            builder: (windowSize) {
+              return SizedBox(
+                width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
+                child: SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const _Header(),
+                      const _CustomDivider(),
+                      const VerticalSpace.standard(),
+                      const _NameTextField(),
+                      const VerticalSpace.standard(),
+                      const _NameArrivedUserTextField(),
+                      const VerticalSpace.standard(),
+                      const _PhoneField(),
+                      const VerticalSpace.standard(),
+                      const _PlateTextField(),
+                      const VerticalSpace.standard(),
+                      const _AddressField(),
+                      KvkkCheckBox(autovalidateMode),
+                      _ActionButton(
+                        formKey: _formKey,
+                        activeButtonValue: _activeButtonValue,
+                      ),
+                      const VerticalSpace.small(),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -84,6 +82,7 @@ class _AddressField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: CompleteDialogContext.of(context).addressController,
         validator: (value) => ValidatorItems(value).validateAddress,
         labelText: LocaleKeys.address.tr(),
         isMultiline: true,
@@ -147,7 +146,9 @@ class _ActionButton extends StatelessWidget {
                 ? null
                 : () {
                     if (formKey.currentState?.validate() ?? false) {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop<CompletePackage>(
+                        CompleteDialogContext.of(context).model,
+                      );
                       showInSnackBar(LocaleKeys.wasDelivered.tr(), context);
                     }
                   },
@@ -194,8 +195,26 @@ class _NameTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: CompleteDialogContext.of(context).nameController,
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.nameAndSurname.tr(),
+        validator: (value) => ValidatorItems(value).validateFullName,
+      ),
+    );
+  }
+}
+
+class _NameArrivedUserTextField extends StatelessWidget {
+  const _NameArrivedUserTextField();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const PagePadding.horizontalSymmetric(),
+      child: LabeledProductTextField(
+        controller: CompleteDialogContext.of(context).nameArrivedController,
+        hintText: LocaleKeys.completeDialog_nameDelivered.tr(),
+        labelText: LocaleKeys.completeDialog_nameDelivered.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
       ),
     );
@@ -210,6 +229,7 @@ class _PlateTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
+        controller: CompleteDialogContext.of(context).plateController,
         hintText: LocaleKeys.plate.tr(),
         labelText: LocaleKeys.plate.tr(),
         validator: (value) => ValidatorItems(value).validatePlate,
@@ -236,4 +256,48 @@ mixin CompletedDialogMixin on State<CompletedDialog> {
   final autovalidateMode = AutovalidateMode.onUserInteraction;
 
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
+}
+
+class CompleteDialogContext extends InheritedWidget {
+  CompleteDialogContext({
+    required super.child,
+    this.isKVKKRead = false,
+    super.key,
+  });
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameArrivedController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController plateController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final bool isKVKKRead;
+
+  void dispose() {
+    nameController.dispose();
+    nameArrivedController.dispose();
+    phoneController.dispose();
+    plateController.dispose();
+    addressController.dispose();
+  }
+
+  CompletePackage get model => CompletePackage(
+        fullName: nameController.text,
+        deliveredFullName: nameArrivedController.text,
+        deliveredPhone: phoneController.text,
+        deliveredCarPlate: plateController.text,
+        deliveredAddress: addressController.text,
+      );
+
+  static CompleteDialogContext? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<CompleteDialogContext>();
+  }
+
+  static CompleteDialogContext of(BuildContext context) {
+    final result = maybeOf(context);
+    assert(result != null, 'No CompleteDialogContext found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(CompleteDialogContext oldWidget) => true;
 }

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:sesimiduy/features/login/view/widget/complete_buutton.dart';
+import 'package:sesimiduy/features/login/view/widget/complete_button.dart';
 import 'package:sesimiduy/features/login/view/widget/current_map_button.dart';
 import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
 import 'package:sesimiduy/features/login/view/widget/header_view.dart';
