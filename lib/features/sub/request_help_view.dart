@@ -21,7 +21,6 @@ import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
 import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
-import 'package:sesimiduy/product/widget/wrap/social_media_buttons.dart';
 
 class RequestHelpView extends StatefulWidget {
   const RequestHelpView({super.key});
@@ -32,50 +31,6 @@ class RequestHelpView extends StatefulWidget {
 
 class _RequestHelpViewState extends State<RequestHelpView>
     with _RequestTextEditingMixin {
-  Future<void> onComplete() async {
-    if (!(_formKey.currentState?.validate() ?? false)) return;
-    if (_items.value.isEmpty) return;
-    final isValid =
-        RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
-    if (!isValid) {
-      showInSnackBar(
-        LocaleKeys.validation_surname.tr(),
-        context,
-      );
-      return;
-    }
-    final data = await MapsManager.determinePosition();
-    if (!mounted) return;
-    showInSnackBar(
-      LocaleKeys.helpRequestCreated.tr(),
-      context,
-    );
-
-    await context.pop<RequestHelpForm>(
-      RequestHelpForm(
-        fullName: _fullNameController.text,
-        phoneNumber: _phoneNumberController.text.phoneFormatValue,
-        address: _addressController.text,
-        categoryId: items?.id ?? '',
-        categories: _items.value,
-        location: GeoPoint(data.latitude, data.longitude),
-        startedDate: DateTime.now(),
-        updatedDate: DateTime.now(),
-      ),
-    );
-  }
-
-  void showInSnackBar(String title, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(title),
-        backgroundColor: ColorsCustom.sambacus,
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +105,6 @@ class _RequestHelpViewState extends State<RequestHelpView>
               ),
             ),
           ),
-          const SocialMediaButtons(),
         ],
       ),
     );
@@ -158,7 +112,10 @@ class _RequestHelpViewState extends State<RequestHelpView>
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({this.isEnabled = false, required this.onPressed});
+  const _ActionButton({
+    this.isEnabled = false,
+    required this.onPressed,
+  });
   final bool isEnabled;
   final VoidCallback onPressed;
   @override
@@ -322,5 +279,49 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
     _fullNameController.dispose();
     _phoneNumberController.dispose();
     _addressController.dispose();
+  }
+
+  Future<void> onComplete() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    if (_items.value.isEmpty) return;
+    final isValid =
+        RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
+    if (!isValid) {
+      showInSnackBar(
+        LocaleKeys.validation_surname.tr(),
+        context,
+      );
+      return;
+    }
+    final data = await MapsManager.determinePosition();
+    if (!mounted) return;
+    showInSnackBar(
+      LocaleKeys.helpRequestCreated.tr(),
+      context,
+    );
+
+    await context.pop<RequestHelpForm>(
+      RequestHelpForm(
+        fullName: _fullNameController.text,
+        phoneNumber: _phoneNumberController.text.phoneFormatValue,
+        address: _addressController.text,
+        categoryId: items?.id ?? '',
+        categories: _items.value,
+        location: GeoPoint(data.latitude, data.longitude),
+        startedDate: DateTime.now(),
+        updatedDate: DateTime.now(),
+      ),
+    );
+  }
+
+  void showInSnackBar(String title, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(title),
+        backgroundColor: ColorsCustom.sambacus,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+      ),
+    );
   }
 }

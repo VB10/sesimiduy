@@ -1,4 +1,6 @@
+export 'cities.dart';
 export 'delivery_help_form.dart';
+export 'earthquake_cities.dart';
 export 'help_type.dart';
 export 'items.dart';
 export 'poi_category.dart';
