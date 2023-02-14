@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 import 'package:sesimiduy/features/login/view/widget/complete_button.dart';
 import 'package:sesimiduy/features/login/view/widget/current_map_button.dart';
 import 'package:sesimiduy/features/login/view/widget/going_help_button.dart';
@@ -94,6 +93,11 @@ class _ButtonResponsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: getValueForScreenType<double>(
+        context: context,
+        mobile: context.height / 18,
+        desktop: context.height / 8,
+      ),
       width: getValueForScreenType<double>(
         context: context,
         mobile: context.width,
