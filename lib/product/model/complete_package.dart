@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sesimiduy/product/model/base/base_firebase_model.dart';
 import 'package:sesimiduy/product/model/base/base_model.dart';
+
 import 'package:sesimiduy/product/utility/firebase/time_parser.dart';
 
 part 'complete_package.g.dart';
