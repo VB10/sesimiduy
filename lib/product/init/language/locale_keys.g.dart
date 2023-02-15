@@ -60,5 +60,7 @@ abstract class  LocaleKeys {
   static const completeDialog_nameDelivered = 'completeDialog.nameDelivered';
   static const completeDialog = 'completeDialog';
   static const category = 'category';
+  static const map_makeRoute = 'map.makeRoute';
+  static const map = 'map';
 
 }
