@@ -60,5 +60,8 @@
     "completeDialog": {
         "nameDelivered": "The person delivered"
     },
-    "category": "Kategori"
+    "category": "Kategori",
+    "map": {
+        "makeRoute": "Rota Oluştur"
+    }
 }

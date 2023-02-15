@@ -1,4 +1,6 @@
 enum IconSize {
+  //size is [5]
+  xSmall(5),
   //size is [10]
   small(10),
   //size is [15]

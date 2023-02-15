@@ -60,5 +60,8 @@
     "completeDialog": {
         "nameDelivered": "Teslim edilen kişi ad soyad"
     },
-    "category": "فئة"
+    "category": "فئة",
+    "map": {
+        "makeRoute": "Rota Oluştur"
+    }
 }
