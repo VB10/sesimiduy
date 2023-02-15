@@ -9,7 +9,6 @@ import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
-import 'package:sesimiduy/product/enums/poi_types.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -30,12 +29,18 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsCustom.sambacus,
-        title: FittedBox(child: Text(LocaleKeys.login_currentMap.tr())),
+        title: SizedBox(
+          width: context.dynamicWidth(0.4),
+          child: FittedBox(child: Text(LocaleKeys.login_currentMap.tr())),
+        ),
         titleSpacing: 0,
         centerTitle: false,
         actions: [
           PoiActionButton(
             onSelected: onPoiCategoryUpdate,
+            onSelectedPolyLine: (value) {
+              ref.read(mapProvider.notifier).setPolyLines(value);
+            },
           ),
         ],
       ),
@@ -45,13 +50,16 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
           Consumer(
             builder: (context, widgetRef, child) {
               final selectedCategoriesItems =
-                  ref.watch(mapProvider).selectedMarkers ?? {};
+                  widgetRef.watch(mapProvider).selectedMarkers ?? {};
               final requestedMarkers =
-                  ref.watch(mapProvider).requestMarkers ?? {};
+                  widgetRef.watch(mapProvider).requestMarkers ?? {};
 
               return GoogleMap(
+                polylines: widgetRef.watch(mapProvider).polylines ?? {},
                 onMapCreated: (controller) {
-                  ref.read(mapProvider.notifier).setController(controller);
+                  widgetRef
+                      .read(mapProvider.notifier)
+                      .setController(controller);
                 },
                 markers: Set.from(
                   selectedCategoriesItems.toList() + requestedMarkers.toList(),
@@ -104,11 +112,11 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
   }
 
   Future<void> onPoiCategoryUpdate(
-      Set<ProductMarker> value) async {
+    Set<ProductMarker> value,
+  ) async {
     await ref.read(mapProvider.notifier).updatePoiWithIconCheck(
           value,
           context,
-      
         );
     final position = value.firstOrNull?.position;
 

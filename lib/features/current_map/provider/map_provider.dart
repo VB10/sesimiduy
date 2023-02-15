@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kartal/kartal.dart';
 import 'package:riverpod/riverpod.dart';
+
 import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/model/want_help_model.dart';
@@ -72,7 +74,10 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
       wanteds: wanteds,
       requestMarkers: wanteds
           .map(
-            ProductMarker.fromWantedHelpModel,
+            (e) => ProductMarker.fromWantedHelpModel(
+              e,
+              () {},
+            ),
           )
           .toSet(),
     );
@@ -84,7 +89,7 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
     state = state.copyWith(googleMapController: controller);
   }
 
-  void changeMapView(GeoPoint? model) {
+  void changeMapView(GeoPoint? model, {double? zoom}) {
     if (model == null) return;
     state.googleMapController?.animateCamera(
       CameraUpdate.newLatLng(
@@ -93,10 +98,19 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
             model.latitude,
             model.longitude,
           ),
-          zoom: AppConstants.defaultMapZoom,
+          zoom: zoom ?? AppConstants.defaultMapZoom,
         ).target,
       ),
     );
+  }
+
+  void setPolyLines(Set<Polyline> value) {
+    state = state.copyWith(polylines: value);
+    final points = state.polylines?.firstOrNull?.points.first;
+    if (points == null) return;
+    Future.microtask(() {
+      changeMapView(GeoPoint(points.latitude, points.longitude), zoom: 10);
+    });
   }
 }
 
@@ -110,6 +124,7 @@ class MapState extends Equatable {
     this.requestMarkers,
     this.wanteds,
     this.googleMapController,
+    this.polylines,
   });
 
   final String? title;
@@ -118,8 +133,9 @@ class MapState extends Equatable {
   final List<WantHelpModel>? wanteds;
   final BitmapDescriptor? markerHelpIcon;
   final BitmapDescriptor? markerCarIcon;
-
+  final Set<Polyline>? polylines;
   final GoogleMapController? googleMapController;
+
   @override
   List<Object?> get props => [
         title,
@@ -128,7 +144,8 @@ class MapState extends Equatable {
         markerCarIcon,
         requestMarkers,
         wanteds,
-        googleMapController
+        googleMapController,
+        polylines
       ];
 
   MapState copyWith({
@@ -138,6 +155,7 @@ class MapState extends Equatable {
     List<WantHelpModel>? wanteds,
     BitmapDescriptor? markerHelpIcon,
     BitmapDescriptor? markerCarIcon,
+    Set<Polyline>? polylines,
     GoogleMapController? googleMapController,
   }) {
     return MapState(
@@ -147,6 +165,7 @@ class MapState extends Equatable {
       wanteds: wanteds ?? this.wanteds,
       markerHelpIcon: markerHelpIcon ?? this.markerHelpIcon,
       markerCarIcon: markerCarIcon ?? this.markerCarIcon,
+      polylines: polylines ?? this.polylines,
       googleMapController: googleMapController ?? this.googleMapController,
     );
   }
