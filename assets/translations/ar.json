@@ -60,5 +60,8 @@
     "completeDialog": {
         "nameDelivered": "تسليم: اسم الشخص واللقب"
     },
-    "category": "فئة"
+    "category": "فئة",
+    "map": {
+        "makeRoute": "Rota Oluştur"
+    }
 }
