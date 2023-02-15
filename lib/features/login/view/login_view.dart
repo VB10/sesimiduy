@@ -95,7 +95,7 @@ class _ButtonResponsive extends StatelessWidget {
     return SizedBox(
       height: getValueForScreenType<double>(
         context: context,
-        mobile: context.height / 18,
+        mobile: context.height / 13,
         desktop: context.height / 8,
       ),
       width: getValueForScreenType<double>(
