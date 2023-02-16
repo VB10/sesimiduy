@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kartal/kartal.dart';
@@ -15,21 +14,39 @@ class HelpUploadService {
     if (helpForm.categories.isNullOrEmpty) {
       throw Exception('Category is empty');
     }
+    final currentSelectedItems = helpForm.categories.toList();
+    final addedNewItemList =
+        currentSelectedItems.where((element) => element.id.isNullOrEmpty);
 
-    final helpCallRef = CollectionEnums.wantHelp.collection.doc();
-    await helpCallRef.set(helpForm.toJson());
+    if (addedNewItemList.isNotEmpty) {
+      final itemCollection = CollectionEnums.items.collection;
+      await Future.forEach(addedNewItemList, (element) async {
+        final newCollectionItem = await itemCollection.add(element.toJson());
+
+        final index = currentSelectedItems.indexOf(element);
+        if (index < 0) return;
+        currentSelectedItems[index] =
+            element.copyWith(id: newCollectionItem.id);
+      });
+    }
+
+    final helpCollection = CollectionEnums.wantHelp.collection;
+    final newHelpItem = await helpCollection
+        .add(helpForm.copyWith(categories: currentSelectedItems).toJson());
 
     final wantHelpItemDoc = CollectionEnums.wantHelpItems.collection.doc();
 
-    await Future.wait(
-      helpForm.categories.map((e) {
-        return wantHelpItemDoc.set(
-          WantHelpMigrate(
-            itemId: e.id,
-            wantHelpId: helpCallRef.id,
-          ).toJson(),
-        );
-      }),
+    unawaited(
+      Future.wait(
+        helpForm.categories.map((e) {
+          return wantHelpItemDoc.set(
+            WantHelpMigrate(
+              itemId: e.id,
+              wantHelpId: newHelpItem.id,
+            ).toJson(),
+          );
+        }),
+      ),
     );
 
     return true;
@@ -38,13 +55,25 @@ class HelpUploadService {
   Future<bool> createDeliveryCall({
     required DeliveryHelpForm deliveryForm,
   }) async {
-    try {
-      final json = deliveryForm.toJson();
-      await CollectionEnums.sendHelp.collection.doc().set(json);
-      return true;
-    } catch (e) {
-      log(e.toString());
-      return false;
+    final currentSelectedItems = deliveryForm.collectedItems.toList();
+    final addedNewItemList =
+        currentSelectedItems.where((element) => element.id.isNullOrEmpty);
+
+    if (addedNewItemList.isNotEmpty) {
+      final itemCollection = CollectionEnums.items.collection;
+      await Future.forEach(addedNewItemList, (element) async {
+        final newCollectionItem = await itemCollection.add(element.toJson());
+
+        final index = currentSelectedItems.indexOf(element);
+        if (index < 0) return;
+        currentSelectedItems[index] =
+            element.copyWith(id: newCollectionItem.id);
+      });
     }
+
+    final response = await CollectionEnums.sendHelp.collection.add(
+      deliveryForm.copyWith(collectedItems: currentSelectedItems).toJson(),
+    );
+    return response.id.isNullOrEmpty;
   }
 }
