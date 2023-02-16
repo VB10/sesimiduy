@@ -45,9 +45,10 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
             model: response,
             path: CollectionEnums.completeArrived,
           );
-          if (context.mounted) {
-            await const SuccessDialog().show(context);
-          }
+
+          await SuccessDialog(
+            message: LocaleKeys.messages_success_delivered.tr(),
+          ).show(context);
         }
         changeLoading();
       },

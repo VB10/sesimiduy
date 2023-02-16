@@ -67,7 +67,9 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
     }
     final uploadService = HelpUploadService();
     await uploadService.createHelpCall(helpForm: response);
-    unawaited(const SuccessDialog().show(context));
+    unawaited(SuccessDialog(
+      message: LocaleKeys.messages_success_helpRequest.tr(),
+    ).show(context));
     changeLoading();
   }
 

@@ -8,6 +8,14 @@
     "button": {
         "addNewItem": "Yeni ekle"
     },
+    "messages": { 
+    "success": { 
+        "helpRequest": "Yardım talebi oluşturuldu",
+        "sendHelp":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
+        "delivered":"Yardım teslim edildi"
+        }
+    },
+
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
@@ -57,7 +65,7 @@
     },
     "login": {
         "wantHelp": "YARDIM İSTİYORUM",
-        "goingHelp": "YARDIMA GÖTÜRÜYORUM",
+        "goingHelp": "YARDIM GÖTÜRÜYORUM",
         "currentMap": "GÜNCEL YARDIM HARİTASI",
         "arrived": "TESLİM ETTİM",
         "info": "Afet alanına yardım ulaştıracak olan araçları ve yardıma ihtiyacı olanları buluşturan uygulama",

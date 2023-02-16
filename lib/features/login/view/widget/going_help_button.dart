@@ -61,8 +61,11 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
     }
     final result =
         await HelpUploadService().createDeliveryCall(deliveryForm: response);
+
     if (result && context.mounted) {
-      await const SuccessDialog().show(context);
+      await SuccessDialog(
+        message: LocaleKeys.messages_success_sendHelp.tr(),
+      ).show(context);
     }
     changeLoading();
   }
