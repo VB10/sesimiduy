@@ -45,8 +45,9 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
             model: response,
             path: CollectionEnums.completeArrived,
           );
-
-          await const SuccessDialog().show(context);
+          if (context.mounted) {
+            await const SuccessDialog().show(context);
+          }
         }
         changeLoading();
       },
@@ -60,11 +61,13 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
                     FontAwesomeIcons.circleCheck,
                     color: ColorsCustom.sambacus,
                   ),
-                  FittedBox(
-                    child: Padding(
-                      padding: const PagePadding.onlyLeftLow(),
-                      child: ButtonNormalText(
-                        title: LocaleKeys.login_arrived.tr().toUpperCase(),
+                  Flexible(
+                    child: FittedBox(
+                      child: Padding(
+                        padding: const PagePadding.onlyLeftLow(),
+                        child: ButtonNormalText(
+                          title: LocaleKeys.login_arrived.tr().toUpperCase(),
+                        ),
                       ),
                     ),
                   )
