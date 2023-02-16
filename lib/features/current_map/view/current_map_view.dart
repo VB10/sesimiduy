@@ -31,7 +31,10 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
         backgroundColor: ColorsCustom.sambacus,
         title: SizedBox(
           width: context.dynamicWidth(0.4),
-          child: FittedBox(child: Text(LocaleKeys.login_currentMap.tr())),
+          child: Text(
+            LocaleKeys.login_currentMap.tr(),
+            textScaleFactor: .5,
+          ),
         ),
         titleSpacing: 0,
         centerTitle: false,
@@ -72,7 +75,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
             bottom: WidgetSizes.spacingL,
             right: 0,
             left: 0,
-            height: WidgetSizes.spacingXxl8 * 3,
+            height: WidgetSizes.spacingXxl8 * 2.5,
             child: SafeArea(
               child: BottomPageView(
                 wantedItems: ref.watch(mapProvider).wanteds ?? [],

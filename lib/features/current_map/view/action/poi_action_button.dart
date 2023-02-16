@@ -31,6 +31,10 @@ class PoiActionButton extends ConsumerWidget {
         final markers = await MapService().fetchCategoryPOI(category);
         final type = PoiTypes.matchFromString(category.categoryType);
 
+        final userPosition = ref.read(AppProvider.provider).position;
+        if (userPosition == null) {
+          await ref.read(AppProvider.provider.notifier).checkMapsPermission();
+        }
         await onSelected.call(
           markers
               .map(
