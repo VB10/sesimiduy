@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -51,7 +49,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
           stateNotifier.value = formKey.currentState?.validate() ?? false;
         },
         key: formKey,
-        child: ResponsiveBuilder(
+        child: ResponsiveWindowBuilder(
           builder: (windowSize) {
             return SizedBox(
               width: windowSize.isMobile ? null : context.dynamicWidth(0.5),
@@ -111,11 +109,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                       stateNotifier: stateNotifier,
                       onPressed: () async {
                         final request = await returnRequestItem();
-                        Navigator.pop<DeliveryHelpForm>(context, request);
-                        showInSnackBar(
-                          LocaleKeys.helpCreatedSuccessfully.tr(),
-                          context,
-                        );
+                        await context.pop<DeliveryHelpForm>(request);
                       },
                     ),
                     const VerticalSpace.small(),

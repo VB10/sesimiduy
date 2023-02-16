@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sesimiduy/features/login/service/help_upload_service.dart';
 import 'package:sesimiduy/product/dialog/deliver_help_dialog.dart';
+import 'package:sesimiduy/product/dialog/success_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/delivery_help_form.dart';
@@ -50,7 +51,14 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
       changeLoading();
       return;
     }
+    final result =
+        await HelpUploadService().createDeliveryCall(deliveryForm: request);
+    if (result) {
+      await const SuccessDialog().show(context);
+    }
+
     await HelpUploadService().createDeliveryCall(deliveryForm: response);
+
     changeLoading();
   }
 }
