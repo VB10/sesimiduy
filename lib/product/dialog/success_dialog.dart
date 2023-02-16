@@ -11,7 +11,8 @@ import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 
 class SuccessDialog extends StatelessWidget {
-  const SuccessDialog({super.key});
+  const SuccessDialog({super.key, required this.message});
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class SuccessDialog extends StatelessWidget {
                 const VerticalSpace.standard()
               else
                 const HorizontalSpace.standard(),
-              const TextSection(),
+              TextSection(message: message),
             ],
           ),
         ),
@@ -43,7 +44,10 @@ class SuccessDialog extends StatelessWidget {
 class TextSection extends StatelessWidget {
   const TextSection({
     super.key,
+    required this.message,
   });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class TextSection extends StatelessWidget {
             ),
             const VerticalSpace.standard(),
             Text(
-              LocaleKeys.dialog_successContent.tr(),
+              message,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w400,
               ),

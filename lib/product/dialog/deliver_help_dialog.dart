@@ -29,7 +29,6 @@ import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
-
 import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
 
 class DeliverHelpDialog extends ConsumerStatefulWidget {
@@ -341,7 +340,7 @@ class _ActionButton extends StatelessWidget {
             valueListenable: notifier,
             builder: (context, value, child) => ActiveButton(
               label: LocaleKeys.sendHelp.tr(),
-              onPressed: value == null || !stateValue ? null : onPressed,
+              onPressed: value.isNullOrEmpty || !stateValue ? null : onPressed,
             ),
           );
         },

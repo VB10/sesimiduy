@@ -8,6 +8,11 @@ abstract class  LocaleKeys {
   static const dialog = 'dialog';
   static const button_addNewItem = 'button.addNewItem';
   static const button = 'button';
+  static const messages_success_helpRequest = 'messages.success.helpRequest';
+  static const messages_success_sendHelp = 'messages.success.sendHelp';
+  static const messages_success_delivered = 'messages.success.delivered';
+  static const messages_success = 'messages.success';
+  static const messages = 'messages';
   static const needHelp = 'needHelp';
   static const nameAndSurname = 'nameAndSurname';
   static const phoneNumber = 'phoneNumber';

@@ -74,6 +74,6 @@ class HelpUploadService {
     final response = await CollectionEnums.sendHelp.collection.add(
       deliveryForm.copyWith(collectedItems: currentSelectedItems).toJson(),
     );
-    return response.id.isNullOrEmpty;
+    return response.id.isNotNullOrNoEmpty;
   }
 }
