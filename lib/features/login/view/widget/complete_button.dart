@@ -60,7 +60,7 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
                     FontAwesomeIcons.circleCheck,
                     color: ColorsCustom.sambacus,
                   ),
-                  Flexible(
+                  FittedBox(
                     child: Padding(
                       padding: const PagePadding.onlyLeftLow(),
                       child: ButtonNormalText(
