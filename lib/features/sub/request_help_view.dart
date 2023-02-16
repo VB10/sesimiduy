@@ -17,6 +17,7 @@ import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/info_checkbox.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
@@ -76,6 +77,7 @@ class _RequestHelpViewState extends State<RequestHelpView>
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     KvkkCheckBox(_autovalidateMode),
+                    InfoCheckBox(_autovalidateMode),
                     const VerticalSpace.standard(),
                     ValueListenableBuilder<bool>(
                       valueListenable: _activeButtonValue,
@@ -293,7 +295,7 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
         RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
     if (!isValid) {
       showInSnackBar(
-        LocaleKeys.validation_surname.tr(),
+        'LocaleKeys.validation_surname.tr()',
         context,
       );
       return;

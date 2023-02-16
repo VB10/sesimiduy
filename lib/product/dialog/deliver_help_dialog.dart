@@ -22,6 +22,7 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/info_checkbox.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
@@ -102,6 +103,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
                     KvkkCheckBox(autovalidateMode),
+                    InfoCheckBox(autovalidateMode),
                     _ActionButton(
                       notifier: itemNotifier,
                       stateNotifier: stateNotifier,
