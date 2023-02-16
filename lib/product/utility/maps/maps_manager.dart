@@ -6,6 +6,10 @@ class MapsManager {
   const MapsManager._();
 
   static Future<void> checkPermission() async {
+    if (kIsWeb) {
+      await Geolocator.checkPermission();
+      return;
+    }
     bool serviceEnabled;
     LocationPermission permission;
 

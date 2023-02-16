@@ -46,9 +46,11 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
             path: CollectionEnums.completeArrived,
           );
 
-          await SuccessDialog(
-            message: LocaleKeys.messages_success_delivered.tr(),
-          ).show(context);
+          if (context.mounted) {
+            await SuccessDialog(
+              message: LocaleKeys.messages_success_delivered.tr(),
+            ).show(context);
+          }
         }
         changeLoading();
       },
@@ -63,12 +65,10 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
                     color: ColorsCustom.sambacus,
                   ),
                   Flexible(
-                    child: FittedBox(
-                      child: Padding(
-                        padding: const PagePadding.onlyLeftLow(),
-                        child: ButtonNormalText(
-                          title: LocaleKeys.login_arrived.tr().toUpperCase(),
-                        ),
+                    child: Padding(
+                      padding: const PagePadding.onlyLeftLow(),
+                      child: ButtonNormalText(
+                        title: LocaleKeys.login_arrived.tr().toUpperCase(),
                       ),
                     ),
                   )
