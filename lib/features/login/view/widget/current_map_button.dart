@@ -35,10 +35,12 @@ class CurrentMaps extends StatelessWidget {
               color: ColorsCustom.sambacus,
             ),
             Flexible(
-              child: Padding(
-                padding: const PagePadding.onlyLeftLow(),
-                child: ButtonNormalText(
-                  title: LocaleKeys.login_currentMap.tr().toUpperCase(),
+              child: FittedBox(
+                child: Padding(
+                  padding: const PagePadding.onlyLeftLow(),
+                  child: ButtonNormalText(
+                    title: LocaleKeys.login_currentMap.tr().toUpperCase(),
+                  ),
                 ),
               ),
             )

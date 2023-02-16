@@ -30,7 +30,8 @@ class AppProvider extends StateNotifier<AppProviderState> {
 
   Future<void> checkDeviceId() async {
     try {
-      final deviceID = await DeviceUtility.instance.getUniqueDeviceId();
+      final deviceID =
+          kIsWeb ? kWeb : await DeviceUtility.instance.getUniqueDeviceId();
       state = state.copyWith(deviceID: deviceID);
     } catch (e) {
       state = state.copyWith(deviceID: kWeb);

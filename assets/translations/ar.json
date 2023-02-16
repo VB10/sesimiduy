@@ -8,6 +8,13 @@
     "button": {
         "addNewItem": "أضف أداة جديدة"
     },
+        "messages": { 
+    "success": { 
+        "helpRequest": "Yardım talebi oluşturuldu",
+        "sendHelp":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
+        "delivered":"Yardım teslim edildi"
+        }
+    },
     "needHelp": "اريد المساعدة",
     "nameAndSurname": "الاسم و الكنية",
     "phoneNumber": "رقم الهاتم",

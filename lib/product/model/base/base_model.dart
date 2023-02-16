@@ -7,11 +7,11 @@ abstract class BaseModel {
     fromJson: FirebaseTimeParser.datetimeFromTimestamp,
     defaultValue: DateTime.now,
   )
-  final DateTime? createdAt = DateTime.now();
+  DateTime? createdAt = DateTime.now();
   @JsonKey(
     toJson: FirebaseTimeParser.dateTimeToTimestamp,
     fromJson: FirebaseTimeParser.datetimeFromTimestamp,
     defaultValue: DateTime.now,
   )
-  final DateTime? updatedAt = DateTime.now();
+  DateTime? updatedAt = DateTime.now();
 }
