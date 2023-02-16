@@ -8,7 +8,12 @@ enum IconSize {
   //size is [25]
   medium(25),
   //size is [50]
-  large(50);
+  large(50),
+  //size is [80]
+  xLarge(80),
+  //size is [100]
+  xxLarge(100),
+  ;
 
   final double value;
   // ignore: sort_constructors_first

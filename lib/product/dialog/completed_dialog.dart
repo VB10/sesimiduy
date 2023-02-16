@@ -35,7 +35,7 @@ class _CompletedDialogState extends State<CompletedDialog>
           _activeButtonValue.value = _formKey.currentState?.validate() ?? false;
         },
         child: CompleteDialogContext(
-          child: ResponsiveBuilder(
+          child: ResponsiveWindowBuilder(
             builder: (windowSize) {
               return SizedBox(
                 width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
