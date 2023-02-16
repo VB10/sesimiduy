@@ -27,36 +27,21 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   void initState() {
     super.initState();
-    ref.read(AppProvider.provider.notifier).init();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(AppProvider.provider.notifier).init();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          const LoginHeader(),
-          const SizedBox(height: WidgetSizes.spacingXsMid),
-          const Expanded(
+        children: const [
+          LoginHeader(),
+          SizedBox(height: WidgetSizes.spacingXsMid),
+          Expanded(
             child: _Body(),
           ),
-          SafeArea(
-            top: false,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const PagePadding.all(),
-                  child: Text(
-                    LocaleKeys.login_description.tr(),
-                    textAlign: TextAlign.center,
-                    style: context.textTheme.bodySmall
-                        ?.copyWith(decoration: TextDecoration.underline),
-                  ),
-                ),
-                const SocialMediaButtons()
-              ],
-            ),
-          )
         ],
       ),
     );
@@ -70,17 +55,37 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const PagePadding.horizontalSymmetric() +
-            const PagePadding.onlyTopNormal(),
-        child: Wrap(
-          runSpacing: WidgetSizes.spacingL,
-          spacing: WidgetSizes.spacingL,
-          children: const [
-            HelpWantedButton(),
-            GoingHelpButton(),
-            CurrentMaps(),
-            CompletedButton(),
-          ].map((e) => _ButtonResponsive(child: e)).toList(),
+        padding: const PagePadding.horizontalSymmetric(),
+        child: Column(
+          children: [
+            Wrap(
+              runSpacing: WidgetSizes.spacingL,
+              spacing: WidgetSizes.spacingL,
+              children: const [
+                HelpWantedButton(),
+                GoingHelpButton(),
+                CurrentMaps(),
+                CompletedButton(),
+              ].map((e) => _ButtonResponsive(child: e)).toList(),
+            ),
+            SafeArea(
+              top: false,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const PagePadding.all(),
+                    child: Text(
+                      LocaleKeys.login_description.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.bodySmall
+                          ?.copyWith(decoration: TextDecoration.underline),
+                    ),
+                  ),
+                  const SocialMediaButtons()
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -93,11 +98,11 @@ class _ButtonResponsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getValueForScreenType<double>(
-        context: context,
-        mobile: context.height / 13,
-        desktop: context.height / 8,
-      ),
+      // height: getValueForScreenType<double>(
+      //   context: context,
+      //   mobile: context.height / 13,
+      //   desktop: context.height / 8,
+      // ),
       width: getValueForScreenType<double>(
         context: context,
         mobile: context.width,

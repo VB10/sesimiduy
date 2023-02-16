@@ -46,7 +46,11 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
             path: CollectionEnums.completeArrived,
           );
 
-          await const SuccessDialog().show(context);
+          if (context.mounted) {
+            await SuccessDialog(
+              message: LocaleKeys.messages_success_delivered.tr(),
+            ).show(context);
+          }
         }
         changeLoading();
       },

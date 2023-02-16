@@ -2,15 +2,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod/riverpod.dart';
-
 import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/generated/assets.gen.dart';
 import 'package:sesimiduy/product/model/want_help_model.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
+import 'package:sesimiduy/product/utility/maps/polyline_helper.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 
 class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
@@ -76,7 +77,23 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
           .map(
             (e) => ProductMarker.fromWantedHelpModel(
               e,
-              () {},
+              () {
+                final userPosition = state.userMarker?.position;
+                if (userPosition == null) return;
+                setPolyLines({
+                  PolyLineHelper.make(
+                    id: e.id!,
+                    userPosition: LatLng(
+                      userPosition.latitude,
+                      userPosition.longitude,
+                    ),
+                    target: LatLng(
+                      e.location!.latitude,
+                      e.location!.longitude,
+                    ),
+                  )
+                });
+              },
             ),
           )
           .toSet(),
@@ -104,8 +121,21 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
     );
   }
 
+  void setUserMarker(Position position) {
+    state = state.copyWith(
+      userMarker: Marker(
+        markerId: const MarkerId('user-marker'),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
+        position: LatLng(position.latitude, position.longitude),
+      ),
+    );
+
+    changeMapView(GeoPoint(position.latitude, position.longitude));
+  }
+
   void setPolyLines(Set<Polyline> value) {
     state = state.copyWith(polylines: value);
+
     final points = state.polylines?.firstOrNull?.points.first;
     if (points == null) return;
     Future.microtask(() {
@@ -125,11 +155,13 @@ class MapState extends Equatable {
     this.wanteds,
     this.googleMapController,
     this.polylines,
+    this.userMarker,
   });
 
   final String? title;
   final Set<Marker>? selectedMarkers;
   final Set<Marker>? requestMarkers;
+  final Marker? userMarker;
   final List<WantHelpModel>? wanteds;
   final BitmapDescriptor? markerHelpIcon;
   final BitmapDescriptor? markerCarIcon;
@@ -145,13 +177,15 @@ class MapState extends Equatable {
         requestMarkers,
         wanteds,
         googleMapController,
-        polylines
+        polylines,
+        userMarker
       ];
 
   MapState copyWith({
     String? title,
     Set<Marker>? selectedMarkers,
     Set<Marker>? requestMarkers,
+    Marker? userMarker,
     List<WantHelpModel>? wanteds,
     BitmapDescriptor? markerHelpIcon,
     BitmapDescriptor? markerCarIcon,
@@ -162,17 +196,12 @@ class MapState extends Equatable {
       title: title ?? this.title,
       selectedMarkers: selectedMarkers ?? this.selectedMarkers,
       requestMarkers: requestMarkers ?? this.requestMarkers,
+      userMarker: userMarker ?? this.userMarker,
       wanteds: wanteds ?? this.wanteds,
       markerHelpIcon: markerHelpIcon ?? this.markerHelpIcon,
       markerCarIcon: markerCarIcon ?? this.markerCarIcon,
       polylines: polylines ?? this.polylines,
       googleMapController: googleMapController ?? this.googleMapController,
-    );
-  }
-
-  Set<ProductMarker> get allMarkers {
-    return Set<ProductMarker>.from(
-      (selectedMarkers?.toList() ?? []) + (requestMarkers?.toList() ?? []),
     );
   }
 }

@@ -12,12 +12,11 @@ import 'package:sesimiduy/product/app_builder.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  final coreLocalize = CoreLocalize();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await EasyLocalization.ensureInitialized();
+  final coreLocalize = CoreLocalize();
 
   runApp(
     EasyLocalization(

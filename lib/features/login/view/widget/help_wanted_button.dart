@@ -15,7 +15,6 @@ import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/decorations/style/bold_outline_style.dart';
 import 'package:sesimiduy/product/utility/decorations/style/button_rectangle_border.dart';
 import 'package:sesimiduy/product/utility/mixin/loading_state_mixin.dart';
-import 'package:sesimiduy/product/widget/text/button_large_text.dart';
 
 class HelpWantedButton extends StatefulWidget {
   const HelpWantedButton({super.key});
@@ -41,8 +40,14 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
               ? const CircularProgressIndicator(
                   color: ColorsCustom.sambacus,
                 )
-              : ButtonLargeText(
-                  title: LocaleKeys.login_wantHelp.tr(),
+              : FittedBox(
+                  child: Text(
+                    LocaleKeys.login_wantHelp.tr(),
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: ColorsCustom.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
         ),
       ),
@@ -62,7 +67,9 @@ class _HelpWantedButtonState extends State<HelpWantedButton> with LoadingState {
     }
     final uploadService = HelpUploadService();
     await uploadService.createHelpCall(helpForm: response);
-    unawaited(const SuccessDialog().show(context));
+    unawaited(SuccessDialog(
+      message: LocaleKeys.messages_success_helpRequest.tr(),
+    ).show(context));
     changeLoading();
   }
 
