@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
@@ -196,6 +197,10 @@ class _NameTextField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: CompleteDialogContext.of(context).nameController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.nameAndSurname.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
@@ -213,6 +218,10 @@ class _NameArrivedUserTextField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: CompleteDialogContext.of(context).nameArrivedController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.completeDialog_nameDelivered.tr(),
         labelText: LocaleKeys.completeDialog_nameDelivered.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,

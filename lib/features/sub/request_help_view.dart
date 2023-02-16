@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 
 import 'package:sesimiduy/core/enums/core_locale.dart';
@@ -226,6 +227,10 @@ class _FullNameField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: _fullNameController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.nameAndSurname.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
