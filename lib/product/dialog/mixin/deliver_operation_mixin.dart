@@ -24,7 +24,7 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
 
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
-  ValueNotifier<Items?> itemNotifier = ValueNotifier(null);
+  ValueNotifier<List<Items>> itemNotifier = ValueNotifier([]);
   ValueNotifier<bool> stateNotifier = ValueNotifier(false);
   HelpType helpType = HelpType.personal;
   List<City> cities = [];
@@ -75,7 +75,7 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
   bool get isCompany => helpType == HelpType.business;
 
   Future<DeliveryHelpForm?> returnRequestItem() async {
-    if (itemNotifier.value == null) return null;
+    if (itemNotifier.value.isEmpty) return null;
     final deviceID = await DeviceUtility.instance.getUniqueDeviceId();
     return DeliveryHelpForm(
       deviceId: deviceID,
@@ -95,8 +95,7 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
       toPlace: selectedToCity?.name ?? '',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      collectItem: itemNotifier.value?.name ?? '',
-      collectItemId: itemNotifier.value?.id ?? '',
+      collectedItems: itemNotifier.value,
       companyName: isCompany ? nameController.text : '',
     );
   }

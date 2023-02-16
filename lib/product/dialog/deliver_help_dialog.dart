@@ -20,12 +20,15 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/info_checkbox.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
 import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
+
+import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
 
 class DeliverHelpDialog extends StatefulWidget {
   const DeliverHelpDialog({super.key});
@@ -92,7 +95,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     ),
                     const VerticalSpace.standard(),
                     _CarriedItems(
-                      onChanged: (value) {
+                      onSuggestionChanges: (value) {
                         itemNotifier.value = value;
                       },
                     ),
@@ -100,6 +103,7 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     const _CustomDivider(),
                     const VerticalSpace.standard(),
                     KvkkCheckBox(autovalidateMode),
+                    InfoCheckBox(autovalidateMode),
                     _ActionButton(
                       notifier: itemNotifier,
                       stateNotifier: stateNotifier,
@@ -121,8 +125,8 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
 }
 
 class _CarriedItems extends StatelessWidget {
-  const _CarriedItems({required this.onChanged});
-  final ValueChanged<Items?> onChanged;
+  const _CarriedItems({required this.onSuggestionChanges});
+  final ValueChanged<List<Items>> onSuggestionChanges;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -132,18 +136,27 @@ class _CarriedItems extends StatelessWidget {
             toFirestore: (value, options) => value.toJson(),
           )
           .get(),
-      builder: (context, AsyncSnapshot<QuerySnapshot<Items>> snapshot) =>
-          Padding(
-        padding: const PagePadding.horizontalSymmetric(),
-        child: LabeledProductComboBox<Items>(
-          labelText: LocaleKeys.carriedItems.tr(),
-          items: snapshot.data?.docs.map((e) => e.data()).toList() ?? [],
-          onChanged: onChanged.call,
-          hintText: LocaleKeys.youMaySelectMultiple.tr(),
-          validator: (text) =>
-              ValidateGenericItems<Items>(text).validateDropDown,
-        ),
-      ),
+      builder: (context, AsyncSnapshot<QuerySnapshot<Items>> snapshot) {
+        if (snapshot.hasError) return const SizedBox();
+        final data = snapshot.data;
+
+        return ItemsTextField(
+          onSelected: onSuggestionChanges,
+          needItems: data?.docs.map((e) => e.data()).toList() ?? [],
+        );
+
+        // return Padding(
+        //   padding: const PagePadding.horizontalSymmetric(),
+        //   child: LabeledProductComboBox<Items>(
+        //     labelText: LocaleKeys.carriedItems.tr(),
+        //     items: snapshot.data?.docs.map((e) => e.data()).toList() ?? [],
+        //     onChanged: onChanged.call,
+        //     hintText: LocaleKeys.youMaySelectMultiple.tr(),
+        //     validator: (text) =>
+        //         ValidateGenericItems<Items>(text).validateDropDown,
+        //   ),
+        // );
+      },
     );
   }
 }
@@ -323,7 +336,7 @@ class _ActionButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final ValueNotifier<Items?> notifier;
+  final ValueNotifier<List<Items>?> notifier;
   final ValueNotifier<bool> stateNotifier;
 
   final VoidCallback onPressed;

@@ -44,10 +44,10 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
 
   Future<void> onPressed() async {
     if (isLoading) return;
-    final request =
+    final response =
         await const DeliverHelpDialog().show<DeliveryHelpForm>(context);
     changeLoading();
-    if (request == null) {
+    if (response == null) {
       changeLoading();
       return;
     }
@@ -56,6 +56,9 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
     if (result) {
       await const SuccessDialog().show(context);
     }
+
+    await HelpUploadService().createDeliveryCall(deliveryForm: response);
+
     changeLoading();
   }
 }

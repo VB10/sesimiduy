@@ -36,6 +36,7 @@
     "deliver": "Deliver",
     "kvkk": "Terms of use",
     "kvkkReadApproved": " read and approved.",
+    "confirmationText": "I hereby accept and declare that the information I have provided on debris, destruction, assistance and support needs is accurate and confirmed, that I have taken all necessary measures and precautions to avoid information pollution and misapplications, and that I will notify any changes and updates in the information I have provided.",
     "hintPickCity": "Şehir Seçiniz",
     "labelVehiclePlate": "Araç Plaka No",
     "labelFromCity": "Departure City",
@@ -47,7 +48,9 @@
         "address": "Address can't be blank",
         "needs": "Please select supplies",
         "plate": "Please enter a valid plate number",
-        "kvkk": "Please accept the terms of use"
+        "kvkk": "Please accept the terms of use",
+        "confirmationText": "Please accept the confirmation text"
+
     },
     "login": {
         "wantHelp": "Help",
