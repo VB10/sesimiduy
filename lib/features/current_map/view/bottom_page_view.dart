@@ -2,15 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/want_help_model.dart';
-import 'package:sesimiduy/product/utility/padding/page_padding.dart';
-import 'package:sesimiduy/product/utility/validator/validator_items.dart';
-import 'package:sesimiduy/product/widget/button/active_button.dart';
-import 'package:sesimiduy/product/widget/combo_box/labeled_product_combo_box.dart';
-import 'package:sesimiduy/product/widget/combo_box/product_combo_box.dart';
-import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 
 class BottomPageView extends ConsumerStatefulWidget {
   const BottomPageView({
@@ -35,18 +30,22 @@ class _BottomPageViewState extends ConsumerState<BottomPageView> {
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
+      physics: const ClampingScrollPhysics(),
       itemCount: widget.wantedItems.length,
       itemBuilder: (BuildContext context, int index) {
         return InfoCard(
           model: widget.wantedItems[index],
           onPressed: () {
-            widget.mapProvider
-                .changeMapView(widget.wantedItems[index].location);
-            controller.animateToPage(
-              index,
-              duration: context.durationLow,
-              curve: Curves.easeInOut,
-            );
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              widget.mapProvider
+                  .changeMapView(widget.wantedItems[index].location);
+            });
+
+            // controller.animateToPage(
+            //   index,
+            //   duration: context.durationLow,
+            //   curve: Curves.easeInOut,
+            // );
           },
         );
       },
@@ -103,7 +102,12 @@ class InfoCard extends StatelessWidget {
                 children: [
                   Text(model.fullName ?? ''),
                   SizedBox(
-                    width: context.dynamicWidth(0.4),
+                    width: getValueForScreenType<double>(
+                      context: context,
+                      mobile: context.dynamicWidth(.4),
+                      tablet: context.dynamicWidth(.2),
+                      desktop: context.dynamicWidth(.2),
+                    ),
                     child: const Divider(
                       color: ColorsCustom.sambacus,
                     ),
@@ -114,42 +118,6 @@ class InfoCard extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AcceptDialog extends StatelessWidget {
-  const _AcceptDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const PagePadding.all(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Test label'),
-            const VerticalSpace.standard(),
-            Material(
-              child: LabeledProductComboBox<ProductDropDownModel>(
-                labelText: 'labelText',
-                items: const [],
-                onChanged: (_) {},
-                hintText: 'hintText',
-                validator: (value) =>
-                    ValidateGenericItems<ProductDropDownModel>(
-                  value,
-                ).validateDropDown,
-              ),
-            ),
-            const VerticalSpace.standard(),
-            ActiveButton(label: 'label', onPressed: () {})
-          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,6 +13,7 @@ import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
+import 'package:sesimiduy/product/utility/dialog/permission_diallog.dart';
 import 'package:sesimiduy/product/utility/mixin/app_provider_mixin.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
@@ -56,6 +58,10 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
                   widgetRef.watch(mapProvider).selectedMarkers ?? {};
               final requestedMarkers =
                   widgetRef.watch(mapProvider).requestMarkers ?? {};
+              final userMarkers =
+                  widgetRef.watch(mapProvider).userMarker != null
+                      ? [widgetRef.watch(mapProvider).userMarker!]
+                      : <Marker>[];
 
               return GoogleMap(
                 polylines: widgetRef.watch(mapProvider).polylines ?? {},
@@ -65,7 +71,9 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
                       .setController(controller);
                 },
                 markers: Set.from(
-                  selectedCategoriesItems.toList() + requestedMarkers.toList(),
+                  selectedCategoriesItems.toList() +
+                      requestedMarkers.toList() +
+                      userMarkers,
                 ),
                 initialCameraPosition: initialCameraPosition,
               );
@@ -93,8 +101,10 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
   late final StateNotifierProvider<MapProvider, MapState> mapProvider;
   late final MapService service;
 
-  CameraPosition get initialCameraPosition => const CameraPosition(
-        target: AppConstants.defaultLocation,
+  CameraPosition get initialCameraPosition => CameraPosition(
+        target: appState.position != null
+            ? LatLng(appState.position!.latitude, appState.position!.longitude)
+            : AppConstants.defaultLocation,
         zoom: AppConstants.defaultMapZoom,
       );
   @override
@@ -112,6 +122,20 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
             .changeMapView(GeoPoint(position.latitude, position.longitude));
       },
     );
+    checkPermission();
+  }
+
+  Future<void> checkPermission() async {
+    final userPosition = appState.position;
+    if (userPosition != null) {
+      ref.read(mapProvider.notifier).setUserMarker(userPosition);
+      return;
+    }
+    await Future.microtask(() {});
+    if (kIsWeb && mounted) {
+      await PermissionDialog(context).show();
+    }
+    await appProvider.checkMapsPermission();
   }
 
   Future<void> onPoiCategoryUpdate(

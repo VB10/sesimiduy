@@ -24,6 +24,7 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: ButtonHeightHelper(context).height,
       child: OutlinedButton(
         style: CustomButtonStyle.normal.copyWith(
           backgroundColor:
