@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tagging_plus/flutter_tagging_plus.dart';
@@ -20,8 +22,10 @@ class ItemsTextField extends StatefulWidget {
 
 class _ItemsTextFieldState extends State<ItemsTextField> {
   late List<Items> needItems;
-  final List<Items> _selectedItems = [];
+  List<Items> _selectedItems = [];
 
+  final Iterable<Items> _filterItems = [];
+  String latestQuery = '';
   @override
   void didUpdateWidget(covariant ItemsTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -42,48 +46,96 @@ class _ItemsTextFieldState extends State<ItemsTextField> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FlutterTagging<Items>(
-          onChanged: () {
-            widget.onSelected(_selectedItems);
-          },
-          initialItems: _selectedItems,
-          textFieldConfiguration: TextFieldConfiguration(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              filled: true,
-              hintText: LocaleKeys.hintCategory.tr(),
+        Stack(
+          children: [
+            FlutterTagging<Items>(
+              onChanged: () {
+                widget.onSelected(_selectedItems);
+              },
+              initialItems: _selectedItems,
+              textFieldConfiguration: TextFieldConfiguration(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  filled: true,
+                  hintText: LocaleKeys.hintCategory.tr(),
+                ),
+              ),
+              hideOnError: true,
+              hideOnEmpty: true,
+              findSuggestions: (String query) {
+                return needItems
+                    .toList()
+                    .where(
+                      (element) =>
+                          element.name
+                              ?.toLowerCase()
+                              .withoutSpecialCharacters
+                              ?.contains(
+                                query.withoutSpecialCharacters ?? '',
+                              ) ??
+                          false,
+                    )
+                    .toList();
+              },
+              additionCallback: (p0) {
+                return Items(name: p0);
+              },
+              onAdded: (item) => item,
+              configureSuggestion: (item) {
+                return SuggestionConfiguration(
+                  title: Text(item.name ?? ''),
+                  additionWidget: const Chip(
+                    avatar: Icon(
+                      Icons.add_circle,
+                      color: Colors.white,
+                    ),
+                    label: Text('Add New Item'),
+                  ),
+                );
+              },
+              configureChip: (item) {
+                return ChipConfiguration(
+                  label: Text(item.name ?? ''),
+                  backgroundColor: ColorsCustom.sambacus,
+                  labelStyle: const TextStyle(color: ColorsCustom.white),
+                  deleteIconColor: ColorsCustom.white,
+                );
+              },
             ),
-          ),
-          hideOnError: true,
-          hideOnEmpty: true,
-          findSuggestions: (String query) {
-            return needItems
-                .where(
-                  (element) =>
-                      element.name
-                          ?.toLowerCase()
-                          .withoutSpecialCharacters
-                          ?.contains(query.withoutSpecialCharacters ?? '') ??
-                      false,
-                )
-                .toList();
-          },
-          onAdded: (item) => item,
-          configureSuggestion: (item) {
-            return SuggestionConfiguration(
-              title: Text(item.name ?? ''),
-            );
-          },
-          configureChip: (item) {
-            return ChipConfiguration(
-              label: Text(item.name ?? ''),
-              backgroundColor: ColorsCustom.sambacus,
-              labelStyle: const TextStyle(color: ColorsCustom.white),
-              deleteIconColor: ColorsCustom.white,
-            );
-          },
+            AnimatedPositioned(
+              duration: context.durationLow,
+              right: 0,
+              child: AnimatedCrossFade(
+                firstChild: IconButton(
+                  onPressed: () {
+                    _selectedItems.add(Items(name: latestQuery));
+
+                    setState(() {
+                      latestQuery = '';
+                    });
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+                secondChild: const SizedBox(),
+                crossFadeState: (_filterItems.isEmpty && latestQuery.isNotEmpty)
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                duration: context.durationLow,
+              ),
+            )
+          ],
         )
       ],
+    );
+  }
+
+  Iterable<Items> _filterNeedItems(String query) {
+    return needItems.where(
+      (element) =>
+          element.name?.toLowerCase().withoutSpecialCharacters?.contains(
+                query.withoutSpecialCharacters ?? '',
+              ) ??
+          false,
     );
   }
 }

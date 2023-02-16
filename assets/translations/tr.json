@@ -36,6 +36,7 @@
     "deliver": "Teslim Et",
     "kvkk": "KVKK'yı",
     "kvkkReadApproved": " okudum, onaylıyorum.",
+    "confirmationText": "Enkaz, yıkım, yardım ve destek ihtiyaçları konusunda verdiğim bilgilerin doğru ve teyit edilmiş olduğunu, bilgi kirliliği ve yanlış uygulamalara yol açmamak için gerekli tüm önlem ve tedbirleri aldığımı, vermiş olduğum bilgilerde meydana gelen değişiklik ve güncellemeleri bildireceğimi kabul ve beyan ederim.    ",
     "hintPickCity": "Şehir Seçiniz",
     "labelVehiclePlate": "Araç Plaka No",
     "labelFromCity": "Yardımın Geldiği Şehir",
@@ -48,7 +49,8 @@
         "needs": "Lütfen ihtiyacınızı seçiniz",
         "plate": "Lütfen plaka giriniz",
         "kvkk": "Lütfen KVKK'yi kabul ediniz",
-        "surname": "Soyadınızı girmelisiniz"
+        "surname": "Soyadınızı girmelisiniz",
+        "confirmationText": "Onay metnini kabul ediniz"
     },
     "login": {
         "wantHelp": "YARDIM İSTİYORUM",
