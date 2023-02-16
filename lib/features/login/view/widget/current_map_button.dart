@@ -34,7 +34,7 @@ class CurrentMaps extends StatelessWidget {
               FontAwesomeIcons.earthAfrica,
               color: ColorsCustom.sambacus,
             ),
-            Flexible(
+            FittedBox(
               child: Padding(
                 padding: const PagePadding.onlyLeftLow(),
                 child: ButtonNormalText(
