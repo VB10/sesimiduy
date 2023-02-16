@@ -6,6 +6,8 @@ abstract class  LocaleKeys {
   static const dialog_successContent = 'dialog.successContent';
   static const dialog_errorContent = 'dialog.errorContent';
   static const dialog = 'dialog';
+  static const button_addNewItem = 'button.addNewItem';
+  static const button = 'button';
   static const needHelp = 'needHelp';
   static const nameAndSurname = 'nameAndSurname';
   static const phoneNumber = 'phoneNumber';
@@ -49,6 +51,7 @@ abstract class  LocaleKeys {
   static const validation_needs = 'validation.needs';
   static const validation_plate = 'validation.plate';
   static const validation_kvkk = 'validation.kvkk';
+  static const validation_surname = 'validation.surname';
   static const validation_confirmationText = 'validation.confirmationText';
   static const validation = 'validation';
   static const login_wantHelp = 'login.wantHelp';

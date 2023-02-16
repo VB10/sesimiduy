@@ -5,6 +5,9 @@
         "successContent": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
         "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
     },
+    "button": {
+        "addNewItem": "Yeni ekle"
+    },
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",

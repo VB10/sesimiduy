@@ -5,6 +5,9 @@
         "successContent": "تم اخذ معلومات الذهاب\nرحلة سعيدة",
         "errorContent": "حصل خطأ عند اخذ معلومات الذهاب"
     },
+    "button": {
+        "addNewItem": "أضف أداة جديدة"
+    },
     "needHelp": "اريد المساعدة",
     "nameAndSurname": "الاسم و الكنية",
     "phoneNumber": "رقم الهاتم",
@@ -64,6 +67,6 @@
     },
     "category": "فئة",
     "map": {
-        "makeRoute": "Rota Oluştur"
+        "makeRoute": "إنشاء طريق"
     }
 }
