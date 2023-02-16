@@ -9,7 +9,6 @@ import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/request_help_form.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
-import 'package:sesimiduy/product/utility/constants/regex_types.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
 import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
@@ -284,15 +283,17 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_items.value.isEmpty) return;
-    final isValid =
-        RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
-    if (!isValid) {
-      showInSnackBar(
-        LocaleKeys.validation_surname.tr(),
-        context,
-      );
-      return;
-    }
+
+    // fixme full name check
+    // final isValid =
+    //     RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
+    // if (!isValid) {
+    //   showInSnackBar(
+    //     LocaleKeys.validation_surname.tr(),
+    //     context,
+    //   );
+    //   return;
+    // }
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
     showInSnackBar(

@@ -22,9 +22,10 @@ DeliveryHelpForm _$DeliveryHelpFormFromJson(Map<String, dynamic> json) =>
       isCompany: json['isCompany'] as bool,
       madeByCityId: json['madeByCityId'] as int,
       madeByCityName: json['madeByCityName'] as String,
-      collectItem: json['collectItem'] as String,
-      collectItemId: json['collectItemId'] as String,
       deviceId: json['deviceId'] as String,
+      collectedItems: (json['collectedItems'] as List<dynamic>)
+          .map((e) => Items.fromJson(e as Map<String, dynamic>))
+          .toList(),
       carType: json['carType'] as int? ?? 1,
     );
 
@@ -38,12 +39,11 @@ Map<String, dynamic> _$DeliveryHelpFormToJson(DeliveryHelpForm instance) =>
       'phoneNumber': instance.phoneNumber,
       'carType': instance.carType,
       'numberPlate': instance.numberPlate,
-      'collectItem': instance.collectItem,
-      'collectItemId': instance.collectItemId,
       'deviceId': instance.deviceId,
       'fromPlace': instance.fromPlace,
       'toPlace': instance.toPlace,
       'toPlaceId': instance.toPlaceId,
+      'collectedItems': instance.collectedItems.map((e) => e.toJson()).toList(),
       'createdAt': FirebaseTimeParser.dateTimeToTimestamp(instance.createdAt),
       'updatedAt': FirebaseTimeParser.dateTimeToTimestamp(instance.updatedAt),
     };
