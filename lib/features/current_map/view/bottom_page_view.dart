@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
+import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/want_help_model.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
@@ -26,13 +27,35 @@ class BottomPageView extends ConsumerStatefulWidget {
 
 class _BottomPageViewState extends ConsumerState<BottomPageView> {
   final PageController controller = PageController(
-    viewportFraction: kIsWeb ? 0.2 : 0.6,
+    viewportFraction: kIsWeb ? 0.6 : 0.6,
   );
 
   @override
   Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: widget.wantedItems.length,
+      itemBuilder: (BuildContext context, int index) {
+        return InfoCard(
+          model: widget.wantedItems[index],
+          onPressed: () {
+            widget.mapProvider
+                .changeMapView(widget.wantedItems[index].location);
+            controller.animateToPage(
+              index,
+              duration: context.durationLow,
+              curve: Curves.easeInOut,
+            );
+          },
+        );
+      },
+    );
     return PageView.builder(
       controller: controller,
+      padEnds: false,
+      pageSnapping: false,
+      allowImplicitScrolling: true,
       onPageChanged: (value) {
         widget.mapProvider.changeMapView(widget.wantedItems[value].location);
       },
@@ -66,27 +89,30 @@ class InfoCard extends StatelessWidget {
   final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.verticalSymmetric(),
-      child: InkWell(
-        onTap: onPressed,
+    return InkWell(
+      onTap: onPressed,
+      child: Center(
         child: Card(
           shape: context.roundedRectangleAllBorderNormal,
-          child: Padding(
-            padding: const PagePadding.allVeryLow(),
-            child: ListTile(
-              title: Text(model.fullName ?? ''),
-              contentPadding: EdgeInsets.zero,
-              minVerticalPadding: 0,
-              subtitle: Column(
+          child: Row(
+            children: [
+              const Icon(Icons.person_pin_circle_outlined),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(model.fullName ?? ''),
+                  SizedBox(
+                    width: context.dynamicWidth(0.4),
+                    child: const Divider(
+                      color: ColorsCustom.sambacus,
+                    ),
+                  ),
                   Text(model.categories?.map((e) => e.name).join() ?? ''),
-                  Expanded(child: Text(model.address ?? '')),
+                  Text(model.address ?? ''),
                 ],
               ),
-              leading: const Icon(Icons.person_pin_circle_outlined),
-            ),
+            ],
           ),
         ),
       ),
