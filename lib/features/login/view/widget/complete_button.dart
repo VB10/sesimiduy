@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sesimiduy/product/dialog/completed_dialog.dart';
+import 'package:sesimiduy/product/dialog/success_dialog.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/model/complete_package.dart';
@@ -44,6 +45,8 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
             model: response,
             path: CollectionEnums.completeArrived,
           );
+
+          await const SuccessDialog().show(context);
         }
         changeLoading();
       },

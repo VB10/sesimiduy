@@ -10,8 +10,8 @@ enum WindowsSize {
   bool get isDesktop => this == WindowsSize.desktop;
 }
 
-class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({
+class ResponsiveWindowBuilder extends StatelessWidget {
+  const ResponsiveWindowBuilder({
     super.key,
     this.mobileBreakpoint = 500,
     this.tabletBreakpoint = 800,
