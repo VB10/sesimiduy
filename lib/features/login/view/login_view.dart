@@ -27,7 +27,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   void initState() {
     super.initState();
-    ref.read(AppProvider.provider.notifier).checkMapsPermission();
+    ref.read(AppProvider.provider.notifier).init();
   }
 
   @override
@@ -106,22 +106,5 @@ class _ButtonResponsive extends StatelessWidget {
       ),
       child: child,
     );
-    // return getValueForScreenType<bool>(
-    //   context: context,
-    //   mobile: false,
-    //   tablet: true,
-    // )
-    //     ? child()
-    //     : child;
-    // return ResponsiveBuilder(
-    //   builder: (windowSize) {
-    //     return SizedBox(
-    //       width: windowSize.isMobile != true
-    //           ? MediaQuery.of(context).size.width / 3
-    //           : MediaQuery.of(context).size.width,
-    //       child: child,
-    //     );
-    //   },
-    // );
   }
 }

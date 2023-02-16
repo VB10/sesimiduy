@@ -52,13 +52,10 @@ class _GoingHelpButtonState extends State<GoingHelpButton> with LoadingState {
       return;
     }
     final result =
-        await HelpUploadService().createDeliveryCall(deliveryForm: request);
-    if (result) {
+        await HelpUploadService().createDeliveryCall(deliveryForm: response);
+    if (result && context.mounted) {
       await const SuccessDialog().show(context);
     }
-
-    await HelpUploadService().createDeliveryCall(deliveryForm: response);
-
     changeLoading();
   }
 }

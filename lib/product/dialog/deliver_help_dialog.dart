@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/dialog/mixin/deliver_operation_mixin.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
@@ -15,6 +16,7 @@ import 'package:sesimiduy/product/model/vehicle_types.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
 import 'package:sesimiduy/product/utility/constants/string_constants.dart';
 import 'package:sesimiduy/product/utility/firebase/collection_enums.dart';
+import 'package:sesimiduy/product/utility/mixin/app_provider_mixin.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
@@ -30,15 +32,15 @@ import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.da
 
 import 'package:sesimiduy/product/widget/textfield/items_text_field.dart';
 
-class DeliverHelpDialog extends StatefulWidget {
+class DeliverHelpDialog extends ConsumerStatefulWidget {
   const DeliverHelpDialog({super.key});
 
   @override
-  State<DeliverHelpDialog> createState() => _DeliverHelpDialogState();
+  ConsumerState<DeliverHelpDialog> createState() => _DeliverHelpDialogState();
 }
 
-class _DeliverHelpDialogState extends State<DeliverHelpDialog>
-    with DeliverOperationMixin {
+class _DeliverHelpDialogState extends ConsumerState<DeliverHelpDialog>
+    with AppProviderMixin, DeliverOperationMixin {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -107,9 +109,8 @@ class _DeliverHelpDialogState extends State<DeliverHelpDialog>
                     _ActionButton(
                       notifier: itemNotifier,
                       stateNotifier: stateNotifier,
-                      onPressed: () async {
-                        final request = await returnRequestItem();
-                        await context.pop<DeliveryHelpForm>(request);
+                      onPressed: () {
+                        context.pop<DeliveryHelpForm>(returnRequestItem());
                       },
                     ),
                     const VerticalSpace.small(),
@@ -144,18 +145,6 @@ class _CarriedItems extends StatelessWidget {
           onSelected: onSuggestionChanges,
           needItems: data?.docs.map((e) => e.data()).toList() ?? [],
         );
-
-        // return Padding(
-        //   padding: const PagePadding.horizontalSymmetric(),
-        //   child: LabeledProductComboBox<Items>(
-        //     labelText: LocaleKeys.carriedItems.tr(),
-        //     items: snapshot.data?.docs.map((e) => e.data()).toList() ?? [],
-        //     onChanged: onChanged.call,
-        //     hintText: LocaleKeys.youMaySelectMultiple.tr(),
-        //     validator: (text) =>
-        //         ValidateGenericItems<Items>(text).validateDropDown,
-        //   ),
-        // );
       },
     );
   }

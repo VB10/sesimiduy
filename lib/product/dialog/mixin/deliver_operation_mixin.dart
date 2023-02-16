@@ -10,8 +10,9 @@ import 'package:sesimiduy/product/model/earthquake_cities.dart';
 import 'package:sesimiduy/product/model/help_type.dart';
 import 'package:sesimiduy/product/model/items.dart';
 import 'package:sesimiduy/product/model/vehicle_types.dart';
+import 'package:sesimiduy/product/utility/mixin/app_provider_mixin.dart';
 
-mixin DeliverOperationMixin on State<DeliverHelpDialog> {
+mixin DeliverOperationMixin on AppProviderMixin<DeliverHelpDialog> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final autovalidateMode = AutovalidateMode.onUserInteraction;
 
@@ -74,11 +75,10 @@ mixin DeliverOperationMixin on State<DeliverHelpDialog> {
 
   bool get isCompany => helpType == HelpType.business;
 
-  Future<DeliveryHelpForm?> returnRequestItem() async {
+  DeliveryHelpForm? returnRequestItem() {
     if (itemNotifier.value.isEmpty) return null;
-    final deviceID = await DeviceUtility.instance.getUniqueDeviceId();
     return DeliveryHelpForm(
-      deviceId: deviceID,
+      deviceId: appState.deviceID ?? '',
       madeByCityId: selectedFromCity?.id ?? 0,
       madeByCityName: fromController.text,
       isCompany: isCompany,
