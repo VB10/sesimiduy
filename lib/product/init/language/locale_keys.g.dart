@@ -37,6 +37,7 @@ abstract class  LocaleKeys {
   static const deliver = 'deliver';
   static const kvkk = 'kvkk';
   static const kvkkReadApproved = 'kvkkReadApproved';
+  static const confirmationText = 'confirmationText';
   static const hintPickCity = 'hintPickCity';
   static const labelVehiclePlate = 'labelVehiclePlate';
   static const labelFromCity = 'labelFromCity';
@@ -48,7 +49,7 @@ abstract class  LocaleKeys {
   static const validation_needs = 'validation.needs';
   static const validation_plate = 'validation.plate';
   static const validation_kvkk = 'validation.kvkk';
-  static const validation_surname = 'validation.surname';
+  static const validation_confirmationText = 'validation.confirmationText';
   static const validation = 'validation';
   static const login_wantHelp = 'login.wantHelp';
   static const login_goingHelp = 'login.goingHelp';

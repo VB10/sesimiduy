@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
@@ -11,6 +12,7 @@ import 'package:sesimiduy/product/utility/size/widget_size.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/builder/responsive_builder.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/info_checkbox.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
 import 'package:sesimiduy/product/widget/text_field/labeled_product_textfield.dart';
@@ -57,6 +59,7 @@ class _CompletedDialogState extends State<CompletedDialog>
                       const VerticalSpace.standard(),
                       const _AddressField(),
                       KvkkCheckBox(autovalidateMode),
+                      InfoCheckBox(autovalidateMode),
                       _ActionButton(
                         formKey: _formKey,
                         activeButtonValue: _activeButtonValue,
@@ -196,6 +199,10 @@ class _NameTextField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: CompleteDialogContext.of(context).nameController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.nameAndSurname.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
@@ -213,6 +220,10 @@ class _NameArrivedUserTextField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: CompleteDialogContext.of(context).nameArrivedController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.completeDialog_nameDelivered.tr(),
         labelText: LocaleKeys.completeDialog_nameDelivered.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
