@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
 
 import 'package:sesimiduy/core/enums/core_locale.dart';
@@ -15,6 +16,7 @@ import 'package:sesimiduy/product/utility/maps/maps_manager.dart';
 import 'package:sesimiduy/product/utility/padding/page_padding.dart';
 import 'package:sesimiduy/product/utility/validator/validator_items.dart';
 import 'package:sesimiduy/product/widget/button/active_button.dart';
+import 'package:sesimiduy/product/widget/checkbox/info_checkbox.dart';
 import 'package:sesimiduy/product/widget/checkbox/kvkk_checkbox.dart';
 import 'package:sesimiduy/product/widget/dropdown/language_dropdown.dart';
 import 'package:sesimiduy/product/widget/spacer/dynamic_vertical_spacer.dart';
@@ -74,6 +76,7 @@ class _RequestHelpViewState extends State<RequestHelpView>
                     const VerticalSpace.standard(),
                     const _CustomDivider(),
                     KvkkCheckBox(_autovalidateMode),
+                    InfoCheckBox(_autovalidateMode),
                     const VerticalSpace.standard(),
                     ValueListenableBuilder<bool>(
                       valueListenable: _activeButtonValue,
@@ -225,6 +228,10 @@ class _FullNameField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         controller: _fullNameController,
+        keyboardType: TextInputType.name,
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('[0-9]')),
+        ],
         hintText: LocaleKeys.nameAndSurname.tr(),
         labelText: LocaleKeys.nameAndSurname.tr(),
         validator: (value) => ValidatorItems(value).validateFullName,
@@ -283,7 +290,6 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_items.value.isEmpty) return;
-
     // fixme full name check
     // final isValid =
     //     RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
@@ -294,6 +300,7 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
     //   );
     //   return;
     // }
+
     final data = await MapsManager.determinePosition();
     if (!mounted) return;
     showInSnackBar(
