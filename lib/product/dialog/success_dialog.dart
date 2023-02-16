@@ -96,7 +96,7 @@ class _Leading extends StatelessWidget {
 
 extension SuccessDialogExtension on SuccessDialog {
   Future<void> show(BuildContext context) async {
-    await showDialog(
+    return showDialog(
       context: context,
       builder: (context) => this,
     );
