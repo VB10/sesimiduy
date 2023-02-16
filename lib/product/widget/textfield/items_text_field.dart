@@ -44,98 +44,59 @@ class _ItemsTextFieldState extends State<ItemsTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            FlutterTagging<Items>(
-              onChanged: () {
-                widget.onSelected(_selectedItems);
-              },
-              initialItems: _selectedItems,
-              textFieldConfiguration: TextFieldConfiguration(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  filled: true,
-                  hintText: LocaleKeys.hintCategory.tr(),
-                ),
-              ),
-              hideOnError: true,
-              hideOnEmpty: true,
-              findSuggestions: (String query) {
-                return needItems
-                    .toList()
-                    .where(
-                      (element) =>
-                          element.name
-                              ?.toLowerCase()
-                              .withoutSpecialCharacters
-                              ?.contains(
-                                query.withoutSpecialCharacters ?? '',
-                              ) ??
-                          false,
-                    )
-                    .toList();
-              },
-              additionCallback: (p0) {
-                return Items(name: p0);
-              },
-              onAdded: (item) => item,
-              configureSuggestion: (item) {
-                return SuggestionConfiguration(
-                  title: Text(item.name ?? ''),
-                  additionWidget: const Chip(
-                    avatar: Icon(
-                      Icons.add_circle,
-                      color: Colors.white,
-                    ),
-                    label: Text('Add New Item'),
-                  ),
-                );
-              },
-              configureChip: (item) {
-                return ChipConfiguration(
-                  label: Text(item.name ?? ''),
-                  backgroundColor: ColorsCustom.sambacus,
-                  labelStyle: const TextStyle(color: ColorsCustom.white),
-                  deleteIconColor: ColorsCustom.white,
-                );
-              },
-            ),
-            AnimatedPositioned(
-              duration: context.durationLow,
-              right: 0,
-              child: AnimatedCrossFade(
-                firstChild: IconButton(
-                  onPressed: () {
-                    _selectedItems.add(Items(name: latestQuery));
-
-                    setState(() {
-                      latestQuery = '';
-                    });
-                  },
-                  icon: const Icon(Icons.add),
-                ),
-                secondChild: const SizedBox(),
-                crossFadeState: (_filterItems.isEmpty && latestQuery.isNotEmpty)
-                    ? CrossFadeState.showFirst
-                    : CrossFadeState.showSecond,
-                duration: context.durationLow,
-              ),
+    return FlutterTagging<Items>(
+      onChanged: () {
+        widget.onSelected(_selectedItems);
+      },
+      initialItems: _selectedItems,
+      textFieldConfiguration: TextFieldConfiguration(
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          filled: true,
+          hintText: LocaleKeys.hintCategory.tr(),
+        ),
+      ),
+      hideOnError: true,
+      hideOnEmpty: true,
+      findSuggestions: (String query) {
+        return needItems
+            .toList()
+            .where(
+              (element) =>
+                  element.name
+                      ?.toLowerCase()
+                      .withoutSpecialCharacters
+                      ?.contains(
+                        query.withoutSpecialCharacters ?? '',
+                      ) ??
+                  false,
             )
-          ],
-        )
-      ],
-    );
-  }
-
-  Iterable<Items> _filterNeedItems(String query) {
-    return needItems.where(
-      (element) =>
-          element.name?.toLowerCase().withoutSpecialCharacters?.contains(
-                query.withoutSpecialCharacters ?? '',
-              ) ??
-          false,
+            .toList();
+      },
+      additionCallback: (p0) {
+        return Items(name: p0);
+      },
+      onAdded: (item) => item,
+      configureSuggestion: (item) {
+        return SuggestionConfiguration(
+          title: Text(item.name ?? ''),
+          additionWidget: Chip(
+            avatar: const Icon(
+              Icons.add_circle,
+              color: ColorsCustom.endless,
+            ),
+            label: Text(LocaleKeys.button_addNewItem.tr()),
+          ),
+        );
+      },
+      configureChip: (item) {
+        return ChipConfiguration(
+          label: Text(item.name ?? ''),
+          backgroundColor: ColorsCustom.sambacus,
+          labelStyle: const TextStyle(color: ColorsCustom.white),
+          deleteIconColor: ColorsCustom.white,
+        );
+      },
     );
   }
 }
