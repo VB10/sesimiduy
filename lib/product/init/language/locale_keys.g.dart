@@ -5,6 +5,8 @@ abstract class  LocaleKeys {
   static const dialog_errorTitle = 'dialog.errorTitle';
   static const dialog_successContent = 'dialog.successContent';
   static const dialog_errorContent = 'dialog.errorContent';
+  static const dialog_permissionTitle = 'dialog.permissionTitle';
+  static const dialog_permissionDescription = 'dialog.permissionDescription';
   static const dialog = 'dialog';
   static const button_addNewItem = 'button.addNewItem';
   static const button = 'button';

@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 
 import 'package:sesimiduy/product/items/colors_custom.dart';
 
@@ -9,14 +11,14 @@ class PermissionDialog {
   Future<void> show() async {
     await showDialog<void>(
       context: context,
-      builder: (context) => const AlertDialog(
-        icon: Icon(
+      builder: (context) => AlertDialog(
+        icon: const Icon(
           Icons.warning_amber_outlined,
           color: ColorsCustom.endless,
         ),
-        title: Text('Please allow location access'),
+        title: Text(LocaleKeys.dialog_permissionTitle.tr()),
         content: Text(
-          'Please allow location access to use this feature',
+          LocaleKeys.dialog_permissionDescription.tr(),
         ),
       ),
     );

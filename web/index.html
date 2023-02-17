@@ -36,13 +36,13 @@
     <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="sesimiduy" />
+    <meta name="apple-mobile-web-app-title" content="SESİNİDUYDUM" />
     <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.ico" />
 
-    <title>sesimiduy</title>
+    <title>SESİNİDUYDUM</title>
     <link rel="manifest" href="manifest.json" />
 
     <script>
@@ -107,7 +107,7 @@
 
     <script src="main.dart.js" type="application/javascript"></script>
     <script>
-      window.flutterfire_ignore_scripts = ["analytics"];
+      // window.flutterfire_ignore_scripts = ["analytics"];
 
       window.addEventListener("load", function (ev) {
         // Download main.dart.js
@@ -115,10 +115,11 @@
           serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
           },
-          onEntrypointLoaded: function (engineInitializer) {
-            engineInitializer.initializeEngine().then(function (appRunner) {
-              appRunner.runApp();
-            });
+          onEntrypointLoaded: async function (engineInitializer) {
+            // Initialize the Flutter engine
+            let appRunner = await engineInitializer.initializeEngine();
+            // Run the app
+            await appRunner.runApp();
           },
         });
       });

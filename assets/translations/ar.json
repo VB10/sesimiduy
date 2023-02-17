@@ -3,16 +3,18 @@
         "successTitle": "مبروك",
         "errorTitle": "خطأ",
         "successContent": "تم اخذ معلومات الذهاب\nرحلة سعيدة",
-        "errorContent": "حصل خطأ عند اخذ معلومات الذهاب"
+        "errorContent": "حصل خطأ عند اخذ معلومات الذهاب",
+        "permissionTitle": "الرجاء السماح للوصول إلى الموقع",
+        "permissionDescription": "يرجى السماح لذنب الموقع لاستخدام التطبيق."
     },
     "button": {
         "addNewItem": "أضف أداة جديدة"
     },
-        "messages": { 
-    "success": { 
-        "helpRequest": "Yardım talebi oluşturuldu",
-        "sendHelp":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
-        "delivered":"Yardım teslim edildi"
+    "messages": {
+        "success": {
+            "helpRequest": "تم إنشاء طلب المساعدة",
+            "sendHelp": "تم استلام معلوماتك وجولة -معلومات.!",
+            "delivered": "تسليم تسليم"
         }
     },
     "needHelp": "اريد المساعدة",
