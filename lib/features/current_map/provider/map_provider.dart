@@ -41,7 +41,7 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
   }
 
   Future<void> updatePoiWithIconCheck(
-    Set<ProductMarker> value,
+    Set<Marker> value,
     BuildContext context,
   ) async {
     var selectedValues = value;
@@ -123,10 +123,13 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
 
   void setUserMarker(Position position) {
     state = state.copyWith(
-      userMarker: Marker(
-        markerId: const MarkerId('user-marker'),
+      userMarker: ProductMarker(
+        'user-marker',
+        null,
+        position.latitude,
+        position.longitude,
+        onTap: () {},
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-        position: LatLng(position.latitude, position.longitude),
       ),
     );
 
