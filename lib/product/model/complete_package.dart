@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sesimiduy/product/model/base/base_firebase_model.dart';
 import 'package:sesimiduy/product/model/base/base_model.dart';
-
 import 'package:sesimiduy/product/utility/firebase/time_parser.dart';
 
 part 'complete_package.g.dart';
@@ -17,6 +16,8 @@ class CompletePackage extends BaseModel with EquatableMixin, BaseFirebaseModel {
     required this.deliveredPhone,
     required this.deliveredAddress,
     required this.deliveredCarPlate,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   final String fullName;
@@ -24,6 +25,20 @@ class CompletePackage extends BaseModel with EquatableMixin, BaseFirebaseModel {
   final String deliveredPhone;
   final String deliveredAddress;
   final String deliveredCarPlate;
+
+  @JsonKey(
+    toJson: FirebaseTimeParser.dateTimeToTimestamp,
+    fromJson: FirebaseTimeParser.datetimeFromTimestamp,
+  )
+  @override
+  final DateTime? createdAt;
+  @JsonKey(
+    toJson: FirebaseTimeParser.dateTimeToTimestamp,
+    fromJson: FirebaseTimeParser.datetimeFromTimestamp,
+  )
+  @override
+  final DateTime? updatedAt;
+
   @override
   List<Object> get props {
     return [
