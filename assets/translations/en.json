@@ -3,16 +3,18 @@
         "successTitle": "Congratulations",
         "errorTitle": "Error",
         "successContent": "Information has been received successfully.",
-        "errorContent": "An unexpected error occured."
+        "errorContent": "An unexpected error occured.",
+        "permissionTitle": "Please allow location access",
+        "permissionDescription": "Please allow location permission to use the application."
     },
     "button": {
         "addNewItem": "Add new item"
     },
-        "messages": { 
-    "success": { 
-        "helpRequest": "Yardım talebi oluşturuldu",
-        "sendHelp":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
-        "delivered":"Yardım teslim edildi"
+    "messages": {
+        "success": {
+            "helpRequest": "Help request was created",
+            "sendHelp": "Your route and round -trip information has been received.",
+            "delivered": "HELP DELIVERED"
         }
     },
     "requestFailed": "Your request could not be received",

@@ -3,19 +3,20 @@
         "successTitle": "Tebrikler",
         "errorTitle": "Hata",
         "successContent": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
-        "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!"
+        "errorContent": "Güzergah ve gidiş bilgileriniz alınırken.\nbir hata oluştu!",
+        "permissionTitle": "Lütfen konum erişimine izin verin",
+        "permissionDescription": "Lütfen uygulamayı kullanmasına izin verin."
     },
     "button": {
         "addNewItem": "Yeni ekle"
     },
-    "messages": { 
-    "success": { 
-        "helpRequest": "Yardım talebi oluşturuldu",
-        "sendHelp":"Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
-        "delivered":"Yardım teslim edildi"
+    "messages": {
+        "success": {
+            "helpRequest": "Yardım talebi oluşturuldu",
+            "sendHelp": "Güzergah ve gidiş bilgileriniz alınmıştır.\nİyi Yolculuklar!",
+            "delivered": "Yardım teslim edildi"
         }
     },
-
     "needHelp": "Yardım İstiyorum",
     "nameAndSurname": "Adı Soyadı",
     "phoneNumber": "Telefon Numarası",
