@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:sesimiduy/features/current_map/model/marker_models.dart';
 import 'package:sesimiduy/features/current_map/provider/map_provider.dart';
 import 'package:sesimiduy/features/current_map/view/action/poi_action_button.dart';
 import 'package:sesimiduy/features/current_map/view/bottom_page_view.dart';
@@ -60,8 +59,8 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
                   widgetRef.watch(mapProvider).requestMarkers ?? {};
               final userMarkers =
                   widgetRef.watch(mapProvider).userMarker != null
-                      ? [widgetRef.watch(mapProvider).userMarker!]
-                      : <Marker>[];
+                      ? {widgetRef.watch(mapProvider).userMarker!}
+                      : <Marker>{};
 
               return GoogleMap(
                 polylines: widgetRef.watch(mapProvider).polylines ?? {},
@@ -73,7 +72,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
                 markers: Set.from(
                   selectedCategoriesItems.toList() +
                       requestedMarkers.toList() +
-                      userMarkers,
+                      userMarkers.toList(),
                 ),
                 initialCameraPosition: initialCameraPosition,
               );
@@ -139,7 +138,7 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
   }
 
   Future<void> onPoiCategoryUpdate(
-    Set<ProductMarker> value,
+    Set<Marker> value,
   ) async {
     await ref.read(mapProvider.notifier).updatePoiWithIconCheck(
           value,

@@ -297,6 +297,8 @@ class CompleteDialogContext extends InheritedWidget {
         deliveredPhone: phoneController.text,
         deliveredCarPlate: plateController.text,
         deliveredAddress: addressController.text,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
 
   static CompleteDialogContext? maybeOf(BuildContext context) {
