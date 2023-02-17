@@ -63,6 +63,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
                       : <Marker>{};
 
               return GoogleMap(
+                myLocationEnabled: true,
                 polylines: widgetRef.watch(mapProvider).polylines ?? {},
                 onMapCreated: (controller) {
                   widgetRef
@@ -80,7 +81,7 @@ class _CurrentMapViewState extends ConsumerState<CurrentMapView>
           ),
           Positioned(
             bottom: WidgetSizes.spacingL,
-            right: 0,
+            right: 50,
             left: 0,
             height: WidgetSizes.spacingXxl8 * 2.5,
             child: SafeArea(
