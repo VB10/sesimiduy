@@ -55,7 +55,6 @@ class _DeliverHelpDialogState extends ConsumerState<DeliverHelpDialog>
             return SizedBox(
               width: windowSize.isMobile ? null : context.dynamicWidth(0.5),
               child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

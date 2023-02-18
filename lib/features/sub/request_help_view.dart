@@ -44,70 +44,72 @@ class _RequestHelpViewState extends State<RequestHelpView>
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: _formKey,
-                onChanged: () {
-                  _activeButtonValue.value =
-                      _formKey.currentState?.validate() ?? false;
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const _CustomDivider(),
-                    const VerticalSpace.standard(),
-                    const _SubHeader(),
-                    const VerticalSpace.standard(),
-                    _FullNameField(_fullNameController),
-                    const VerticalSpace.standard(),
-                    _PhoneNumberField(_phoneNumberController),
-                    const VerticalSpace.standard(),
-                    _AddressField(_addressController),
-                    const VerticalSpace.standard(),
-                    _NeedsComboBox(
-                      onSuggestionChanges: (value) {
-                        _items.value = value.toList();
-                      },
-                    ),
-                    const VerticalSpace.standard(),
-                    const _CustomDivider(),
-                    KvkkCheckBox(_autovalidateMode),
-                    InfoCheckBox(_autovalidateMode),
-                    const VerticalSpace.standard(),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _activeButtonValue,
+      body: Padding(
+        padding: EdgeInsets.only(bottom: context.keyboardPadding),
+        child: SingleChildScrollView(
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            onChanged: () {
+              _activeButtonValue.value =
+                  _formKey.currentState?.validate() ?? false;
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const _CustomDivider(),
+                const VerticalSpace.standard(),
+                const _SubHeader(),
+                const VerticalSpace.standard(),
+                _FullNameField(_fullNameController),
+                const VerticalSpace.standard(),
+                _PhoneNumberField(_phoneNumberController),
+                const VerticalSpace.standard(),
+                _AddressField(_addressController),
+                const VerticalSpace.standard(),
+                if (context.isKeyBoardOpen)
+                  Container(
+                    color: Colors.red,
+                    height: 20,
+                  ),
+                _NeedsComboBox(
+                  onSuggestionChanges: (value) {
+                    _items.value = value.toList();
+                  },
+                ),
+                const VerticalSpace.standard(),
+                const _CustomDivider(),
+                KvkkCheckBox(_autovalidateMode),
+                InfoCheckBox(_autovalidateMode),
+                const VerticalSpace.standard(),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _activeButtonValue,
+                  builder: (
+                    BuildContext context,
+                    bool activeState,
+                    Widget? child,
+                  ) {
+                    return ValueListenableBuilder<List<Items>>(
+                      valueListenable: _items,
                       builder: (
                         BuildContext context,
-                        bool activeState,
+                        List<Items> autoCompleteState,
                         Widget? child,
                       ) {
-                        return ValueListenableBuilder<List<Items>>(
-                          valueListenable: _items,
-                          builder: (
-                            BuildContext context,
-                            List<Items> autoCompleteState,
-                            Widget? child,
-                          ) {
-                            return _ActionButton(
-                              onPressed: onComplete,
-                              isEnabled:
-                                  autoCompleteState.isNotEmpty && activeState,
-                            );
-                          },
+                        return _ActionButton(
+                          onPressed: onComplete,
+                          isEnabled:
+                              autoCompleteState.isNotEmpty && activeState,
                         );
                       },
-                    ),
-                    const VerticalSpace.standard(),
-                  ],
+                    );
+                  },
                 ),
-              ),
+                const VerticalSpace.standard(),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -163,9 +165,12 @@ class _NeedsComboBox extends StatelessWidget {
               if (snapshot.hasError) return const SizedBox();
               final data = snapshot.data;
 
-              return ItemsTextField(
-                onSelected: onSuggestionChanges,
-                needItems: data?.docs.map((e) => e.data()).toList() ?? [],
+              return Padding(
+                padding: EdgeInsets.only(bottom: context.keyboardPadding),
+                child: ItemsTextField(
+                  onSelected: onSuggestionChanges,
+                  needItems: data?.docs.map((e) => e.data()).toList() ?? [],
+                ),
               );
             },
           ),
