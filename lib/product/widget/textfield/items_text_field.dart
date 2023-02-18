@@ -44,59 +44,63 @@ class _ItemsTextFieldState extends State<ItemsTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterTagging<Items>(
-      onChanged: () {
-        widget.onSelected(_selectedItems);
-      },
-      initialItems: _selectedItems,
-      textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          filled: true,
-          hintText: LocaleKeys.hintCategory.tr(),
-        ),
-      ),
-      hideOnError: true,
-      hideOnEmpty: true,
-      findSuggestions: (String query) {
-        return needItems
-            .toList()
-            .where(
-              (element) =>
-                  element.name
-                      ?.toLowerCase()
-                      .withoutSpecialCharacters
-                      ?.contains(
-                        query.withoutSpecialCharacters ?? '',
-                      ) ??
-                  false,
-            )
-            .toList();
-      },
-      additionCallback: (p0) {
-        return Items(name: p0);
-      },
-      onAdded: (item) => item,
-      configureSuggestion: (item) {
-        return SuggestionConfiguration(
-          title: Text(item.name ?? ''),
-          additionWidget: Chip(
-            avatar: const Icon(
-              Icons.add_circle,
-              color: ColorsCustom.endless,
+    return Column(
+      children: [
+        FlutterTagging<Items>(
+          onChanged: () {
+            widget.onSelected(_selectedItems);
+          },
+          initialItems: _selectedItems,
+          textFieldConfiguration: TextFieldConfiguration(
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              filled: true,
+              hintText: LocaleKeys.hintCategory.tr(),
             ),
-            label: Text(LocaleKeys.button_addNewItem.tr()),
           ),
-        );
-      },
-      configureChip: (item) {
-        return ChipConfiguration(
-          label: Text(item.name ?? ''),
-          backgroundColor: ColorsCustom.sambacus,
-          labelStyle: const TextStyle(color: ColorsCustom.white),
-          deleteIconColor: ColorsCustom.white,
-        );
-      },
+          hideOnError: true,
+          hideOnEmpty: true,
+          findSuggestions: (String query) {
+            return needItems
+                .toList()
+                .where(
+                  (element) =>
+                      element.name
+                          ?.toLowerCase()
+                          .withoutSpecialCharacters
+                          ?.contains(
+                            query.withoutSpecialCharacters ?? '',
+                          ) ??
+                      false,
+                )
+                .toList();
+          },
+          additionCallback: (p0) {
+            return Items(name: p0);
+          },
+          onAdded: (item) => item,
+          configureSuggestion: (item) {
+            return SuggestionConfiguration(
+              title: Text(item.name ?? ''),
+              additionWidget: Chip(
+                avatar: const Icon(
+                  Icons.add_circle,
+                  color: ColorsCustom.endless,
+                ),
+                label: Text(LocaleKeys.button_addNewItem.tr()),
+              ),
+            );
+          },
+          configureChip: (item) {
+            return ChipConfiguration(
+              label: Text(item.name ?? ''),
+              backgroundColor: ColorsCustom.sambacus,
+              labelStyle: const TextStyle(color: ColorsCustom.white),
+              deleteIconColor: ColorsCustom.white,
+            );
+          },
+        ),
+      ],
     );
   }
 }
