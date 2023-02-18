@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,7 +11,6 @@ import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
 import 'package:sesimiduy/product/items/colors_custom.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
-import 'package:sesimiduy/product/utility/dialog/permission_diallog.dart';
 import 'package:sesimiduy/product/utility/mixin/app_provider_mixin.dart';
 import 'package:sesimiduy/product/utility/size/index.dart';
 
@@ -132,10 +130,8 @@ mixin _CurrentMapMixin on AppProviderMixin<CurrentMapView> {
       return;
     }
     await Future.microtask(() {});
-    if (kIsWeb && mounted) {
-      await PermissionDialog(context).show();
-    }
-    await appProvider.checkMapsPermission();
+    if (!mounted) return;
+    await appProvider.checkMapsPermission(context);
   }
 
   Future<void> onPoiCategoryUpdate(
