@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kartal/kartal.dart';
@@ -19,12 +20,12 @@ class AppProvider extends StateNotifier<AppProviderState> {
     return AppProvider();
   });
 
-  Future<void> init() async {
-    await Future.wait([checkMapsPermission(), checkDeviceId()]);
+  Future<void> init(BuildContext context) async {
+    await Future.wait([checkMapsPermission(context), checkDeviceId()]);
   }
 
-  Future<void> checkMapsPermission() async {
-    final userPermission = await MapsManager.determinePosition();
+  Future<void> checkMapsPermission(BuildContext context) async {
+    final userPermission = await MapsManager.determinePosition(context);
     state = state.copyWith(position: userPermission);
   }
 

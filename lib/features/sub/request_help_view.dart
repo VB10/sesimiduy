@@ -290,19 +290,11 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_items.value.isEmpty) return;
-    // fixme full name check
-    // final isValid =
-    //     RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
-    // if (!isValid) {
-    //   showInSnackBar(
-    //     LocaleKeys.validation_surname.tr(),
-    //     context,
-    //   );
-    //   return;
-    // }
 
-    final data = await MapsManager.determinePosition();
+    final data = await MapsManager.determinePosition(context);
+
     if (!mounted) return;
+    if (data == null) return;
     showInSnackBar(
       LocaleKeys.helpRequestCreated.tr(),
       context,
