@@ -67,11 +67,6 @@ class _RequestHelpViewState extends State<RequestHelpView>
                 const VerticalSpace.standard(),
                 _AddressField(_addressController),
                 const VerticalSpace.standard(),
-                if (context.isKeyBoardOpen)
-                  Container(
-                    color: Colors.red,
-                    height: 20,
-                  ),
                 _NeedsComboBox(
                   onSuggestionChanges: (value) {
                     _items.value = value.toList();
