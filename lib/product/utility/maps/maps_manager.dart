@@ -1,44 +1,56 @@
+import 'dart:js';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:sesimiduy/core/location_js.dart';
 import 'package:sesimiduy/product/utility/dialog/permission_diallog.dart';
 
 @immutable
 class MapsManager {
   const MapsManager._();
-
+  static final location = Location();
   static Future<void> checkPermission() async {
-    if (kIsWeb) {
-      await Geolocator.checkPermission();
-      return;
-    }
+    PermissionStatus permissionGranted;
     bool serviceEnabled;
-    LocationPermission permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    await location.requestPermission();
+    serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
       }
     }
 
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.',
-      );
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
     }
   }
 
-  static Future<Position?> determinePosition(BuildContext context) async {
+  static Future<LatLng?> determinePosition(BuildContext context) async {
     try {
+      if (kIsWeb) {
+        // ignore: unnecessary_lambdas
+        getCurrentPosition(
+          allowInterop((pos) {
+            return () {
+              print(pos.coords.latitude);
+              print(pos.coords.longitude);
+            };
+          }),
+        );
+      }
+
       await checkPermission();
-      return Geolocator.getCurrentPosition();
+      final response = await location.getLocation();
+      if (response.latitude == null) throw Exception('Map is not enabled');
+      return LatLng(response.latitude!, response.longitude!);
     } catch (e) {
       await PermissionDialog(context).show();
 

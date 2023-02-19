@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/features/login/service/firebase_service.dart';
 import 'package:sesimiduy/product/utility/constants/app_constants.dart';
@@ -47,14 +47,14 @@ class AppProviderState extends Equatable {
     this.deviceID,
   });
 
-  final Position? position;
+  final LatLng? position;
   final String? deviceID;
 
   @override
   List<Object?> get props => [position, deviceID];
 
   AppProviderState copyWith({
-    Position? position,
+    LatLng? position,
     String? deviceID,
   }) {
     return AppProviderState(
