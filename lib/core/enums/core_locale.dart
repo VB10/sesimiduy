@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 enum CoreLocale {
   en(Locale('en', 'US')),
-  ar(Locale('ar', 'AR')),
+  ae(Locale('ae', 'AE')),
   tr(Locale('tr', 'TR'));
 
   final Locale locale;
@@ -19,8 +19,8 @@ enum CoreLocale {
         return Country.us;
       case CoreLocale.tr:
         return Country.tr;
-      case CoreLocale.ar:
-        return Country.sa;
+      case CoreLocale.ae:
+        return Country.ae;
     }
   }
 
@@ -30,8 +30,8 @@ enum CoreLocale {
         return CoreLocale.en;
       case 'tr':
         return CoreLocale.tr;
-      case 'ar':
-        return CoreLocale.ar;
+      case 'ae':
+        return CoreLocale.ae;
       default:
         throw Exception('Unsupported locale: $locale');
     }
