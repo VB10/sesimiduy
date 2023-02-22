@@ -44,65 +44,61 @@ class _RequestHelpViewState extends State<RequestHelpView>
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(bottom: context.keyboardPadding),
-        child: SingleChildScrollView(
-          child: Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            key: _formKey,
-            onChanged: () {
-              _activeButtonValue.value =
-                  _formKey.currentState?.validate() ?? false;
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const _CustomDivider(),
-                const VerticalSpace.standard(),
-                const _SubHeader(),
-                const VerticalSpace.standard(),
-                _FullNameField(_fullNameController),
-                const VerticalSpace.standard(),
-                _PhoneNumberField(_phoneNumberController),
-                const VerticalSpace.standard(),
-                _AddressField(_addressController),
-                const VerticalSpace.standard(),
-                _NeedsComboBox(
-                  onSuggestionChanges: (value) {
-                    _items.value = value.toList();
-                  },
-                ),
-                const VerticalSpace.standard(),
-                const _CustomDivider(),
-                KvkkCheckBox(_autovalidateMode),
-                InfoCheckBox(_autovalidateMode),
-                const VerticalSpace.standard(),
-                ValueListenableBuilder<bool>(
-                  valueListenable: _activeButtonValue,
-                  builder: (
-                    BuildContext context,
-                    bool activeState,
-                    Widget? child,
-                  ) {
-                    return ValueListenableBuilder<List<Items>>(
-                      valueListenable: _items,
-                      builder: (
-                        BuildContext context,
-                        List<Items> autoCompleteState,
-                        Widget? child,
-                      ) {
-                        return _ActionButton(
-                          onPressed: onComplete,
-                          isEnabled:
-                              autoCompleteState.isNotEmpty && activeState,
-                        );
-                      },
-                    );
-                  },
-                ),
-                const VerticalSpace.standard(),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: _formKey,
+          onChanged: () {
+            _activeButtonValue.value =
+                _formKey.currentState?.validate() ?? false;
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const _CustomDivider(),
+              const VerticalSpace.standard(),
+              const _SubHeader(),
+              const VerticalSpace.standard(),
+              _FullNameField(_fullNameController),
+              const VerticalSpace.standard(),
+              _PhoneNumberField(_phoneNumberController),
+              const VerticalSpace.standard(),
+              _AddressField(_addressController),
+              const VerticalSpace.standard(),
+              _NeedsComboBox(
+                onSuggestionChanges: (value) {
+                  _items.value = value.toList();
+                },
+              ),
+              const VerticalSpace.standard(),
+              const _CustomDivider(),
+              KvkkCheckBox(_autovalidateMode),
+              InfoCheckBox(_autovalidateMode),
+              const VerticalSpace.standard(),
+              ValueListenableBuilder<bool>(
+                valueListenable: _activeButtonValue,
+                builder: (
+                  BuildContext context,
+                  bool activeState,
+                  Widget? child,
+                ) {
+                  return ValueListenableBuilder<List<Items>>(
+                    valueListenable: _items,
+                    builder: (
+                      BuildContext context,
+                      List<Items> autoCompleteState,
+                      Widget? child,
+                    ) {
+                      return _ActionButton(
+                        onPressed: onComplete,
+                        isEnabled: autoCompleteState.isNotEmpty && activeState,
+                      );
+                    },
+                  );
+                },
+              ),
+              const VerticalSpace.standard(),
+            ],
           ),
         ),
       ),
@@ -290,19 +286,11 @@ mixin _RequestTextEditingMixin on State<RequestHelpView> {
   Future<void> onComplete() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (_items.value.isEmpty) return;
-    // fixme full name check
-    // final isValid =
-    //     RegexTypes.firstAndLastName.hasMatch(_fullNameController.text);
-    // if (!isValid) {
-    //   showInSnackBar(
-    //     LocaleKeys.validation_surname.tr(),
-    //     context,
-    //   );
-    //   return;
-    // }
 
-    final data = await MapsManager.determinePosition();
+    final data = await MapsManager.determinePosition(context);
+
     if (!mounted) return;
+    if (data == null) return;
     showInSnackBar(
       LocaleKeys.helpRequestCreated.tr(),
       context,

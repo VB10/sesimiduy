@@ -20,7 +20,7 @@ enum CoreLocale {
       case CoreLocale.tr:
         return Country.tr;
       case CoreLocale.ar:
-        return Country.ar;
+        return Country.sa;
     }
   }
 

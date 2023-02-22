@@ -8,7 +8,6 @@ import 'package:sesimiduy/features/current_map/view/dropdown/filter_dropdown.dar
 import 'package:sesimiduy/features/login/service/map_service.dart';
 import 'package:sesimiduy/product/enums/poi_types.dart';
 import 'package:sesimiduy/product/init/language/locale_keys.g.dart';
-import 'package:sesimiduy/product/utility/dialog/permission_diallog.dart';
 import 'package:sesimiduy/product/utility/maps/polyline_helper.dart';
 import 'package:sesimiduy/product/utility/state/app_provider.dart';
 
@@ -33,10 +32,12 @@ class PoiActionButton extends ConsumerWidget {
         final userPosition = ref.read(AppProvider.provider).position;
 
         if (userPosition == null) {
-          if (kIsWeb && context.mounted) {
-            await PermissionDialog(context).show();
+          if (context.mounted) {
+            await ref
+                .read(AppProvider.provider.notifier)
+                .checkMapsPermission(context);
           }
-          await ref.read(AppProvider.provider.notifier).checkMapsPermission();
+
           return;
         }
 

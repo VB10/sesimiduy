@@ -28,7 +28,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(AppProvider.provider.notifier).init();
+      ref.read(AppProvider.provider.notifier).init(context);
     });
   }
 
