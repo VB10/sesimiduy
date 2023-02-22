@@ -8,10 +8,13 @@ class HorizontalSpace extends SizedBox {
   final double width;
   const HorizontalSpace({Key? key, required this.width}) : super(key: key);
 
+  /// Returns a [SizedBox] with the 2px width.
+  const HorizontalSpace.xxxSmall({Key? key})
+      : this(key: key, width: WidgetSizes.spacingXSS);
+
   /// Returns a [SizedBox] with the 8px width.
   const HorizontalSpace.xxSmall({Key? key})
       : this(key: key, width: WidgetSizes.spacingXs);
-
   /// Returns a [SizedBox] with the 12px width.
   const HorizontalSpace.xSmall({Key? key})
       : this(key: key, width: WidgetSizes.spacingS);

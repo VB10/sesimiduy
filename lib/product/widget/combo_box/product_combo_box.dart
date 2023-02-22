@@ -79,7 +79,10 @@ class _ProductDropdownItem<T extends ProductDropDownModel>
     extends DropdownMenuItem<T> {
   _ProductDropdownItem({required T item})
       : super(
-          child: Text(item.name ?? ''),
+          child: Padding(
+            padding: const PagePadding.horizontalVeryLowSymmetric(),
+            child: Text(item.name ?? ''),
+          ),
           value: item,
         );
 }
