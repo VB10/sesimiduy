@@ -122,16 +122,18 @@ class MapProvider extends StateNotifier<MapState> with _ByteMapHelper {
   }
 
   void setUserMarker(Position position) {
-    state = state.copyWith(
-      userMarker: ProductMarker(
-        'user-marker',
-        null,
-        position.latitude,
-        position.longitude,
-        onTap: () {},
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-      ),
-    );
+    Future.delayed(Duration.zero, () {
+      state = state.copyWith(
+        userMarker: ProductMarker(
+          'user-marker',
+          null,
+          position.latitude,
+          position.longitude,
+          onTap: () {},
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
+        ),
+      );
+    });
 
     changeMapView(GeoPoint(position.latitude, position.longitude));
   }

@@ -204,7 +204,10 @@ class _PhoneNumberField extends StatelessWidget {
       child: LabeledProductTextField(
         controller: _phoneNumberController,
         hintText: StringConstants.phoneHint,
-        formatters: [InputFormatter.instance.phoneFormatter],
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('^0+')),
+          InputFormatter.instance.phoneFormatter,
+        ],
         validator: (value) => ValidatorItems(value).validatePhoneNumber,
         keyboardType: TextInputType.phone,
         labelText: LocaleKeys.phoneNumber.tr(),

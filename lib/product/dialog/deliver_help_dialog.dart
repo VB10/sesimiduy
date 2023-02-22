@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 import 'package:sesimiduy/product/dialog/mixin/deliver_operation_mixin.dart';
@@ -379,7 +380,10 @@ class _PhoneField extends StatelessWidget {
       child: LabeledProductTextField(
         controller: controller,
         hintText: StringConstants.phoneHint,
-        formatters: [InputFormatter.instance.phoneFormatter],
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('^0+')),
+          
+          InputFormatter.instance.phoneFormatter],
         labelText: LocaleKeys.labelDriverPhone.tr(),
         validator: (text) => ValidatorItems(text).validatePhoneNumber,
       ),

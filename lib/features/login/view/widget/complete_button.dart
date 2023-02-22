@@ -66,7 +66,7 @@ class _CompletedButtonState extends ConsumerState<CompletedButton>
                   ),
                   Flexible(
                     child: Padding(
-                      padding: const PagePadding.onlyLeftLow(),
+                      padding: const PagePadding.horizontalLowSymmetric(),
                       child: ButtonNormalText(
                         title: LocaleKeys.login_arrived.tr().toUpperCase(),
                       ),

@@ -182,7 +182,10 @@ class _PhoneField extends StatelessWidget {
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
         hintText: StringConstants.phoneHint,
-        formatters: [InputFormatter.instance.phoneFormatter],
+        formatters: [
+          FilteringTextInputFormatter.deny(RegExp('^0+')),
+          InputFormatter.instance.phoneFormatter
+        ],
         labelText: LocaleKeys.phoneNumber.tr(),
         validator: (text) => ValidatorItems(text).validatePhoneNumber,
       ),

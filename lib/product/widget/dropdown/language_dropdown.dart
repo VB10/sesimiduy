@@ -62,7 +62,7 @@ class _FlagText extends StatelessWidget {
           height: IconSize.smallX.value,
         ),
         Padding(
-          padding: const PagePadding.onlyLeft(),
+          padding: const PagePadding.horizontalNormalSymmetric(),
           child: Text(
             item.name.tr().toUpperCase(),
             style: context.textTheme.titleLarge?.copyWith(

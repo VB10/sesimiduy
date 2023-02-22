@@ -37,7 +37,7 @@ class CurrentMaps extends StatelessWidget {
             Flexible(
               child: FittedBox(
                 child: Padding(
-                  padding: const PagePadding.onlyLeftLow(),
+                  padding: const PagePadding.horizontalLowSymmetric(),
                   child: ButtonNormalText(
                     title: LocaleKeys.login_currentMap.tr().toUpperCase(),
                   ),

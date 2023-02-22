@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import 'package:sesimiduy/product/widget/spacer/dynamic_horizontal_spacer.dart';
+
 class SocialMediaButton extends StatefulWidget {
   final IconData icon;
   final String title;
@@ -19,11 +21,16 @@ class SocialMediaButton extends StatefulWidget {
 class _SocialMediaButtonState extends State<SocialMediaButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: widget.onTap,
+      hoverColor: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Icon(widget.icon), Text(widget.title)],
+        children: [
+          Icon(widget.icon),
+          const HorizontalSpace.xxxSmall(),
+          Text(widget.title),
+        ],
       ),
     );
   }
