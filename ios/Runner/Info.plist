@@ -27,9 +27,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Bu uygulamanın arka plandayken konuma erişmesi gerekiyor.</string>
+	<string>Bu uygulama gönderilen yardımların doğru konumlarda buluşmasını sağlamak için, konumunuza ihtiyaç duyar.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Bu uygulamanın açıkken konuma erişmesi gerekiyor.</string>
+	<string>Bu uygulama gönderilen yardımların doğru konumlarda buluşmasını sağlamak için, konumunuza ihtiyaç duyar.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -39,13 +39,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
