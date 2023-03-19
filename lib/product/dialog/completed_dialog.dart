@@ -26,6 +26,13 @@ class CompletedDialog extends StatefulWidget {
 
 class _CompletedDialogState extends State<CompletedDialog>
     with CompletedDialogMixin {
+  CompleteDialogInherited? _inherited;
+  @override
+  void dispose() {
+    super.dispose();
+    _inherited?.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -36,37 +43,42 @@ class _CompletedDialogState extends State<CompletedDialog>
         onChanged: () {
           _activeButtonValue.value = _formKey.currentState?.validate() ?? false;
         },
-        child: CompleteDialogContext(
+        child: CompleteDialogInherited(
           child: ResponsiveWindowBuilder(
             builder: (windowSize) {
               return SizedBox(
                 width: windowSize.isMobile ? null : context.dynamicWidth(0.3),
-                child: SingleChildScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const _Header(),
-                      const _CustomDivider(),
-                      const VerticalSpace.standard(),
-                      const _NameTextField(),
-                      const VerticalSpace.standard(),
-                      const _NameArrivedUserTextField(),
-                      const VerticalSpace.standard(),
-                      const _PhoneField(),
-                      const VerticalSpace.standard(),
-                      const _PlateTextField(),
-                      const VerticalSpace.standard(),
-                      const _AddressField(),
-                      KvkkCheckBox(autovalidateMode),
-                      InfoCheckBox(autovalidateMode),
-                      _ActionButton(
-                        formKey: _formKey,
-                        activeButtonValue: _activeButtonValue,
+                child: Builder(
+                  builder: (context) {
+                    _inherited ??= CompleteDialogInherited.of(context);
+                    return SingleChildScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const _Header(),
+                          const _CustomDivider(),
+                          const VerticalSpace.standard(),
+                          const _NameTextField(),
+                          const VerticalSpace.standard(),
+                          const _NameArrivedUserTextField(),
+                          const VerticalSpace.standard(),
+                          const _PhoneField(),
+                          const VerticalSpace.standard(),
+                          const _PlateTextField(),
+                          const VerticalSpace.standard(),
+                          const _AddressField(),
+                          KvkkCheckBox(autovalidateMode),
+                          InfoCheckBox(autovalidateMode),
+                          _ActionButton(
+                            formKey: _formKey,
+                            activeButtonValue: _activeButtonValue,
+                          ),
+                          const VerticalSpace.small(),
+                        ],
                       ),
-                      const VerticalSpace.small(),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               );
             },
@@ -85,7 +97,7 @@ class _AddressField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        controller: CompleteDialogContext.of(context).addressController,
+        controller: CompleteDialogInherited.of(context).addressController,
         validator: (value) => ValidatorItems(value).validateAddress,
         labelText: LocaleKeys.address.tr(),
         isMultiline: true,
@@ -150,7 +162,7 @@ class _ActionButton extends StatelessWidget {
                 : () {
                     if (formKey.currentState?.validate() ?? false) {
                       Navigator.of(context).pop<CompletePackage>(
-                        CompleteDialogContext.of(context).model,
+                        CompleteDialogInherited.of(context).model,
                       );
                       showInSnackBar(LocaleKeys.wasDelivered.tr(), context);
                     }
@@ -201,7 +213,7 @@ class _NameTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        controller: CompleteDialogContext.of(context).nameController,
+        controller: CompleteDialogInherited.of(context).nameController,
         keyboardType: TextInputType.name,
         formatters: [
           FilteringTextInputFormatter.deny(RegExp('[0-9]')),
@@ -222,7 +234,7 @@ class _NameArrivedUserTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        controller: CompleteDialogContext.of(context).nameArrivedController,
+        controller: CompleteDialogInherited.of(context).nameArrivedController,
         keyboardType: TextInputType.name,
         formatters: [
           FilteringTextInputFormatter.deny(RegExp('[0-9]')),
@@ -243,7 +255,7 @@ class _PlateTextField extends StatelessWidget {
     return Padding(
       padding: const PagePadding.horizontalSymmetric(),
       child: LabeledProductTextField(
-        controller: CompleteDialogContext.of(context).plateController,
+        controller: CompleteDialogInherited.of(context).plateController,
         hintText: LocaleKeys.plate.tr(),
         labelText: LocaleKeys.plate.tr(),
         validator: (value) => ValidatorItems(value).validatePlate,
@@ -272,19 +284,27 @@ mixin CompletedDialogMixin on State<CompletedDialog> {
   final ValueNotifier<bool> _activeButtonValue = ValueNotifier(false);
 }
 
-class CompleteDialogContext extends InheritedWidget {
-  CompleteDialogContext({
+class CompleteDialogInherited extends InheritedWidget {
+  CompleteDialogInherited({
     required super.child,
-    this.isKVKKRead = false,
     super.key,
   });
+
+  static CompleteDialogInherited of(BuildContext context) {
+    final result =
+        context.dependOnInheritedWidgetOfExactType<CompleteDialogInherited>();
+    assert(result != null, 'No CompleteDialogInherited found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(CompleteDialogInherited oldWidget) => true;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nameArrivedController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController plateController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final bool isKVKKRead;
 
   void dispose() {
     nameController.dispose();
@@ -303,17 +323,4 @@ class CompleteDialogContext extends InheritedWidget {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-
-  static CompleteDialogContext? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<CompleteDialogContext>();
-  }
-
-  static CompleteDialogContext of(BuildContext context) {
-    final result = maybeOf(context);
-    assert(result != null, 'No CompleteDialogContext found in context');
-    return result!;
-  }
-
-  @override
-  bool updateShouldNotify(CompleteDialogContext oldWidget) => true;
 }
