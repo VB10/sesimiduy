@@ -14,9 +14,9 @@ CompletePackage _$CompletePackageFromJson(Map<String, dynamic> json) =>
       deliveredAddress: json['deliveredAddress'] as String,
       deliveredCarPlate: json['deliveredCarPlate'] as String,
       createdAt: FirebaseTimeParser.datetimeFromTimestamp(
-          json['createdAt'] as Timestamp?,),
+          json['createdAt'] as Timestamp?),
       updatedAt: FirebaseTimeParser.datetimeFromTimestamp(
-          json['updatedAt'] as Timestamp?,),
+          json['updatedAt'] as Timestamp?),
     );
 
 Map<String, dynamic> _$CompletePackageToJson(CompletePackage instance) =>
