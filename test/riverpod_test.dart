@@ -11,7 +11,7 @@ void riverpodTest<R extends StateNotifier<State>, State>(
   String description, {
   required R Function() build,
   ActMethod<R> act,
-  Iterable<State> Function()? expectedStates,
+  required Iterable<State> Function() expectedStates,
 }) {
   test(description, () async {
     try {
@@ -25,10 +25,9 @@ void riverpodTest<R extends StateNotifier<State>, State>(
 
       await act?.call(provider);
 
-      if (expectedStates != null) {
-        final expected = expectedStates();
-        expect(states, expected);
-      }
+      final expected = expectedStates();
+      expect(states, expected);
+      
     } on TestFailure catch (e) {
       fail('Exception : ${e.message}');
     }

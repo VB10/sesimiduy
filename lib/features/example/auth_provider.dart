@@ -8,13 +8,11 @@ part 'auth_state.dart';
  class AuthProvider extends StateNotifier<AuthState> with NotifierMixin<AuthState> {
   AuthProvider() : super(const AuthState.initial());
 
-  Future<void> checkAndUpdateAuthStatus() async {
+  Future<void> updateAuthStatus() async {
     emit(const AuthState.authenticated());
   }
 }
 
  mixin NotifierMixin<T> on StateNotifier<T> {
-  void emit(T value) {
-    state = value;
-  }
+  void emit(T value) => state = value;
 }

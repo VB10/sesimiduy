@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sesimiduy/features/home/provider/home_provider.dart';
 
-import '../provider_test.dart';
+import '../riverpod_test.dart';
 
 void main() {
   late HomeProvider homeProvider;
